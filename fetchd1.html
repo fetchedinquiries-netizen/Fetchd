@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fetchd — Washington Home Services</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F4F7F4; font-family: 'Karla', sans-serif; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const C = { forest:"#1B4332", green:"#2D6A4F", sage:"#52B788", light:"#D8F3DC", bg:"#F4F7F4", card:"#FFFFFF", muted:"#556b5e", border:"#DCE9E0" };
+
+const WA_COUNTIES = {
+  "Puget Sound": ["King","Pierce","Snohomish","Kitsap","Mason","Thurston"],
+  "Eastern WA": ["Spokane","Yakima","Benton","Franklin","Walla Walla","Grant","Chelan","Okanogan","Stevens"],
+  "Olympic Peninsula": ["Jefferson","Clallam","Grays Harbor","Pacific"],
+  "Southwest WA": ["Clark","Cowlitz","Lewis","Klickitat","Skamania"],
+  "Northwest WA": ["Whatcom","Skagit","San Juan","Island"],
+};
+
+const SERVICES = [
+  {id:"plumber",icon:"🔧",label:"Plumber"},
+  {id:"electrician",icon:"⚡",label:"Electrician"},
+  {id:"handyman",icon:"🪚",label:"Handyman"},
+  {id:"cleaner",icon:"🧹",label:"House Cleaner"},
+  {id:"hvac",icon:"❄️",label:"HVAC"},
+  {id:"roofer",icon:"🏠",label:"Roofer"},
+  {id:"painter",icon:"🖌️",label:"Painter"},
+  {id:"landscaper",icon:"🌲",label:"Landscaper"},
+];
+
+const PROS = {
+  King:[
+    {name:"Pacific NW Plumbing",initials:"PP",service:"Plumber",phone:"(206) 555-0142",email:"contact@pacificnwplumbing.com",licensed:true,insured:true,years:14,languages:["English","Spanish"],rate:"$85–120/hr",specialties:["Leak repair","Water heaters","Drain cleaning"]},
+    {name:"Cascade Electric",initials:"CE",service:"Electrician",phone:"(206) 555-0187",email:"info@cascadeelectric.com",licensed:true,insured:true,years:9,languages:["English"],rate:"$95–130/hr",specialties:["Panel upgrades","EV chargers","Outlet installation"]},
+    {name:"Rainier Home Services",initials:"RH",service:"Handyman",phone:"(206) 555-0231",email:"rain@rainierhs.com",licensed:true,insured:true,years:6,languages:["English","Vietnamese"],rate:"$65–85/hr",specialties:["Drywall","Door & window repair","Furniture assembly"]},
+    {name:"Emerald City Clean",initials:"EC",service:"House Cleaner",phone:"(206) 555-0309",email:"hello@emeraldclean.com",licensed:false,insured:true,years:3,languages:["English","Spanish","Somali"],rate:"$50–70/hr",specialties:["Deep clean","Move-in/out","Regular visits"]},
+  ],
+  Pierce:[
+    {name:"Tacoma Plumbing Co.",initials:"TP",service:"Plumber",phone:"(253) 555-0112",email:"info@tacomaplumbing.com",licensed:true,insured:true,years:11,languages:["English"],rate:"$80–110/hr",specialties:["Pipe repair","Sewer lines","Fixture installation"]},
+    {name:"Sound Electric LLC",initials:"SE",service:"Electrician",phone:"(253) 555-0198",email:"sound@soundelectric.com",licensed:true,insured:true,years:7,languages:["English","Tagalog"],rate:"$90–120/hr",specialties:["Rewiring","Safety inspections","Lighting"]},
+  ],
+  Spokane:[
+    {name:"Inland Empire Plumbing",initials:"IE",service:"Plumber",phone:"(509) 555-0155",email:"ie@inlandplumbing.com",licensed:true,insured:true,years:18,languages:["English"],rate:"$70–95/hr",specialties:["Emergency repairs","Water heaters","Remodels"]},
+    {name:"Eastern WA Electric",initials:"EW",service:"Electrician",phone:"(509) 555-0203",email:"info@ewaelectric.com",licensed:true,insured:true,years:12,languages:["English","Spanish"],rate:"$80–105/hr",specialties:["Commercial","Residential","Generator hookup"]},
+  ],
+  Whatcom:[
+    {name:"Bellingham Plumbing",initials:"BP",service:"Plumber",phone:"(360) 555-0144",email:"bell@bellplumbing.com",licensed:true,insured:true,years:8,languages:["English"],rate:"$75–100/hr",specialties:["Drain cleaning","Leak detection","Tankless water heaters"]},
+    {name:"NW Corner Electric",initials:"NC",service:"Electrician",phone:"(360) 555-0177",email:"nw@nwcornerelectric.com",licensed:true,insured:true,years:15,languages:["English","Spanish"],rate:"$85–115/hr",specialties:["Panel upgrades","Home inspections","Solar-ready wiring"]},
+  ],
+};
+
+const RESOURCES = {
+  King:[
+    {icon:"🏦",type:"Grants & Loans",name:"King County Housing Repair Program",desc:"Emergency grants up to $9,000, deferred loans up to $34,000 for low-income homeowners. Call 206-263-9095 Mon–Fri 8am–3pm.",url:"https://kingcounty.gov/en/dept/dchs/human-social-services/housing-homeless-services/homeowners-renter-resources/housing-repair",visibility:"public"},
+    {icon:"🏠",type:"Free Home Repairs",name:"Habitat for Humanity Seattle–King County",desc:"Free critical and minor repairs for income-qualified homeowners incl. seniors 60+. Call (206) 895-1320.",url:"https://www.habitatskc.org/what-we-do/home-repairs/",visibility:"private"},
+    {icon:"🏙️",type:"Seattle Residents Only",name:"Seattle Office of Housing Home Repair",desc:"0% and 3% interest loans for low-income Seattle homeowners. Grants available if no loan qualification.",url:"https://www.seattle.gov/housing/homeowners/home-repair",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Seattle City Light Rebates",desc:"Rebates for EV chargers, heat pumps, weatherization for Seattle customers.",url:"https://www.seattle.gov/city-light/residential/rebates-and-incentives",visibility:"private"},
+    {icon:"♿",type:"Accessibility",name:"Home Access Modification Program (HAM)",desc:"Grants up to $11,000 for renters with disabilities — ramps, door widening, grab bars.",url:"https://kingcounty.gov/en/dept/dchs/human-social-services/housing-homeless-services/homeowners-renter-resources/housing-repair/grants",visibility:"private"},
+  ],
+  Pierce:[
+    {icon:"🏦",type:"Grants & Loans",name:"Pierce County Human Services Home Repair",desc:"Free health & safety repair grants for income-eligible homeowners outside Tacoma/Lakewood. Call (253) 798-4400 opt. 7.",url:"https://www.piercecountywa.gov/1283/Home-Repairs",visibility:"public"},
+    {icon:"🏠",type:"Free Home Repairs",name:"Tacoma/Pierce Habitat for Humanity — Aging in Place",desc:"Free repairs and accessibility mods for homeowners 60+ and disabled veterans. Email aip@tpc-habitat.org.",url:"https://www.tpc-habitat.org/habitat-programs/repair/",visibility:"private"},
+    {icon:"🔨",type:"Accessibility & Repairs",name:"Rebuilding Together South Sound",desc:"Free home repairs and accessibility modifications for low-income Pierce County residents.",url:"https://rebuildingtogetherss.org/find-help",visibility:"private"},
+    {icon:"🏙️",type:"Tacoma Residents",name:"City of Tacoma Home Repair Loan",desc:"Loans up to $50,000 for major repairs. Call (253) 594-7933.",url:"https://www.cityoftacoma.org",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Puget Sound Energy Rebates",desc:"Rebates for HVAC, heat pumps, insulation & weatherization. Call (800) 562-1482.",url:"https://pse.com/rebates",visibility:"private"},
+    {icon:"⚡",type:"Energy Rebates",name:"Tacoma Public Utilities Grants & Loans",desc:"Grants and loans for heat pumps, insulation, water heaters for TPU customers. Call (253) 502-8368.",url:"https://www.mytpu.org",visibility:"private"},
+  ],
+  Spokane:[
+    {icon:"🏦",type:"Grants & Loans",name:"City of Spokane Minor Home Repair Program",desc:"Grants and loans for low/moderate-income homeowners for health & safety repairs via CHHS Dept.",url:"https://my.spokanecity.org/chhs/programs/",visibility:"public"},
+    {icon:"🏠",type:"Free Home Repairs",name:"SNAP — Spokane Neighborhood Action Partners",desc:"Home repair, wheelchair ramps, and accessibility modifications for Spokane County residents.",url:"https://www.snapwa.org",visibility:"private"},
+    {icon:"🔨",type:"Accessibility & Repairs",name:"Rebuilding Together Spokane",desc:"Free disability modifications and critical repairs for low-income Spokane County homeowners.",url:"https://rebuildingtogether.org/affiliates/spokane",visibility:"private"},
+    {icon:"💡",type:"Energy Rebates",name:"Avista Utilities Efficiency Programs",desc:"Weatherization, insulation and efficiency rebates for Avista customers in Eastern WA.",url:"https://www.myavista.com/products-services/home/energy-efficiency-rebates",visibility:"private"},
+    {icon:"🎖️",type:"Veterans",name:"Spokane County Veterans Services",desc:"Housing assistance and connection to home repair resources. Call (509) 477-3690.",url:"https://www.spokanecounty.org/477/Veterans-Services",visibility:"public"},
+    {icon:"📞",type:"Community Help",name:"Spokane 2-1-1",desc:"Free referral service — call or text 211 for housing repair and emergency resources.",url:"https://211.org",visibility:"public"},
+  ],
+  Whatcom:[
+    {icon:"🏦",type:"Grants & Loans",name:"Opportunity Council Home Repair",desc:"Roofing, plumbing, electrical & heating repairs for low-income homeowners. Call 800-649-5121 ext. 1020.",url:"https://www.oppco.org/home-repair/",visibility:"public"},
+    {icon:"🏙️",type:"Bellingham Residents",name:"City of Bellingham Home Rehabilitation Loan",desc:"Low-interest deferred loans for Bellingham homeowners. Email lmanos@cob.org or 360-778-8391.",url:"https://cob.org/services/housing/funding-opportunities/home-rehabilitation/rehab-owners",visibility:"public"},
+    {icon:"🏠",type:"Free Home Repairs",name:"Habitat for Humanity Whatcom County",desc:"Free home repairs for low-income homeowners with focus on rural areas.",url:"https://www.hfhwhatcom.org",visibility:"private"},
+    {icon:"🔥",type:"Heating Assistance",name:"Opportunity Council LIHEAP Furnace Repair",desc:"Free furnace repair/replacement for LIHEAP-eligible homeowners. Call 360-734-5121 ext. 370.",url:"https://www.oppco.org/home-repair/",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Puget Sound Energy Rebates",desc:"Rebates for HVAC, heat pumps, insulation & weatherization. Call (800) 562-1482.",url:"https://pse.com/rebates",visibility:"private"},
+    {icon:"🎖️",type:"Veterans",name:"Whatcom County Veterans Program",desc:"Housing assistance & financial aid for veterans. Call (360) 715-7453.",url:"https://www.whatcomcounty.us/1007/Veterans-Services",visibility:"public"},
+  ],
+  Snohomish:[
+    {icon:"🏦",type:"Grants & Loans",name:"Snohomish County Homeowner Repair Program",desc:"CDBG-funded repair grants for income-eligible homeowners. Call (425) 262-2603.",url:"https://snohomishcountywa.gov/684/Applications-for-Available-Funds",visibility:"public"},
+    {icon:"🏠",type:"Free Home Repairs",name:"Habitat for Humanity Snohomish County",desc:"Free home repairs for households below 60% of Area Median Income.",url:"https://www.habitatsnohomish.org/home-repairs",visibility:"private"},
+    {icon:"🤝",type:"Volunteer Chore Services",name:"Catholic Community Services — Snohomish County",desc:"Free minor home repair, yard work and housework for low-income elderly and disabled adults.",url:"https://ccsww.org",visibility:"private"},
+    {icon:"👴",type:"Seniors & Disabled",name:"Homage Senior Services Home Repair",desc:"Free plumbing, carpentry, ramp repair, grab bars for seniors 62+ and disabled homeowners.",url:"https://homage.org/home-repair/",visibility:"private"},
+    {icon:"💡",type:"Energy Rebates",name:"Puget Sound Energy Rebates",desc:"Rebates for HVAC, heat pumps, insulation & weatherization. Call (800) 562-1482.",url:"https://pse.com/rebates",visibility:"private"},
+    {icon:"📞",type:"Community Help",name:"Snohomish County 2-1-1",desc:"Free referral service to local housing, repair, and energy assistance programs.",url:"https://211.org",visibility:"public"},
+  ],
+  Clark:[
+    {icon:"🏦",type:"Grants & Loans",name:"Clark County Housing Preservation Program",desc:"Home repair assistance for low-income Clark County homeowners outside Vancouver city limits.",url:"https://clark.wa.gov/community-development/housing-programs",visibility:"public"},
+    {icon:"🏙️",type:"Vancouver Residents",name:"City of Vancouver Housing Rehabilitation Program",desc:"Low-interest, deferred-repayment loans for critical repairs for Vancouver homeowners.",url:"https://www.cityofvancouver.us/community-development/housing",visibility:"public"},
+    {icon:"🤝",type:"Volunteer Chore Services",name:"Catholic Community Services — Clark County",desc:"Free minor home repair, yard work and housework for low-income elderly and disabled Clark County residents.",url:"https://ccsww.org",visibility:"private"},
+    {icon:"📋",type:"Housing Counseling",name:"Community Housing Resource Center — Vancouver",desc:"Free mortgage and foreclosure prevention counseling. English and Spanish. Call ahead.",url:"https://www.chr-housing.org",visibility:"private"},
+    {icon:"💡",type:"Energy Rebates",name:"Clark Public Utilities Rebates",desc:"Rebates for heat pumps, insulation, and weatherization for Clark PUD customers.",url:"https://www.clarkpud.com/save-energy",visibility:"private"},
+  ],
+  Thurston:[
+    {icon:"🏠",type:"Free Home Repairs",name:"Habitat for Humanity South Puget Sound",desc:"Free critical home repairs for income-qualified Thurston County homeowners (max 80% AMI).",url:"https://www.spshabitat.org/what-we-do/critical-home-repair/",visibility:"private"},
+    {icon:"🔨",type:"Accessibility & Repairs",name:"Rebuilding Together Thurston County",desc:"Free home repairs for homeowners 62+, disabled, veterans or families with children.",url:"https://www.rebuildingtogethertc.org",visibility:"private"},
+    {icon:"🤝",type:"Volunteer Chore Services",name:"Catholic Community Services — Thurston County",desc:"Free minor home repair, yard work and housework for low-income elderly and disabled residents.",url:"https://ccsww.org",visibility:"private"},
+    {icon:"🏦",type:"Community Action",name:"Community Action Council — Lewis, Mason & Thurston",desc:"Housing repair and weatherization assistance for low-income residents. Call (360) 438-1100.",url:"https://www.caclmt.org",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Puget Sound Energy Rebates",desc:"Rebates for HVAC, heat pumps, insulation & weatherization. Call (800) 562-1482.",url:"https://pse.com/rebates",visibility:"private"},
+    {icon:"📞",type:"Community Help",name:"Thurston County 2-1-1",desc:"Free referral — call or text 211 for housing repair and emergency resources.",url:"https://211.org",visibility:"public"},
+  ],
+};
+
+const DEFAULT_RESOURCES = [
+  {icon:"📞",type:"Community Help",name:"Washington 2-1-1",desc:"Free statewide referral — call or text 211 to find local housing and repair assistance.",url:"https://211.org",visibility:"public"},
+  {icon:"🏦",type:"Rural Grants",name:"WA Home Rehabilitation Grant Program (HRGP)",desc:"WA Dept. of Commerce grants for low-income rural homeowners statewide. Priority: seniors, disabled, veterans.",url:"https://www.commerce.wa.gov/weatherization/hrgp/",visibility:"public"},
+  {icon:"🌡️",type:"Energy & Health",name:"Weatherization Plus Health (WA Commerce)",desc:"Free weatherization upgrades — insulation, heating, air sealing — for income-qualified WA homeowners.",url:"https://www.commerce.wa.gov/weatherization/",visibility:"public"},
+];
+
+const avatarColors = [C.forest,"#0F4C75","#4A1F7F","#7B2D2D","#2D5A7B"];
+
+function App() {
+  const [step, setStep] = useState("county");
+  const [county, setCounty] = useState(null);
+  const [service, setService] = useState(null);
+  const [search, setSearch] = useState("");
+  const [contactPro, setContactPro] = useState(null);
+  const [tab, setTab] = useState("pros");
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const [langFilter, setLangFilter] = useState("All");
+  const [maxRate, setMaxRate] = useState(150);
+  const [visFilter, setVisFilter] = useState("all");
+
+  const region = county ? Object.entries(WA_COUNTIES).find(([,cs])=>cs.includes(county))?.[0] : null;
+  const allPros = county ? (PROS[county]||[]) : [];
+  const rawResources = county ? (RESOURCES[county]||DEFAULT_RESOURCES) : DEFAULT_RESOURCES;
+  const resources = visFilter==="all" ? rawResources : rawResources.filter(r=>r.visibility===visFilter);
+
+  const parseRate = r => { if(!r) return 0; const n=r.match(/\d+/g); return n?Math.min(...n.map(Number)):0; };
+  const filteredPros = allPros.filter(p => {
+    const ms = !service || p.service===SERVICES.find(s=>s.id===service)?.label;
+    const ml = langFilter==="All" || p.languages?.includes(langFilter);
+    const mr = !p.rate || parseRate(p.rate)<=maxRate;
+    return ms&&ml&&mr;
+  });
+  const allLangs = ["All",...new Set(allPros.flatMap(p=>p.languages||[]))];
+  const filteredCounties = Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort();
+  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");};
+
+  const hdr = {display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 20px",background:C.forest,position:"sticky",top:0,zIndex:50,gap:10,flexWrap:"wrap"};
+  const pg = {maxWidth:640,margin:"0 auto",padding:"24px 16px 80px"};
+  const btn = {padding:"8px 14px",background:C.sage,color:C.forest,border:"none",borderRadius:8,fontWeight:600,fontSize:13,cursor:"pointer",fontFamily:"'Karla',sans-serif",whiteSpace:"nowrap"};
+  const card = {background:C.card,border:`1.5px solid ${C.border}`,borderRadius:14,padding:"16px 18px"};
+  const chip = {padding:"7px 14px",borderRadius:20,border:`1.5px solid ${C.border}`,background:"#fff",fontSize:13,fontWeight:500,cursor:"pointer",transition:"all 0.15s ease"};
+
+  return (
+    <div style={{fontFamily:"'Karla',sans-serif",background:C.bg,minHeight:"100vh",color:"#1a1a1a"}}>
+      <style>{`
+        .hov{transition:all 0.15s;cursor:pointer} .hov:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.1)}
+        .chov:hover{background:${C.green}!important;color:#fff!important;border-color:${C.green}!important}
+        .shov{transition:all 0.15s;cursor:pointer} .shov:hover{border-color:${C.green}!important;background:#eaf3ee!important}
+        .shov.act{border-color:${C.green}!important;background:${C.light}!important}
+        .fade{animation:fu 0.3s ease both} @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        a{color:${C.green};text-decoration:none} a:hover{text-decoration:underline}
+        .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+        input:focus,select:focus{outline:2px solid ${C.sage}}
+        .vbtn{transition:all 0.15s;cursor:pointer;border:none;font-family:'Karla',sans-serif;font-size:12px;font-weight:600}
+      `}</style>
+
+      {/* HEADER */}
+      <div style={hdr}>
+        <div style={{display:"flex",alignItems:"center",gap:10,cursor:"pointer"}} onClick={reset}>
+          <span style={{fontSize:22}}>🌲</span>
+          <div>
+            <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,color:"#fff",fontSize:20,lineHeight:1}}>Fetchd</div>
+            <div style={{fontSize:10,color:C.sage,letterSpacing:"0.08em",textTransform:"uppercase",marginTop:2}}>Washington Home Services</div>
+          </div>
+        </div>
+        <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
+          {county && <div style={{background:"#1e3a28",borderRadius:20,padding:"5px 12px",fontSize:12,color:"#a8d5b5",cursor:"pointer"}} onClick={()=>setStep("county")}>📍 {county} · <span style={{opacity:0.6,fontSize:11}}>change</span></div>}
+          <button style={{...btn,background:"transparent",color:C.sage,border:`1px solid ${C.sage}`}} onClick={()=>setStep("mission")}>About</button>
+          <button style={btn} onClick={()=>setRegisterOpen(true)}>+ List your business</button>
+        </div>
+      </div>
+
+      {/* COUNTY PICKER */}
+      {step==="county" && (
+        <div style={pg} className="fade">
+          <div style={{textAlign:"center",padding:"32px 0 24px"}}>
+            <div style={{fontSize:12,color:C.green,fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10}}>🌲 Washington State · Free & local</div>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(26px,5vw,44px)",fontWeight:800,lineHeight:1.2,marginBottom:12}}>Find local trades &<br/><span style={{color:C.sage}}>get it fetchd.</span></h1>
+            <p style={{fontSize:15,color:C.muted,lineHeight:1.7,maxWidth:480,margin:"0 auto"}}>A free directory connecting Washington residents with local tradespeople and county grants, rebates & programs.</p>
+          </div>
+          <input style={{width:"100%",padding:"12px 16px",fontSize:15,border:`2px solid ${C.border}`,borderRadius:10,background:"#fff",fontFamily:"'Karla',sans-serif",marginBottom:24}} placeholder="Search your county..." value={search} onChange={e=>setSearch(e.target.value)}/>
+          {search===""
+            ? Object.entries(WA_COUNTIES).map(([reg,counties])=>(
+                <div key={reg} style={{marginBottom:22}}>
+                  <div style={{fontSize:11,fontWeight:700,letterSpacing:"0.12em",textTransform:"uppercase",color:"#7a9e8a",marginBottom:10}}>{reg}</div>
+                  <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+                    {[...new Set(counties)].map(c=>(
+                      <div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);setStep("browse");}}>
+                        {c} County
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))
+            : <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:8}}>
+                {filteredCounties.map(c=><div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);setStep("browse");}}>{c} County</div>)}
+                {filteredCounties.length===0 && <div style={{color:C.muted,padding:"12px 0"}}>No matching county found.</div>}
+              </div>
+          }
+          <div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:24}}>
+            {["✅ WA L&I verified","🆓 Free to use","🌲 Washington-only","♿ Accessibility focused"].map(t=>(
+              <div key={t} style={{padding:"5px 12px",background:"#fff",border:`1px solid ${C.border}`,borderRadius:20,fontSize:12,color:C.muted}}>{t}</div>
+            ))}
+          </div>
+          <div style={{background:"#e8f5ee",border:`1.5px solid #b8dfc8`,borderRadius:12,padding:"14px 18px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:20}} onClick={()=>setStep("mission")}>
+            <div><div style={{fontWeight:600,fontSize:14}}>🌲 Our mission</div><div style={{fontSize:12,color:"#5a8a6a",marginTop:2}}>Why we built Fetchd and who it's for</div></div>
+            <div style={{fontSize:18,color:C.green}}>→</div>
+          </div>
+        </div>
+      )}
+
+      {/* MISSION */}
+      {step==="mission" && (
+        <div style={pg} className="fade">
+          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:20}} onClick={()=>setStep(county?"browse":"county")}>← Back</button>
+          <div style={{textAlign:"center",padding:"20px 0 24px"}}>
+            <div style={{fontSize:44,marginBottom:10}}>🌲</div>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(26px,5vw,38px)",fontWeight:800,marginBottom:12}}>Our mission</h1>
+            <p style={{fontSize:15,color:C.muted,lineHeight:1.7}}>Finding help for your home shouldn't be hard, and knowing what help you're entitled to shouldn't be a secret.</p>
+          </div>
+          {[
+            {icon:"📍",title:"County-first, always",body:"National platforms treat Washington like every other state. Fetchd is built around your county — because a homeowner in Spokane has different resources and tradespeople than someone in King County."},
+            {icon:"🆓",title:"Free forever",body:"Fetchd is free for homeowners and free for tradespeople to list. No booking fees, no lead charges, no subscriptions. We connect people — you deal directly with each other."},
+            {icon:"💰",title:"Resources most people don't know about",body:"Washington has over 100 home repair grant, loan and rebate programs. Most residents have never heard of them. Fetchd surfaces the real programs available in your county."},
+            {icon:"✅",title:"Trust through transparency",body:"Every pro shows their WA L&I license status, years of experience, specialties and rate upfront. No surprises. We link directly to WA L&I so you can verify anyone before hiring."},
+            {icon:"🗣️",title:"Built for everyone in Washington",body:"Fetchd surfaces multilingual tradespeople and accessibility-focused programs because language and mobility shouldn't be barriers to getting your home fixed."},
+            {icon:"🌲",title:"Washington-built, Washington-focused",body:"Fetchd isn't a national platform that added Washington to a dropdown. It's built specifically for the 39 counties of Washington State."},
+          ].map((c,i)=>(
+            <div key={i} style={{...card,flexDirection:"column",marginBottom:10,display:"flex"}}>
+              <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:6}}>
+                <span style={{fontSize:22}}>{c.icon}</span>
+                <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,fontSize:16,color:C.forest}}>{c.title}</div>
+              </div>
+              <div style={{fontSize:14,color:C.muted,lineHeight:1.7}}>{c.body}</div>
+            </div>
+          ))}
+          <div style={{background:C.forest,borderRadius:14,padding:"22px",textAlign:"center",marginTop:8}}>
+            <div style={{fontFamily:"'Playfair Display',serif",color:"#fff",fontSize:18,fontWeight:800,marginBottom:8}}>Ready to get started?</div>
+            <div style={{color:C.sage,fontSize:13,marginBottom:14}}>Find a tradesperson in your county or list your business for free.</div>
+            <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+              <button style={btn} onClick={()=>setStep("county")}>Find a tradesperson</button>
+              <button style={{...btn,background:"transparent",border:`1px solid ${C.sage}`,color:C.sage}} onClick={()=>setRegisterOpen(true)}>List your business</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* BROWSE */}
+      {step==="browse" && (
+        <div style={pg} className="fade">
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:20,flexWrap:"wrap",gap:10}}>
+            <div>
+              <div style={{fontSize:12,color:C.green,fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:4}}>📍 {region}</div>
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:28,fontWeight:800}}>{county} County</h2>
+            </div>
+            <div style={{display:"flex",gap:8}}>
+              <div style={{padding:"4px 12px",background:C.light,borderRadius:20,fontSize:12,color:C.green,fontWeight:600}}>{allPros.length} pros</div>
+              <div style={{padding:"4px 12px",background:C.light,borderRadius:20,fontSize:12,color:C.green,fontWeight:600}}>{rawResources.length} resources</div>
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div style={{display:"flex",borderRadius:10,overflow:"hidden",border:`1.5px solid ${C.border}`,marginBottom:20}}>
+            {[["pros","🔧 Find a tradesperson"],["resources","💰 County resources"]].map(([t,l])=>(
+              <button key={t} className="vbtn" style={{flex:1,padding:"11px 8px",background:tab===t?C.green:"#fff",color:tab===t?"#fff":C.muted,border:"none"}} onClick={()=>setTab(t)}>{l}</button>
+            ))}
+          </div>
+
+          {/* PROS TAB */}
+          {tab==="pros" && (
+            <div className="fade">
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:10,padding:"10px 14px",marginBottom:14}}>
+                <div>
+                  <div style={{fontWeight:600,fontSize:13,color:C.forest}}>✅ Always verify before hiring</div>
+                  <div style={{fontSize:12,color:C.muted,marginTop:2}}>Every pro has a direct WA L&I license check link.</div>
+                </div>
+                <a href="https://secure.lni.wa.gov/verify" target="_blank" style={{fontSize:12,color:C.green,fontWeight:600,whiteSpace:"nowrap"}}>Open L&I →</a>
+              </div>
+
+              <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:14}}>
+                <div className="shov" style={{...chip,...(service===null?{borderColor:C.green,background:C.light}:{})}} onClick={()=>setService(null)}>All</div>
+                {SERVICES.map(sv=>(
+                  <div key={sv.id} className={`shov${service===sv.id?" act":""}`} style={chip} onClick={()=>setService(service===sv.id?null:sv.id)}>{sv.icon} {sv.label}</div>
+                ))}
+              </div>
+
+              <div style={{background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:12,padding:"14px 16px",marginBottom:14,display:"flex",gap:20,flexWrap:"wrap"}}>
+                <div style={{flex:1,minWidth:160}}>
+                  <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
+                    <span style={{fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"#7a9e8a"}}>Max rate</span>
+                    <span style={{fontSize:13,fontWeight:600,color:C.forest}}>{maxRate>=150?"Any":`up to $${maxRate}/hr`}</span>
+                  </div>
+                  <input type="range" min={40} max={150} step={5} value={maxRate} onChange={e=>setMaxRate(Number(e.target.value))} style={{width:"100%",accentColor:C.green}}/>
+                  <div style={{display:"flex",justifyContent:"space-between",marginTop:4}}>
+                    {["$40","$70","$100","$130","Any"].map(t=><span key={t} style={{fontSize:10,color:"#7a9e8a"}}>{t}</span>)}
+                  </div>
+                </div>
+                {allLangs.length>2 && (
+                  <div style={{flex:1,minWidth:140}}>
+                    <div style={{marginBottom:6}}><span style={{fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"#7a9e8a"}}>Language</span></div>
+                    <select style={{padding:"6px 10px",borderRadius:8,border:`1.5px solid ${C.border}`,background:"#fff",fontSize:13,fontFamily:"'Karla',sans-serif"}} value={langFilter} onChange={e=>setLangFilter(e.target.value)}>
+                      {allLangs.map(l=><option key={l}>{l}</option>)}
+                    </select>
+                  </div>
+                )}
+              </div>
+
+              {filteredPros.length>0 ? (
+                <div style={{display:"flex",flexDirection:"column",gap:12}}>
+                  {filteredPros.map((pro,i)=>(
+                    <div key={i} style={{...card,display:"flex",alignItems:"center",gap:14}} className="hov">
+                      <div style={{width:46,height:46,borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,color:"#fff",fontSize:14,flexShrink:0,background:avatarColors[i%avatarColors.length]}}>{pro.initials}</div>
+                      <div style={{flex:1,minWidth:0}}>
+                        <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
+                          <div style={{fontWeight:600,fontSize:15}}>{pro.name}</div>
+                          <div style={{fontSize:11,padding:"2px 8px",background:C.light,color:C.green,borderRadius:10,fontWeight:600}}>{SERVICES.find(s=>s.label===pro.service)?.icon} {pro.service}</div>
+                        </div>
+                        <div style={{fontSize:13,color:C.muted,marginTop:2}}>{pro.years} yrs · {county} County</div>
+                        {pro.specialties && <div style={{fontSize:12,color:"#7a9e8a",marginTop:3}}>{pro.specialties.join(" · ")}</div>}
+                        <div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:6}}>
+                          {pro.licensed && <span style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>✅ WA Licensed</span>}
+                          {pro.insured && <span style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>🛡️ Insured</span>}
+                          {pro.languages?.filter(l=>l!=="English").map(l=><span key={l} style={{fontSize:11,padding:"2px 8px",background:"#e8f0fe",borderRadius:10,color:"#1a56a0"}}>🗣️ {l}</span>)}
+                        </div>
+                        <a href={`https://secure.lni.wa.gov/verify/?country=WA&PermitType=CC&q=${encodeURIComponent(pro.name)}`} target="_blank" style={{display:"inline-block",marginTop:8,fontSize:11,padding:"4px 10px",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:8,color:C.green,fontWeight:600}}>🔍 Verify on WA L&I</a>
+                      </div>
+                      <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:8,flexShrink:0}}>
+                        {pro.rate && <div style={{fontSize:13,fontWeight:700,color:"#7a5c00",background:"#fffbea",border:"1px solid #e8d48a",borderRadius:8,padding:"3px 10px",whiteSpace:"nowrap"}}>{pro.rate}</div>}
+                        <button style={{...btn,background:C.forest,color:"#fff"}} onClick={()=>setContactPro(pro)}>Get contact</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{textAlign:"center",padding:"40px 20px",color:C.muted}}>
+                  <div style={{fontSize:32,marginBottom:10}}>🔍</div>
+                  <div style={{fontWeight:500,marginBottom:6}}>No pros listed yet for {county} County</div>
+                  <div style={{fontSize:13}}>Know a great local tradesperson? Share Fetchd with them.</div>
+                  <button style={{...btn,marginTop:12}} onClick={()=>setRegisterOpen(true)}>+ List a business</button>
+                </div>
+              )}
+              <div style={{marginTop:20,padding:"12px 16px",background:"#f0f7f2",borderRadius:10,fontSize:12,color:C.muted,lineHeight:1.6}}>
+                Fetchd is a free directory. Always verify licenses at <a href="https://secure.lni.wa.gov/verify" target="_blank">WA L&I</a> before hiring.
+              </div>
+            </div>
+          )}
+
+          {/* RESOURCES TAB */}
+          {tab==="resources" && (
+            <div className="fade">
+              <p style={{fontSize:14,color:C.muted,marginBottom:12,lineHeight:1.6}}>Real programs available to {county} County residents — grants, loans and rebates to help cover home repairs.</p>
+              <div style={{display:"flex",borderRadius:10,overflow:"hidden",border:`1.5px solid ${C.border}`,marginBottom:12}}>
+                {[["all","All"],["public","🏛️ Public"],["private","🤝 Private"]].map(([v,l])=>(
+                  <button key={v} className="vbtn" style={{flex:1,padding:"9px 6px",background:visFilter===v?C.green:"#fff",color:visFilter===v?"#fff":C.muted,textAlign:"center",border:"none"}} onClick={()=>setVisFilter(v)}>{l}</button>
+                ))}
+              </div>
+              {visFilter!=="all" && (
+                <div style={{fontSize:12,color:C.muted,marginBottom:12,padding:"8px 12px",background:"#f0f7f2",borderRadius:8}}>
+                  {visFilter==="public" ? "🏛️ Government-funded — county, city or state agencies. Eligibility is usually income-based." : "🤝 Nonprofits, utilities and community organisations. Some are open to all residents."}
+                </div>
+              )}
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                {resources.length>0 ? resources.map((r,i)=>(
+                  <a key={i} href={r.url} target="_blank" style={{display:"flex",alignItems:"center",gap:14,background:C.card,border:`1.5px solid ${C.border}`,borderRadius:12,padding:"14px 16px",textDecoration:"none",color:"inherit"}}>
+                    <div style={{fontSize:22,flexShrink:0}}>{r.icon}</div>
+                    <div style={{flex:1}}>
+                      <div style={{display:"flex",alignItems:"center",gap:6,flexWrap:"wrap",marginBottom:2}}>
+                        <div style={{fontSize:10,fontWeight:700,color:C.sage,textTransform:"uppercase",letterSpacing:"0.1em"}}>{r.type}</div>
+                        <span style={{fontSize:10,padding:"1px 6px",borderRadius:8,fontWeight:600,background:r.visibility==="public"?"#e8f0fe":"#f0e8fe",color:r.visibility==="public"?"#1a56a0":"#5b21b6"}}>{r.visibility==="public"?"Public":"Private"}</span>
+                      </div>
+                      <div style={{fontWeight:600,fontSize:14,color:"#1a1a1a",marginTop:2}}>{r.name}</div>
+                      <div style={{fontSize:12,color:C.muted,marginTop:2}}>{r.desc}</div>
+                    </div>
+                    <div style={{color:C.sage,fontSize:18}}>→</div>
+                  </a>
+                )) : (
+                  <div style={{textAlign:"center",padding:"24px",color:C.muted,fontSize:14}}>
+                    No {visFilter} programs listed for {county} County.
+                    <button style={{...btn,marginTop:10,background:"transparent",color:C.green,border:`1px solid ${C.border}`}} onClick={()=>setVisFilter("all")}>Show all</button>
+                  </div>
+                )}
+              </div>
+              <div style={{marginTop:20,padding:"12px 16px",background:"#f0f7f2",borderRadius:10,fontSize:12,color:C.muted,lineHeight:1.6}}>
+                <strong>Statewide programs available to all 39 counties:</strong>
+                <div style={{marginTop:8,display:"flex",flexDirection:"column",gap:6}}>
+                  {DEFAULT_RESOURCES.map(r=><a key={r.name} href={r.url} target="_blank" style={{fontSize:13,color:C.green}}>{r.icon} {r.name}</a>)}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* CONTACT MODAL */}
+      {contactPro && (
+        <div className="modal-bg" onClick={()=>setContactPro(null)}>
+          <div style={{background:"#fff",borderRadius:16,padding:"22px",maxWidth:420,width:"100%",maxHeight:"85vh",overflowY:"auto"}} onClick={e=>e.stopPropagation()}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}}>
+              <div>
+                <div style={{fontWeight:600,fontSize:16}}>{contactPro.name}</div>
+                <div style={{fontSize:13,color:C.muted,marginTop:2}}>{contactPro.service} · {county} County</div>
+              </div>
+              <button style={{background:"none",border:"none",fontSize:18,cursor:"pointer",color:C.muted}} onClick={()=>setContactPro(null)}>✕</button>
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:14}}>
+              <a href={`tel:${contactPro.phone}`} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",background:C.bg,borderRadius:10,fontSize:15,color:"#1a1a1a",textDecoration:"none",fontWeight:500}}>
+                <span style={{fontSize:18}}>📞</span><span>{contactPro.phone}</span>
+              </a>
+              <a href={`mailto:${contactPro.email}`} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",background:C.bg,borderRadius:10,fontSize:15,color:"#1a1a1a",textDecoration:"none",fontWeight:500}}>
+                <span style={{fontSize:18}}>✉️</span><span>{contactPro.email}</span>
+              </a>
+            </div>
+            {contactPro.rate && (
+              <div style={{marginBottom:10,background:"#fffbea",borderLeft:"3px solid #D4A017",borderRadius:"0 8px 8px 0",padding:"10px 12px"}}>
+                <strong style={{fontSize:13}}>💰 Typical rate: {contactPro.rate}</strong>
+                <div style={{fontSize:12,marginTop:3,color:"#7a6a2a"}}>Always ask for a written quote before work begins.</div>
+              </div>
+            )}
+            {contactPro.specialties && (
+              <div style={{marginBottom:12}}>
+                <div style={{fontSize:11,fontWeight:700,color:C.sage,textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:6}}>Specialties</div>
+                <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                  {contactPro.specialties.map(sp=><span key={sp} style={{fontSize:12,padding:"3px 10px",background:"#e8f5ee",border:"1px solid #b8dfc8",borderRadius:10,color:C.green}}>{sp}</span>)}
+                </div>
+              </div>
+            )}
+            <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:12}}>
+              {contactPro.licensed && <span style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>✅ WA Licensed</span>}
+              {contactPro.insured && <span style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>🛡️ Insured</span>}
+              {contactPro.languages?.map(l=><span key={l} style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>🗣️ {l}</span>)}
+            </div>
+            <a href={`https://secure.lni.wa.gov/verify/?country=WA&PermitType=CC&q=${encodeURIComponent(contactPro.name)}`} target="_blank" style={{display:"block",textAlign:"center",marginBottom:12,fontSize:12,padding:"8px",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:8,color:C.green,fontWeight:600,textDecoration:"none"}}>
+              🔍 Verify {contactPro.name} on WA L&I
+            </a>
+            <div style={{fontSize:12,color:C.muted,lineHeight:1.6,padding:"10px 12px",background:"#f0f7f2",borderRadius:8}}>
+              Fetchd is a free directory — we connect you directly, no middleman fees or lead charges.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* REGISTER MODAL */}
+      {registerOpen && (
+        <div className="modal-bg" onClick={()=>setRegisterOpen(false)}>
+          <div style={{background:"#fff",borderRadius:16,padding:"22px",maxWidth:420,width:"100%",maxHeight:"85vh",overflowY:"auto"}} onClick={e=>e.stopPropagation()}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
+              <div style={{fontWeight:600,fontSize:16}}>List your business</div>
+              <button style={{background:"none",border:"none",fontSize:18,cursor:"pointer",color:C.muted}} onClick={()=>setRegisterOpen(false)}>✕</button>
+            </div>
+            <div style={{background:"#e8f5ee",borderRadius:10,padding:"12px 14px",marginBottom:14}}>
+              <div style={{fontWeight:600,fontSize:14,color:"#1B4332",marginBottom:4}}>🌲 Free forever. No lead fees. No cold calls.</div>
+              <div style={{fontSize:13,color:C.muted,lineHeight:1.6}}>Unlike Thumbtack or Angi, we never charge for leads. Homeowners contact you directly — you choose who to work with.</div>
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              {[{l:"Business name",p:"e.g. Pacific NW Plumbing"},{l:"WA L&I License number",p:"e.g. PACIFNP123BB"},{l:"Phone number",p:"(206) 555-0000"},{l:"Email address",p:"you@yourbusiness.com"}].map(f=>(
+                <div key={f.l}>
+                  <label style={{display:"block",fontSize:13,fontWeight:500,marginBottom:4}}>{f.l}</label>
+                  <input style={{width:"100%",padding:"10px 12px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:14,fontFamily:"'Karla',sans-serif"}} placeholder={f.p}/>
+                </div>
+              ))}
+              <div>
+                <label style={{display:"block",fontSize:13,fontWeight:500,marginBottom:4}}>County</label>
+                <select style={{width:"100%",padding:"10px 12px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:14,fontFamily:"'Karla',sans-serif"}}>
+                  {Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).sort().map(c=><option key={c}>{c} County</option>)}
+                </select>
+              </div>
+              <div>
+                <label style={{display:"block",fontSize:13,fontWeight:500,marginBottom:4}}>Service type</label>
+                <select style={{width:"100%",padding:"10px 12px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:14,fontFamily:"'Karla',sans-serif"}}>
+                  {SERVICES.map(sv=><option key={sv.id}>{sv.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <label style={{display:"block",fontSize:13,fontWeight:500,marginBottom:4}}>Your specialties</label>
+                <input style={{width:"100%",padding:"10px 12px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:14,fontFamily:"'Karla',sans-serif"}} placeholder="e.g. Leak repair, Water heaters"/>
+              </div>
+              <div>
+                <label style={{display:"block",fontSize:13,fontWeight:500,marginBottom:4}}>Typical hourly rate <span style={{fontWeight:400,color:"#7a9e8a"}}>(optional)</span></label>
+                <input style={{width:"100%",padding:"10px 12px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:14,fontFamily:"'Karla',sans-serif"}} placeholder="e.g. $80–120/hr"/>
+              </div>
+            </div>
+            <button style={{...btn,width:"100%",marginTop:14,padding:"13px",fontSize:15}}>Submit listing →</button>
+            <div style={{fontSize:12,color:C.muted,lineHeight:1.6,padding:"10px 12px",background:"#f0f7f2",borderRadius:8,marginTop:10}}>
+              We'll verify your WA L&I license before publishing. Free forever.
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
