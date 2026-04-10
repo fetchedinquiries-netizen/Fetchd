@@ -17,9 +17,9 @@
 <div id="root"></div>
 <script type="text/babel">
 const { useState } = React;
-
+ 
 const C = { forest:"#1B4332", green:"#2D6A4F", sage:"#52B788", light:"#D8F3DC", bg:"#F4F7F4", card:"#FFFFFF", muted:"#556b5e", border:"#DCE9E0" };
-
+ 
 const WA_COUNTIES = {
   "Puget Sound": ["King","Pierce","Snohomish","Kitsap","Mason","Thurston"],
   "Eastern WA": ["Spokane","Yakima","Benton","Franklin","Walla Walla","Grant","Chelan","Okanogan","Stevens"],
@@ -27,7 +27,7 @@ const WA_COUNTIES = {
   "Southwest WA": ["Clark","Cowlitz","Lewis","Klickitat","Skamania"],
   "Northwest WA": ["Whatcom","Skagit","San Juan","Island"],
 };
-
+ 
 const SERVICES = [
   {id:"plumber",icon:"🔧",label:"Plumber"},
   {id:"electrician",icon:"⚡",label:"Electrician"},
@@ -38,7 +38,7 @@ const SERVICES = [
   {id:"painter",icon:"🖌️",label:"Painter"},
   {id:"landscaper",icon:"🌲",label:"Landscaper"},
 ];
-
+ 
 const PROS = {
   King:[
     {name:"Pacific NW Plumbing",initials:"PP",service:"Plumber",phone:"(206) 555-0142",email:"contact@pacificnwplumbing.com",licensed:true,insured:true,years:14,languages:["English","Spanish"],rate:"$85–120/hr",specialties:["Leak repair","Water heaters","Drain cleaning"]},
@@ -59,7 +59,7 @@ const PROS = {
     {name:"NW Corner Electric",initials:"NC",service:"Electrician",phone:"(360) 555-0177",email:"nw@nwcornerelectric.com",licensed:true,insured:true,years:15,languages:["English","Spanish"],rate:"$85–115/hr",specialties:["Panel upgrades","Home inspections","Solar-ready wiring"]},
   ],
 };
-
+ 
 const RESOURCES = {
   King:[
     {icon:"🏦",type:"Grants & Loans",name:"King County Housing Repair Program",desc:"Emergency grants up to $9,000, deferred loans up to $34,000 for low-income homeowners. Call 206-263-9095 Mon–Fri 8am–3pm.",url:"https://kingcounty.gov/en/dept/dchs/human-social-services/housing-homeless-services/homeowners-renter-resources/housing-repair",visibility:"public"},
@@ -116,15 +116,15 @@ const RESOURCES = {
     {icon:"📞",type:"Community Help",name:"Thurston County 2-1-1",desc:"Free referral — call or text 211 for housing repair and emergency resources.",url:"https://211.org",visibility:"public"},
   ],
 };
-
+ 
 const DEFAULT_RESOURCES = [
   {icon:"📞",type:"Community Help",name:"Washington 2-1-1",desc:"Free statewide referral — call or text 211 to find local housing and repair assistance.",url:"https://211.org",visibility:"public"},
   {icon:"🏦",type:"Rural Grants",name:"WA Home Rehabilitation Grant Program (HRGP)",desc:"WA Dept. of Commerce grants for low-income rural homeowners statewide. Priority: seniors, disabled, veterans.",url:"https://www.commerce.wa.gov/weatherization/hrgp/",visibility:"public"},
   {icon:"🌡️",type:"Energy & Health",name:"Weatherization Plus Health (WA Commerce)",desc:"Free weatherization upgrades — insulation, heating, air sealing — for income-qualified WA homeowners.",url:"https://www.commerce.wa.gov/weatherization/",visibility:"public"},
 ];
-
+ 
 const avatarColors = [C.forest,"#0F4C75","#4A1F7F","#7B2D2D","#2D5A7B"];
-
+ 
 function App() {
   const [step, setStep] = useState("county");
   const [county, setCounty] = useState(null);
@@ -136,12 +136,15 @@ function App() {
   const [langFilter, setLangFilter] = useState("All");
   const [maxRate, setMaxRate] = useState(150);
   const [visFilter, setVisFilter] = useState("all");
-
+  const [quizStep, setQuizStep] = useState(0);
+  const [quizAnswers, setQuizAnswers] = useState({problem:null,urgency:null,budget:null});
+  const [quizResult, setQuizResult] = useState(null);
+ 
   const region = county ? Object.entries(WA_COUNTIES).find(([,cs])=>cs.includes(county))?.[0] : null;
   const allPros = county ? (PROS[county]||[]) : [];
   const rawResources = county ? (RESOURCES[county]||DEFAULT_RESOURCES) : DEFAULT_RESOURCES;
   const resources = visFilter==="all" ? rawResources : rawResources.filter(r=>r.visibility===visFilter);
-
+ 
   const parseRate = r => { if(!r) return 0; const n=r.match(/\d+/g); return n?Math.min(...n.map(Number)):0; };
   const filteredPros = allPros.filter(p => {
     const ms = !service || p.service===SERVICES.find(s=>s.id===service)?.label;
@@ -151,14 +154,33 @@ function App() {
   });
   const allLangs = ["All",...new Set(allPros.flatMap(p=>p.languages||[]))];
   const filteredCounties = Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort();
-  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");};
-
+  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);};
+ 
+  const QUIZ_PROBLEMS = [
+    {id:"water",icon:"💧",label:"Water / plumbing issue",service:"Plumber",resources:["Grants & Loans","Community Action","Heating Assistance"]},
+    {id:"electric",icon:"⚡",label:"Electrical problem",service:"Electrician",resources:["Grants & Loans","Energy Rebates"]},
+    {id:"heating",icon:"🔥",label:"Heating or cooling",service:"HVAC",resources:["Heating Assistance","Energy Rebates","Energy & Health"]},
+    {id:"roof",icon:"🏠",label:"Roof or structural",service:"Roofer",resources:["Grants & Loans","Free Home Repairs","Rural Grants"]},
+    {id:"general",icon:"🪚",label:"General repairs / maintenance",service:"Handyman",resources:["Free Home Repairs","Volunteer Chore Services","Accessibility & Repairs"]},
+    {id:"cleaning",icon:"🧹",label:"Cleaning or upkeep",service:"House Cleaner",resources:["Volunteer Chore Services","Community Help"]},
+    {id:"outdoor",icon:"🌲",label:"Garden / outdoor",service:"Landscaper",resources:["Community Help"]},
+    {id:"painting",icon:"🖌️",label:"Painting",service:"Painter",resources:["Free Home Repairs","Volunteer Chore Services"]},
+  ];
+ 
+  const runQuiz = (answers) => {
+    const problem = QUIZ_PROBLEMS.find(p=>p.id===answers.problem) || QUIZ_PROBLEMS[4];
+    const needsGrant = answers.budget === "low" || answers.budget === "free";
+    const isUrgent = answers.urgency === "urgent";
+    setQuizResult({service: problem.service, resourceTypes: problem.resources, needsGrant, isUrgent, problemLabel: problem.label});
+    setStep("quiz-result");
+  };
+ 
   const hdr = {display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 20px",background:C.forest,position:"sticky",top:0,zIndex:50,gap:10,flexWrap:"wrap"};
   const pg = {maxWidth:640,margin:"0 auto",padding:"24px 16px 80px"};
   const btn = {padding:"8px 14px",background:C.sage,color:C.forest,border:"none",borderRadius:8,fontWeight:600,fontSize:13,cursor:"pointer",fontFamily:"'Karla',sans-serif",whiteSpace:"nowrap"};
   const card = {background:C.card,border:`1.5px solid ${C.border}`,borderRadius:14,padding:"16px 18px"};
   const chip = {padding:"7px 14px",borderRadius:20,border:`1.5px solid ${C.border}`,background:"#fff",fontSize:13,fontWeight:500,cursor:"pointer",transition:"all 0.15s ease"};
-
+ 
   return (
     <div style={{fontFamily:"'Karla',sans-serif",background:C.bg,minHeight:"100vh",color:"#1a1a1a"}}>
       <style>{`
@@ -172,7 +194,7 @@ function App() {
         input:focus,select:focus{outline:2px solid ${C.sage}}
         .vbtn{transition:all 0.15s;cursor:pointer;border:none;font-family:'Karla',sans-serif;font-size:12px;font-weight:600}
       `}</style>
-
+ 
       {/* HEADER */}
       <div style={hdr}>
         <div style={{display:"flex",alignItems:"center",gap:10,cursor:"pointer"}} onClick={reset}>
@@ -188,7 +210,7 @@ function App() {
           <button style={btn} onClick={()=>setRegisterOpen(true)}>+ List your business</button>
         </div>
       </div>
-
+ 
       {/* COUNTY PICKER */}
       {step==="county" && (
         <div style={pg} className="fade">
@@ -221,13 +243,178 @@ function App() {
               <div key={t} style={{padding:"5px 12px",background:"#fff",border:`1px solid ${C.border}`,borderRadius:20,fontSize:12,color:C.muted}}>{t}</div>
             ))}
           </div>
-          <div style={{background:"#e8f5ee",border:`1.5px solid #b8dfc8`,borderRadius:12,padding:"14px 18px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:20}} onClick={()=>setStep("mission")}>
+          <div style={{background:C.forest,borderRadius:12,padding:"18px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:20}} onClick={()=>{setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setStep("quiz");}}>
+            <div>
+              <div style={{fontWeight:700,fontSize:15,color:"#fff"}}>🔍 Not sure where to start?</div>
+              <div style={{fontSize:13,color:C.sage,marginTop:3}}>Answer 3 quick questions — we'll match you with the right help</div>
+            </div>
+            <div style={{fontSize:20,color:C.sage}}>→</div>
+          </div>
+          <div style={{background:"#e8f5ee",border:`1.5px solid #b8dfc8`,borderRadius:12,padding:"14px 18px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>setStep("mission")}>
             <div><div style={{fontWeight:600,fontSize:14}}>🌲 Our mission</div><div style={{fontSize:12,color:"#5a8a6a",marginTop:2}}>Why we built Fetchd and who it's for</div></div>
             <div style={{fontSize:18,color:C.green}}>→</div>
           </div>
         </div>
       )}
-
+ 
+      {/* QUIZ */}
+      {step==="quiz" && (
+        <div style={pg} className="fade">
+          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:24}} onClick={()=>setStep("county")}>← Back</button>
+ 
+          {/* Progress dots */}
+          <div style={{display:"flex",justifyContent:"center",gap:8,marginBottom:28}}>
+            {[0,1,2].map(i=>(
+              <div key={i} style={{width:i<=quizStep?32:10,height:10,borderRadius:5,background:i<=quizStep?C.green:C.border,transition:"all 0.3s ease"}}/>
+            ))}
+          </div>
+ 
+          {/* Step 1 — Problem type */}
+          {quizStep===0 && (
+            <div className="fade">
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:800,marginBottom:6}}>What's the problem?</h2>
+              <p style={{fontSize:14,color:C.muted,marginBottom:20}}>Select the option that best describes what you need help with.</p>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+                {[
+                  {id:"water",icon:"💧",label:"Water / plumbing"},
+                  {id:"electric",icon:"⚡",label:"Electrical"},
+                  {id:"heating",icon:"🔥",label:"Heating / cooling"},
+                  {id:"roof",icon:"🏠",label:"Roof / structural"},
+                  {id:"general",icon:"🪚",label:"General repairs"},
+                  {id:"cleaning",icon:"🧹",label:"Cleaning / upkeep"},
+                  {id:"outdoor",icon:"🌲",label:"Garden / outdoor"},
+                  {id:"painting",icon:"🖌️",label:"Painting"},
+                ].map(opt=>(
+                  <div key={opt.id} className="hov" style={{...card,textAlign:"center",padding:"18px 12px",cursor:"pointer",border:`1.5px solid ${quizAnswers.problem===opt.id?C.green:C.border}`,background:quizAnswers.problem===opt.id?C.light:"#fff"}}
+                    onClick={()=>{setQuizAnswers(a=>({...a,problem:opt.id}));setQuizStep(1);}}>
+                    <div style={{fontSize:28,marginBottom:8}}>{opt.icon}</div>
+                    <div style={{fontSize:13,fontWeight:600}}>{opt.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+ 
+          {/* Step 2 — Urgency */}
+          {quizStep===1 && (
+            <div className="fade">
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:800,marginBottom:6}}>How urgent is it?</h2>
+              <p style={{fontSize:14,color:C.muted,marginBottom:20}}>This helps us know whether to prioritise emergency programs.</p>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                {[
+                  {id:"urgent",icon:"🚨",label:"Urgent — needs fixing now",sub:"Safety risk, active leak, no heat etc."},
+                  {id:"soon",icon:"📅",label:"Soon — within the next few weeks",sub:"Important but not an emergency"},
+                  {id:"planning",icon:"🗓️",label:"Planning ahead",sub:"Not urgent, exploring options"},
+                ].map(opt=>(
+                  <div key={opt.id} className="hov" style={{...card,display:"flex",alignItems:"center",gap:14,cursor:"pointer",border:`1.5px solid ${quizAnswers.urgency===opt.id?C.green:C.border}`,background:quizAnswers.urgency===opt.id?C.light:"#fff"}}
+                    onClick={()=>{setQuizAnswers(a=>({...a,urgency:opt.id}));setQuizStep(2);}}>
+                    <span style={{fontSize:24,flexShrink:0}}>{opt.icon}</span>
+                    <div>
+                      <div style={{fontWeight:600,fontSize:14}}>{opt.label}</div>
+                      <div style={{fontSize:12,color:C.muted,marginTop:2}}>{opt.sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+ 
+          {/* Step 3 — Budget */}
+          {quizStep===2 && (
+            <div className="fade">
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:22,fontWeight:800,marginBottom:6}}>What's your budget?</h2>
+              <p style={{fontSize:14,color:C.muted,marginBottom:20}}>We'll highlight any grants or free programs you may qualify for.</p>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                {[
+                  {id:"free",icon:"🙏",label:"I need free or subsidised help",sub:"Low income or financial hardship"},
+                  {id:"low",icon:"💚",label:"Limited budget — under $500",sub:"Looking for affordable options"},
+                  {id:"medium",icon:"💛",label:"Some budget — $500 to $2,000",sub:"Will pay a fair rate"},
+                  {id:"flexible",icon:"💰",label:"Flexible — just want quality",sub:"Budget isn't the main concern"},
+                ].map(opt=>(
+                  <div key={opt.id} className="hov" style={{...card,display:"flex",alignItems:"center",gap:14,cursor:"pointer",border:`1.5px solid ${quizAnswers.budget===opt.id?C.green:C.border}`,background:quizAnswers.budget===opt.id?C.light:"#fff"}}
+                    onClick={()=>{const ans={...quizAnswers,budget:opt.id};setQuizAnswers(ans);runQuiz(ans);}}>
+                    <span style={{fontSize:24,flexShrink:0}}>{opt.icon}</span>
+                    <div>
+                      <div style={{fontWeight:600,fontSize:14}}>{opt.label}</div>
+                      <div style={{fontSize:12,color:C.muted,marginTop:2}}>{opt.sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+ 
+      {/* QUIZ RESULT */}
+      {step==="quiz-result" && quizResult && (
+        <div style={pg} className="fade">
+          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:24}} onClick={()=>setStep("quiz")}>← Back</button>
+ 
+          <div style={{textAlign:"center",marginBottom:24}}>
+            <div style={{fontSize:40,marginBottom:10}}>✅</div>
+            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:24,fontWeight:800,marginBottom:8}}>Here's what we recommend</h2>
+            <p style={{fontSize:14,color:C.muted,lineHeight:1.6}}>Based on your answers — {quizResult.problemLabel}{quizResult.isUrgent?" (urgent)":""}.</p>
+          </div>
+ 
+          {/* Recommended service */}
+          <div style={{background:C.forest,borderRadius:14,padding:"18px 20px",marginBottom:16}}>
+            <div style={{fontSize:11,fontWeight:700,color:C.sage,textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Recommended tradesperson</div>
+            <div style={{fontFamily:"'Playfair Display',serif",color:"#fff",fontSize:20,fontWeight:800,marginBottom:6}}>
+              {SERVICES.find(s=>s.label===quizResult.service)?.icon} {quizResult.service}
+            </div>
+            <div style={{fontSize:13,color:"#a8d5b5",marginBottom:14}}>
+              {quizResult.isUrgent ? "This is urgent — look for pros available today." : "Take your time to compare a few options before deciding."}
+            </div>
+            <button style={{...btn,width:"100%",padding:"11px"}} onClick={()=>{setCounty(null);setStep("county");}}>
+              Find a {quizResult.service} in your county →
+            </button>
+          </div>
+ 
+          {/* Grant/resource nudge */}
+          {quizResult.needsGrant && (
+            <div style={{background:"#fffbea",border:"1.5px solid #e8d48a",borderRadius:14,padding:"16px 18px",marginBottom:16}}>
+              <div style={{fontWeight:700,fontSize:14,color:"#7a5c00",marginBottom:6}}>💰 You may qualify for free or subsidised help</div>
+              <div style={{fontSize:13,color:"#7a6a2a",lineHeight:1.6,marginBottom:12}}>
+                Washington has grants, loans and free repair programs for income-qualified residents. Check your county's resources tab after selecting your county.
+              </div>
+              <button style={{...btn,background:"#D4A017",color:"#fff",width:"100%",padding:"11px"}} onClick={()=>{setTab("resources");setStep("county");}}>
+                View county resources →
+              </button>
+            </div>
+          )}
+ 
+          {/* Urgency tip */}
+          {quizResult.isUrgent && (
+            <div style={{background:"#fff0f0",border:"1.5px solid #f5c4b3",borderRadius:14,padding:"16px 18px",marginBottom:16}}>
+              <div style={{fontWeight:700,fontSize:14,color:"#712B13",marginBottom:6}}>🚨 For urgent issues</div>
+              <div style={{fontSize:13,color:"#993C1D",lineHeight:1.6}}>
+                Call Washington 2-1-1 (dial 211) for immediate referrals to emergency home repair programs in your county. Available 24/7.
+              </div>
+            </div>
+          )}
+ 
+          <div style={{fontSize:12,color:C.muted,textAlign:"center",lineHeight:1.6,marginTop:8}}>
+            Select your county below to see matching tradespeople and local programs.
+          </div>
+ 
+          <div style={{marginTop:20}}>
+            <div style={{fontSize:11,fontWeight:700,letterSpacing:"0.12em",textTransform:"uppercase",color:"#7a9e8a",marginBottom:12}}>Select your county</div>
+            <input style={{width:"100%",padding:"12px 16px",fontSize:15,border:`2px solid ${C.border}`,borderRadius:10,background:"#fff",fontFamily:"'Karla',sans-serif",marginBottom:16}} placeholder="Search your county..." value={search} onChange={e=>setSearch(e.target.value)}/>
+            <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+              {(search===""
+                ? Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).sort()
+                : Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort()
+              ).map(c=>(
+                <div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);setService(SERVICES.find(s=>s.label===quizResult.service)?.id||null);setTab(quizResult.needsGrant?"resources":"pros");setStep("browse");}}>
+                  {c} County
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+ 
       {/* MISSION */}
       {step==="mission" && (
         <div style={pg} className="fade">
@@ -263,7 +450,7 @@ function App() {
           </div>
         </div>
       )}
-
+ 
       {/* BROWSE */}
       {step==="browse" && (
         <div style={pg} className="fade">
@@ -277,14 +464,14 @@ function App() {
               <div style={{padding:"4px 12px",background:C.light,borderRadius:20,fontSize:12,color:C.green,fontWeight:600}}>{rawResources.length} resources</div>
             </div>
           </div>
-
+ 
           {/* Tabs */}
           <div style={{display:"flex",borderRadius:10,overflow:"hidden",border:`1.5px solid ${C.border}`,marginBottom:20}}>
             {[["pros","🔧 Find a tradesperson"],["resources","💰 County resources"]].map(([t,l])=>(
               <button key={t} className="vbtn" style={{flex:1,padding:"11px 8px",background:tab===t?C.green:"#fff",color:tab===t?"#fff":C.muted,border:"none"}} onClick={()=>setTab(t)}>{l}</button>
             ))}
           </div>
-
+ 
           {/* PROS TAB */}
           {tab==="pros" && (
             <div className="fade">
@@ -295,14 +482,14 @@ function App() {
                 </div>
                 <a href="https://secure.lni.wa.gov/verify" target="_blank" style={{fontSize:12,color:C.green,fontWeight:600,whiteSpace:"nowrap"}}>Open L&I →</a>
               </div>
-
+ 
               <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:14}}>
                 <div className="shov" style={{...chip,...(service===null?{borderColor:C.green,background:C.light}:{})}} onClick={()=>setService(null)}>All</div>
                 {SERVICES.map(sv=>(
                   <div key={sv.id} className={`shov${service===sv.id?" act":""}`} style={chip} onClick={()=>setService(service===sv.id?null:sv.id)}>{sv.icon} {sv.label}</div>
                 ))}
               </div>
-
+ 
               <div style={{background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:12,padding:"14px 16px",marginBottom:14,display:"flex",gap:20,flexWrap:"wrap"}}>
                 <div style={{flex:1,minWidth:160}}>
                   <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
@@ -323,7 +510,7 @@ function App() {
                   </div>
                 )}
               </div>
-
+ 
               {filteredPros.length>0 ? (
                 <div style={{display:"flex",flexDirection:"column",gap:12}}>
                   {filteredPros.map((pro,i)=>(
@@ -363,7 +550,7 @@ function App() {
               </div>
             </div>
           )}
-
+ 
           {/* RESOURCES TAB */}
           {tab==="resources" && (
             <div className="fade">
@@ -409,7 +596,7 @@ function App() {
           )}
         </div>
       )}
-
+ 
       {/* CONTACT MODAL */}
       {contactPro && (
         <div className="modal-bg" onClick={()=>setContactPro(null)}>
@@ -457,7 +644,7 @@ function App() {
           </div>
         </div>
       )}
-
+ 
       {/* REGISTER MODAL */}
       {registerOpen && (
         <div className="modal-bg" onClick={()=>setRegisterOpen(false)}>
@@ -468,7 +655,7 @@ function App() {
             </div>
             <div style={{background:"#e8f5ee",borderRadius:10,padding:"12px 14px",marginBottom:14}}>
               <div style={{fontWeight:600,fontSize:14,color:"#1B4332",marginBottom:4}}>🌲 Free forever. No lead fees. No cold calls.</div>
-              <div style={{fontSize:13,color:C.muted,lineHeight:1.6}}>Unlike Thumbtack or Angi, we never charge for leads. Homeowners contact you directly — you choose who to work with.</div>
+              <div style={{fontSize:13,color:C.muted,lineHeight:1.6}}>Homeowners contact you directly — you choose who to work with.</div>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
               {[{l:"Business name",p:"e.g. Pacific NW Plumbing"},{l:"WA L&I License number",p:"e.g. PACIFNP123BB"},{l:"Phone number",p:"(206) 555-0000"},{l:"Email address",p:"you@yourbusiness.com"}].map(f=>(
@@ -498,7 +685,7 @@ function App() {
                 <input style={{width:"100%",padding:"10px 12px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:14,fontFamily:"'Karla',sans-serif"}} placeholder="e.g. $80–120/hr"/>
               </div>
             </div>
-            <button style={{...btn,width:"100%",marginTop:14,padding:"13px",fontSize:15}}>Submit listing →</button>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSchifk1lbvM8QbEyTt4MlYamKfcm64Np5XUHwqZ7s7vTVFI6w/viewform" target="_blank" rel="noreferrer" style={{...btn,width:"100%",marginTop:14,padding:"13px",fontSize:15,display:"block",textAlign:"center",textDecoration:"none"}}>Submit listing →</a>
             <div style={{fontSize:12,color:C.muted,lineHeight:1.6,padding:"10px 12px",background:"#f0f7f2",borderRadius:8,marginTop:10}}>
               We'll verify your WA L&I license before publishing. Free forever.
             </div>
@@ -508,7 +695,7 @@ function App() {
     </div>
   );
 }
-
+ 
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
