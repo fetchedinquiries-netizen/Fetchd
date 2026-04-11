@@ -164,6 +164,7 @@ function App() {
   const [langFilter, setLangFilter] = useState("All");
   const [maxRate, setMaxRate] = useState(150);
   const [visFilter, setVisFilter] = useState("all");
+  const [proSearch, setProSearch] = useState("");
   const [quizStep, setQuizStep] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState({problem:null,urgency:null,budget:null});
   const [quizResult, setQuizResult] = useState(null);
@@ -178,11 +179,19 @@ function App() {
     const ms = !service || p.service===SERVICES.find(s=>s.id===service)?.label;
     const ml = langFilter==="All" || p.languages?.includes(langFilter);
     const mr = !p.rate || parseRate(p.rate)<=maxRate;
-    return ms&&ml&&mr;
+    const sq = !proSearch || 
+      p.name.toLowerCase().includes(proSearch.toLowerCase()) ||
+      p.service.toLowerCase().includes(proSearch.toLowerCase()) ||
+      p.specialties?.some(s=>s.toLowerCase().includes(proSearch.toLowerCase())) ||
+      p.badge?.toLowerCase().includes(proSearch.toLowerCase());
+    return ms&&ml&&mr&&sq;
   });
+  const searchSuggestions = proSearch.length > 1 
+    ? SEARCH_KEYWORDS.filter(k => k.toLowerCase().includes(proSearch.toLowerCase())).slice(0,6)
+    : [];
   const allLangs = ["All",...new Set(allPros.flatMap(p=>p.languages||[]))];
   const filteredCounties = Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort();
-  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);};
+  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setProSearch("");setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);};
  
   const QUIZ_PROBLEMS = [
     {id:"water",icon:"💧",label:"Water / plumbing issue",service:"Plumber",resources:["Grants & Loans","Community Action","Heating Assistance"]},
@@ -193,6 +202,27 @@ function App() {
     {id:"cleaning",icon:"🧹",label:"Cleaning or upkeep",service:"House Cleaner",resources:["Volunteer Chore Services","Community Help"]},
     {id:"outdoor",icon:"🌲",label:"Garden / outdoor",service:"Landscaper",resources:["Community Help"]},
     {id:"painting",icon:"🖌️",label:"Painting",service:"Painter",resources:["Free Home Repairs","Volunteer Chore Services"]},
+  ];
+ 
+  const SEARCH_KEYWORDS = [
+    "Leak repair","Water heaters","Drain cleaning","Pipe repair","Sewer lines","Fixture installation",
+    "Drainage service","Plumbing fixtures","Backflow testing","Sewer contractor",
+    "Panel upgrades","EV chargers","Outlet installation","Rewiring","Safety inspections",
+    "Lighting","Commercial electrical","Residential electrical","Generator hookup","Low voltage cabling",
+    "Drywall","Door & window repair","Furniture assembly","Home repair","Home maintenance",
+    "Property preservation","Gutter cleaning","Fence building","Kitchen remodeling","Rot repair",
+    "Heating & cooling","Furnace repair","HVAC","Duct cleaning","Air sealing","Insulation",
+    "Roof repair","Structural steel","Roofing",
+    "Interior painting","Exterior painting","Concrete staining","Pressure washing",
+    "Deep clean","Move-in/out","Regular visits","House cleaning","Maid service",
+    "Lawn service","Landscape design","Planting & pruning","Sod installation","Lawn maintenance",
+    "Carpentry","Deck construction","Custom furniture","Resin work","Fence repair",
+    "Tiling","Flooring","Sheetrock repair","Bathroom remodels","Accessibility modifications",
+    "Ramp installation","Grab bars","Wheelchair ramps","ADA access",
+    "Home inspections","Pest inspections","Property preservation",
+    "Custom metalwork","Wrought iron railings","Ornamental iron","Steel canopies",
+    "Residential remodeling","General contracting","Project management",
+    "Women-owned","LGBTQ+ inclusive","Bilingual","Spanish speaking",
   ];
  
   const runQuiz = (answers) => {
@@ -503,6 +533,26 @@ function App() {
           {/* PROS TAB */}
           {tab==="pros" && (
             <div className="fade">
+              <div style={{marginBottom:14,position:"relative"}}>
+                <input
+                  style={{width:"100%",padding:"11px 16px",fontSize:14,border:`2px solid ${C.border}`,borderRadius:10,background:"#fff",fontFamily:"'Karla',sans-serif"}}
+                  placeholder="🔍 Search by keyword — e.g. leak repair, deck, drywall..."
+                  value={proSearch}
+                  onChange={e=>setProSearch(e.target.value)}
+                />
+                {searchSuggestions.length>0 && (
+                  <div style={{position:"absolute",top:"100%",left:0,right:0,background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:10,boxShadow:"0 4px 16px rgba(0,0,0,0.1)",zIndex:20,marginTop:4,overflow:"hidden"}}>
+                    {searchSuggestions.map(s=>(
+                      <div key={s} style={{padding:"10px 16px",fontSize:13,cursor:"pointer",borderBottom:`0.5px solid ${C.border}`}} onClick={()=>setProSearch(s)}
+                        onMouseEnter={e=>e.target.style.background="#f0f7f2"}
+                        onMouseLeave={e=>e.target.style.background="#fff"}>
+                        🔍 {s}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {proSearch && <button style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",fontSize:16,cursor:"pointer",color:C.muted}} onClick={()=>setProSearch("")}>✕</button>}
+              </div>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:10,padding:"10px 14px",marginBottom:14}}>
                 <div>
                   <div style={{fontWeight:600,fontSize:13,color:C.forest}}>✅ Always verify before hiring</div>
