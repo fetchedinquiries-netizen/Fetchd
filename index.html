@@ -41,22 +41,44 @@ const SERVICES = [
  
 const PROS = {
   King:[
-    {name:"Pacific NW Plumbing",initials:"PP",service:"Plumber",phone:"(206) 555-0142",email:"contact@pacificnwplumbing.com",licensed:true,insured:true,years:14,languages:["English","Spanish"],rate:"$85–120/hr",specialties:["Leak repair","Water heaters","Drain cleaning"]},
-    {name:"Cascade Electric",initials:"CE",service:"Electrician",phone:"(206) 555-0187",email:"info@cascadeelectric.com",licensed:true,insured:true,years:9,languages:["English"],rate:"$95–130/hr",specialties:["Panel upgrades","EV chargers","Outlet installation"]},
-    {name:"Rainier Home Services",initials:"RH",service:"Handyman",phone:"(206) 555-0231",email:"rain@rainierhs.com",licensed:true,insured:true,years:6,languages:["English","Vietnamese"],rate:"$65–85/hr",specialties:["Drywall","Door & window repair","Furniture assembly"]},
-    {name:"Emerald City Clean",initials:"EC",service:"House Cleaner",phone:"(206) 555-0309",email:"hello@emeraldclean.com",licensed:false,insured:true,years:3,languages:["English","Spanish","Somali"],rate:"$50–70/hr",specialties:["Deep clean","Move-in/out","Regular visits"]},
+    {name:"Amyworks",initials:"AW",service:"Handyman",phone:"(206) 478-2019",email:"",website:"amyworks.com",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Residential remodeling","Home repairs","Women-friendly contractor"],badge:"Women-owned"},
+    {name:"Athena Iron Works",initials:"AI",service:"Handyman",phone:"(206) 484-4460",email:"",website:"athenaironworks.com",licensed:true,insured:true,years:20,languages:["English"],rate:"",specialties:["Wrought iron railings","Fencing","ADA access","Steel canopies"],badge:"Women-owned"},
+    {name:"Andition",initials:"AN",service:"Handyman",phone:"(206) 271-1267",email:"",website:"andition.com",licensed:true,insured:true,years:13,languages:["English"],rate:"",specialties:["Residential design","General contracting","Project management"],badge:"Women-owned"},
+    {name:"Ballard Natural Gas",initials:"BN",service:"HVAC",phone:"(206) 784-8101",email:"",website:"ballardnaturalgas.com",licensed:true,insured:true,years:20,languages:["English"],rate:"",specialties:["Heating & cooling","Furnace repair","Water heaters","Duct cleaning"],badge:""},
+    {name:"Batgirl Backflow Testing",initials:"BB",service:"Plumber",phone:"(206) 948-0484",email:"batgirlbackflowtesting@gmail.com",website:"batgirlbackflowtesting.com",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Backflow testing","Backflow repair","Water safety"],badge:"Women-owned"},
+    {name:"Force/Collide",initials:"FC",service:"Handyman",phone:"(206) 267-8467",email:"",website:"forcecollide.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Custom metalwork","Luxury furniture","Architectural projects"],badge:""},
+    {name:"Great Northwest Electric",initials:"GN",service:"Electrician",phone:"(206) 771-9848",email:"",website:"greatnorthwestelectric.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Commercial electrical","Residential electrical","On-call service"],badge:"Women-owned"},
+    {name:"Intentional Painting",initials:"IP",service:"Painter",phone:"(206) 334-5111",email:"",website:"intentionalpaintingco.com",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Interior & exterior painting","Concrete staining","Rot repair","Pressure washing"],badge:""},
+    {name:"La Matriarca Woodworkings",initials:"LM",service:"Handyman",phone:"(206) 452-3500",email:"",website:"lamatriarcawoodworkings.com",licensed:true,insured:true,years:7,languages:["English","Spanish"],rate:"",specialties:["Carpentry","Deck construction","Custom furniture","Resin work"],badge:"Women-owned · Indigenous-owned · Queer-owned"},
+    {name:"Lavender Electric",initials:"LE",service:"Electrician",phone:"(206) 656-3532",email:"",website:"lavenderelectric.com",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Residential electrical","Light commercial","Safety inspections"],badge:"Women-owned · LGBTQ+-inclusive"},
+    {name:"Shooting Star Gardens",initials:"SS",service:"Landscaper",phone:"(206) 383-6498",email:"",website:"shootingstargardens.com",licensed:true,insured:true,years:23,languages:["English"],rate:"",specialties:["Landscape design","Installation","Residential gardens"],badge:"Women-owned"},
+    {name:"Taurus Home Inspections",initials:"TH",service:"Handyman",phone:"(206) 676-0023",email:"",website:"taurushomeinspections.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Home inspections","Structural pest inspections","Same-day reports"],badge:""},
+    {name:"Tribal Electric",initials:"TE",service:"Electrician",phone:"(206) 880-5828",email:"",website:"tribalelectricllc.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Commercial & residential","Remodels","Troubleshooting","Lighting upgrades"],badge:"Women-owned · LGBTQ+-owned · OMWBE certified"},
+    {name:"Veritas Electric",initials:"VE",service:"Electrician",phone:"(206) 755-0209",email:"info@veritas.llc",website:"veritas.llc",licensed:true,insured:true,years:23,languages:["English"],rate:"",specialties:["Remodels","New construction","EV chargers","Low voltage cabling"],badge:"Women-owned"},
+  ],
+  Snohomish:[
+    {name:"Taurus Home Inspections",initials:"TH",service:"Handyman",phone:"(206) 676-0023",email:"",website:"taurushomeinspections.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Home inspections","Structural pest inspections","Same-day reports"],badge:""},
+    {name:"Lavender Electric",initials:"LE",service:"Electrician",phone:"(206) 656-3532",email:"",website:"lavenderelectric.com",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Residential electrical","Light commercial","Safety inspections"],badge:"Women-owned · LGBTQ+-inclusive"},
   ],
   Pierce:[
-    {name:"Tacoma Plumbing Co.",initials:"TP",service:"Plumber",phone:"(253) 555-0112",email:"info@tacomaplumbing.com",licensed:true,insured:true,years:11,languages:["English"],rate:"$80–110/hr",specialties:["Pipe repair","Sewer lines","Fixture installation"]},
-    {name:"Sound Electric LLC",initials:"SE",service:"Electrician",phone:"(253) 555-0198",email:"sound@soundelectric.com",licensed:true,insured:true,years:7,languages:["English","Tagalog"],rate:"$90–120/hr",specialties:["Rewiring","Safety inspections","Lighting"]},
+    {name:"Taurus Home Inspections",initials:"TH",service:"Handyman",phone:"(206) 676-0023",email:"",website:"taurushomeinspections.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Home inspections","Structural pest inspections","Same-day reports"],badge:""},
+    {name:"Lavender Electric",initials:"LE",service:"Electrician",phone:"(206) 656-3532",email:"",website:"lavenderelectric.com",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Residential electrical","Light commercial","Safety inspections"],badge:"Women-owned · LGBTQ+-inclusive"},
+    {name:"Tribal Electric",initials:"TE",service:"Electrician",phone:"(206) 880-5828",email:"",website:"tribalelectricllc.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Commercial & residential","Remodels","Troubleshooting","Lighting upgrades"],badge:"Women-owned · LGBTQ+-owned · OMWBE certified"},
   ],
   Spokane:[
-    {name:"Inland Empire Plumbing",initials:"IE",service:"Plumber",phone:"(509) 555-0155",email:"ie@inlandplumbing.com",licensed:true,insured:true,years:18,languages:["English"],rate:"$70–95/hr",specialties:["Emergency repairs","Water heaters","Remodels"]},
-    {name:"Eastern WA Electric",initials:"EW",service:"Electrician",phone:"(509) 555-0203",email:"info@ewaelectric.com",licensed:true,insured:true,years:12,languages:["English","Spanish"],rate:"$80–105/hr",specialties:["Commercial","Residential","Generator hookup"]},
+    {name:"Inland Empire Plumbing",initials:"IE",service:"Plumber",phone:"(509) 555-0155",email:"ie@inlandplumbing.com",licensed:true,insured:true,years:18,languages:["English"],rate:"$70–95/hr",specialties:["Emergency repairs","Water heaters","Remodels"],badge:""},
+    {name:"Eastern WA Electric",initials:"EW",service:"Electrician",phone:"(509) 555-0203",email:"info@ewaelectric.com",licensed:true,insured:true,years:12,languages:["English","Spanish"],rate:"$80–105/hr",specialties:["Commercial","Residential","Generator hookup"],badge:""},
   ],
   Whatcom:[
-    {name:"Bellingham Plumbing",initials:"BP",service:"Plumber",phone:"(360) 555-0144",email:"bell@bellplumbing.com",licensed:true,insured:true,years:8,languages:["English"],rate:"$75–100/hr",specialties:["Drain cleaning","Leak detection","Tankless water heaters"]},
-    {name:"NW Corner Electric",initials:"NC",service:"Electrician",phone:"(360) 555-0177",email:"nw@nwcornerelectric.com",licensed:true,insured:true,years:15,languages:["English","Spanish"],rate:"$85–115/hr",specialties:["Panel upgrades","Home inspections","Solar-ready wiring"]},
+    {name:"Chuckanut Builders",initials:"CB",service:"Handyman",phone:"",email:"",website:"chuckanutbuilders.com",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Residential remodeling","New construction","High performance building"],badge:""},
+    {name:"Leone Enterprises",initials:"LN",service:"Handyman",phone:"(360) 920-0874",email:"leoneenterprises19@gmail.com",website:"",licensed:true,insured:true,years:40,languages:["English"],rate:"",specialties:["Carpentry","Minor home repairs","Interior painting"],badge:"Women-owned"},
+    {name:"Maria Rose Forsythe Contracting",initials:"MR",service:"Handyman",phone:"(952) 297-7466",email:"maria.rose.forsythe@gmail.com",website:"mariaroseforsythecontracting.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Bathroom remodels","Tiling","Flooring","Sheetrock repair"],badge:"Women-owned"},
+  ],
+  Kitsap:[
+    {name:"Siren Electric",initials:"SE",service:"Electrician",phone:"(206) 383-6498",email:"",website:"siren-electric.com",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Commercial electrical","Residential electrical","Kitsap County"],badge:"Women-owned · LGBTQ+-owned"},
+  ],
+  Island:[
+    {name:"Washington Iron Works",initials:"WI",service:"Handyman",phone:"(360) 679-4868",email:"",website:"waironwks.com",licensed:true,insured:true,years:30,languages:["English"],rate:"",specialties:["Structural steel","Commercial construction","Federal contracting"],badge:"EEO employer"},
   ],
 };
  
@@ -528,7 +550,11 @@ function App() {
                           {pro.insured && <span style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>🛡️ Insured</span>}
                           {pro.languages?.filter(l=>l!=="English").map(l=><span key={l} style={{fontSize:11,padding:"2px 8px",background:"#e8f0fe",borderRadius:10,color:"#1a56a0"}}>🗣️ {l}</span>)}
                         </div>
-                        <a href={`https://secure.lni.wa.gov/verify/?country=WA&PermitType=CC&q=${encodeURIComponent(pro.name)}`} target="_blank" style={{display:"inline-block",marginTop:8,fontSize:11,padding:"4px 10px",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:8,color:C.green,fontWeight:600}}>🔍 Verify on WA L&I</a>
+                        <div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:6}}>
+                          <a href={`https://secure.lni.wa.gov/verify/?country=WA&PermitType=CC&q=${encodeURIComponent(pro.name)}`} target="_blank" style={{fontSize:11,padding:"4px 10px",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:8,color:C.green,fontWeight:600}}>🔍 Verify on WA L&I</a>
+                          {pro.website && <a href={`https://${pro.website}`} target="_blank" style={{fontSize:11,padding:"4px 10px",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:8,color:C.green,fontWeight:600}}>🌐 Website</a>}
+                        </div>
+                        {pro.badge && <div style={{fontSize:10,marginTop:5,padding:"3px 8px",background:"#fef3e8",border:"1px solid #f5c4b3",borderRadius:8,color:"#7a3a00",fontWeight:500,display:"inline-block"}}>{pro.badge}</div>}
                       </div>
                       <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:8,flexShrink:0}}>
                         {pro.rate && <div style={{fontSize:13,fontWeight:700,color:"#7a5c00",background:"#fffbea",border:"1px solid #e8d48a",borderRadius:8,padding:"3px 10px",whiteSpace:"nowrap"}}>{pro.rate}</div>}
@@ -635,9 +661,11 @@ function App() {
               {contactPro.insured && <span style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>🛡️ Insured</span>}
               {contactPro.languages?.map(l=><span key={l} style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>🗣️ {l}</span>)}
             </div>
-            <a href={`https://secure.lni.wa.gov/verify/?country=WA&PermitType=CC&q=${encodeURIComponent(contactPro.name)}`} target="_blank" style={{display:"block",textAlign:"center",marginBottom:12,fontSize:12,padding:"8px",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:8,color:C.green,fontWeight:600,textDecoration:"none"}}>
+            <a href={`https://secure.lni.wa.gov/verify/?country=WA&PermitType=CC&q=${encodeURIComponent(contactPro.name)}`} target="_blank" style={{display:"block",textAlign:"center",marginBottom:8,fontSize:12,padding:"8px",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:8,color:C.green,fontWeight:600,textDecoration:"none"}}>
               🔍 Verify {contactPro.name} on WA L&I
             </a>
+            {contactPro.website && <a href={`https://${contactPro.website}`} target="_blank" style={{display:"block",textAlign:"center",marginBottom:12,fontSize:12,padding:"8px",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:8,color:C.green,fontWeight:600,textDecoration:"none"}}>🌐 Visit website</a>}
+            {contactPro.badge && <div style={{fontSize:11,marginBottom:12,padding:"6px 10px",background:"#fef3e8",border:"1px solid #f5c4b3",borderRadius:8,color:"#7a3a00",fontWeight:500}}>{contactPro.badge}</div>}
             <div style={{fontSize:12,color:C.muted,lineHeight:1.6,padding:"10px 12px",background:"#f0f7f2",borderRadius:8}}>
               Fetchd is a free directory — we connect you directly, no middleman fees or lead charges.
             </div>
@@ -700,3 +728,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
+ 
