@@ -53,6 +53,21 @@ const PROS = {
     {name:"Lavender Electric",initials:"LE",service:"Electrician",phone:"(206) 656-3532",email:"",website:"lavenderelectric.com",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Residential electrical","Light commercial","Safety inspections"],badge:"Women-owned · LGBTQ+-inclusive"},
     {name:"Shooting Star Gardens",initials:"SS",service:"Landscaper",phone:"(206) 383-6498",email:"",website:"shootingstargardens.com",licensed:true,insured:true,years:23,languages:["English"],rate:"",specialties:["Landscape design","Installation","Residential gardens"],badge:"Women-owned"},
     {name:"Taurus Home Inspections",initials:"TH",service:"Handyman",phone:"(206) 676-0023",email:"",website:"taurushomeinspections.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Home inspections","Structural pest inspections","Same-day reports"],badge:""},
+    {name:"IN & OUT PLUMBING",initials:"IO",service:"Plumber",phone:"(253) 545-1300",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Emergency plumbing","Drain cleaning","Repairs"],badge:""},
+    {name:"All Purpose Plumbing",initials:"APP",service:"Plumber",phone:"(253) 473-5100",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Drain cleaning"],badge:""},
+    {name:"Harts Plumbers Electricians & HVAC",initials:"HRT",service:"Plumber",phone:"(253) 300-0664",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Plumbing","Electrical","HVAC"],badge:""},
+    {name:"Mr Electric of Tacoma",initials:"MET",service:"Electrician",phone:"(253) 203-0104",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Repairs"],badge:""},
+    {name:"The Tacoma Electrician",initials:"TTE",service:"Electrician",phone:"(253) 314-4165",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Panel upgrades","Repairs"],badge:""},
+    {name:"Chris's Handyman Service",initials:"CHS",service:"Handyman",phone:"(253) 330-2913",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Carpentry"],badge:""},
+    {name:"Tacoma Handyman Pros",initials:"THP",service:"Handyman",phone:"(253) 314-4165",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Installations","Home maintenance"],badge:""},
+    {name:"Mercurio's Heating & Air Conditioning",initials:"MHC",service:"HVAC",phone:"(253) 765-8638",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs"],badge:""},
+    {name:"Pacific Heating & Cooling",initials:"PHC",service:"HVAC",phone:"(253) 785-4821",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Cooling","Installations"],badge:""},
+    {name:"IBEX Roof Tacoma",initials:"IBX",service:"Roofer",phone:"(253) 220-9803",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Inspections"],badge:""},
+    {name:"Mears Roofing LLC",initials:"MRL",service:"Roofer",phone:"(253) 236-2136",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Gutters"],badge:""},
+    {name:"Destiny Painting",initials:"DP",service:"Painter",phone:"(253) 271-3501",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"CertaPro Painters of Tacoma",initials:"CPT",service:"Painter",phone:"(253) 327-1734",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Urban Roots Landscaping Tacoma",initials:"URT",service:"Landscaper",phone:"(253) 292-3839",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
+    {name:"Royal Landscaping & Hauling",initials:"RLH",service:"Landscaper",phone:"(253) 509-1272",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Hauling","Yard clean up"],badge:""},
     {name:"Tribal Electric",initials:"TE",service:"Electrician",phone:"(206) 880-5828",email:"",website:"tribalelectricllc.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Commercial & residential","Remodels","Troubleshooting","Lighting upgrades"],badge:"Women-owned · LGBTQ+-owned · OMWBE certified"},
     {name:"Veritas Electric",initials:"VE",service:"Electrician",phone:"(206) 755-0209",email:"info@veritas.llc",website:"veritas.llc",licensed:true,insured:true,years:23,languages:["English"],rate:"",specialties:["Remodels","New construction","EV chargers","Low voltage cabling"],badge:"Women-owned"},
     {name:"Ace Handyman Services East King County",initials:"AH",service:"Handyman",phone:"(425) 954-3994",email:"eastkingcounty@acehandy...",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Home repair","Home maintenance","Property preservation","Drywall","Gutter cleaning","Painting"],badge:""},
@@ -60,19 +75,143 @@ const PROS = {
     {name:"Newline Pipe Solutions",initials:"NP",service:"Plumber",phone:"",email:"",website:"",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Drainage service","Plumbing fixtures","Sewer contractor"],badge:""},
     {name:"Nelson Landscaping LLC",initials:"NL",service:"Landscaper",phone:"(425) 399-3764",email:"nelsonlandscapingllc08@gmail.com",website:"",licensed:true,insured:true,years:5,languages:["English","Spanish"],rate:"",specialties:["Lawn service","Landscape contractor","Shrub trimming","Residential & commercial"],badge:""},
     {name:"JVM Landscaping Company",initials:"JV",service:"Landscaper",phone:"(425) 326-7302",email:"jvmcompany.llc@gmail.com",website:"jvmlandscaping.com",licensed:true,insured:true,years:5,languages:["English","Spanish"],rate:"",specialties:["Lawn maintenance","Planting & pruning","Pressure washing","Gutter cleaning","Sod installation"],badge:""},
+    {name:"2 Sons Plumbing, Sewer, Septic, Electric, Heating & Air",initials:"2S",service:"Plumber",phone:"(206) 337-4070",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Plumbing","Sewer","Septic","Electrical","Heating & Air"],badge:""},
+    {name:"Gene Johnson Plumbing",initials:"GJ",service:"Plumber",phone:"(360) 218-7611",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Installations"],badge:""},
+    {name:"Bee's Plumbing and Heating",initials:"BP",service:"Plumber",phone:"(206) 629-8217",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Plumbing","Heating","Repairs"],badge:""},
+    {name:"Craftsman Plumbing",initials:"CP",service:"Plumber",phone:"(206) 737-2266",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Remodels"],badge:""},
+    {name:"Best Plumbing",initials:"BPL",service:"Plumber",phone:"(206) 633-1700",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Full service plumbing","Repairs","Installations"],badge:""},
+    {name:"Home Electrician Seattle",initials:"HE",service:"Electrician",phone:"(206) 774-8682",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Repairs","Installations"],badge:""},
+    {name:"Sparky Electricians Seattle",initials:"SP",service:"Electrician",phone:"(564) 262-5919",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Repairs"],badge:""},
+    {name:"As You Wish Electric",initials:"AY",service:"Electrician",phone:"(206) 582-0360",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Panel upgrades","EV chargers"],badge:""},
+    {name:"Mr. Electric of Greater Seattle",initials:"ME",service:"Electrician",phone:"(206) 319-5016",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Residential","Commercial","Repairs & installations"],badge:""},
+    {name:"Handyman Services Seattle LLC",initials:"HS",service:"Handyman",phone:"(206) 491-3962",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Installations"],badge:""},
+    {name:"Queen Anne Handyman",initials:"QA",service:"Handyman",phone:"(206) 285-4356",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Carpentry"],badge:""},
+    {name:"MTC Handyman Service",initials:"MT",service:"Handyman",phone:"(206) 573-8752",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Painting","Installations"],badge:""},
+    {name:"Handyman Rescue Team",initials:"HR",service:"Handyman",phone:"(206) 736-3060",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Emergency repairs","Home maintenance","Carpentry"],badge:""},
+    {name:"Maid Service Seattle",initials:"MS",service:"House Cleaner",phone:"(206) 736-4650",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Deep clean","Regular visits","Move-in/out"],badge:""},
+    {name:"Hometress Cleaning Service",initials:"HC",service:"House Cleaner",phone:"(206) 929-1605",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Deep clean","Regular visits","Move-in/out"],badge:""},
+    {name:"THA House Cleaning Seattle",initials:"TH",service:"House Cleaner",phone:"(425) 289-9310",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential cleaning","Deep clean","Regular visits"],badge:""},
+    {name:"HVAC Angel Seattle Heating & Air",initials:"HA",service:"HVAC",phone:"(206) 222-7194",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs & installations"],badge:""},
+    {name:"Greenwood Heating and Home Services",initials:"GH",service:"HVAC",phone:"(206) 207-4734",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Heating","Cooling","Home services"],badge:""},
+    {name:"Seattle Heating & Cooling",initials:"SH",service:"HVAC",phone:"(206) 848-8080",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs"],badge:""},
+    {name:"Pacific Roofing Company Seattle",initials:"PR",service:"Roofer",phone:"(206) 257-7338",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Inspections"],badge:""},
+    {name:"Timothy's Roof Repair And Replacement",initials:"TR",service:"Roofer",phone:"(206) 339-0017",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Emergency repairs"],badge:""},
+    {name:"Rainier Roofing Company",initials:"RR",service:"Roofer",phone:"(206) 347-8191",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Gutters"],badge:""},
+    {name:"A Better Roofing Company",initials:"AB",service:"Roofer",phone:"(206) 935-1575",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Commercial roofing"],badge:""},
+    {name:"Tera Painting",initials:"TP",service:"Painter",phone:"(425) 245-3161",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Paintzone LLC",initials:"PZ",service:"Painter",phone:"(206) 899-5154",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Sound Painting Solutions",initials:"SS",service:"Painter",phone:"(206) 258-6676",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Phinney Ridge Painting",initials:"PP",service:"Painter",phone:"(206) 371-1441",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Queen Anne Painting & Carpentry",initials:"QP",service:"Painter",phone:"(206) 522-5152",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Carpentry"],badge:""},
+    {name:"Economy Landscaping",initials:"EL",service:"Landscaper",phone:"(206) 676-2045",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Lawn care","Landscaping","Yard clean up"],badge:""},
+    {name:"Seattle Sustainable Landscapes",initials:"SL",service:"Landscaper",phone:"(206) 414-8615",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Sustainable landscaping","Design","Installation"],badge:""},
+    {name:"Aden Landscaping",initials:"AD",service:"Landscaper",phone:"(425) 533-9734",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
+    {name:"Rock Solid Landscapes",initials:"RS",service:"Landscaper",phone:"(206) 523-7625",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Hardscaping","Lawn care"],badge:""},
+    {name:"Homeservice Plumbers",initials:"HP",service:"Plumber",phone:"(206) 614-3896",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Installations"],badge:""},
+    {name:"Ready Rooter",initials:"RR2",service:"Plumber",phone:"(425) 366-4717",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Drain cleaning","Sewer repair","Emergency plumbing"],badge:""},
+    {name:"Washington Rooter Sewer",initials:"WRS",service:"Plumber",phone:"(206) 823-5237",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Sewer repair","Rooter service","Drain cleaning"],badge:""},
+    {name:"Sparkson Electrical",initials:"SKE",service:"Electrician",phone:"(206) 823-5237",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Repairs","Installations"],badge:""},
+    {name:"LightningX Electrical",initials:"LX",service:"Electrician",phone:"(253) 666-3066",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Panel upgrades"],badge:""},
+    {name:"Capacitor Heating Cooling & Appliance",initials:"CA",service:"HVAC",phone:"(425) 818-0768",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Cooling","Appliance repair"],badge:""},
+    {name:"Touchstone Roofing & Siding",initials:"TS",service:"Roofer",phone:"(425) 428-8053",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Siding"],badge:""},
+    {name:"Brooks Roofing & Repair",initials:"BR",service:"Roofer",phone:"(425) 209-3829",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Emergency repairs"],badge:""},
+    {name:"HELLO Painting",initials:"HLP",service:"Painter",phone:"(425) 615-7577",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Pro Painters Bellevue",initials:"PPB",service:"Painter",phone:"(206) 899-5154",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Alderwood Landscaping",initials:"AL",service:"Landscaper",phone:"(425) 765-3550",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
+    {name:"Cataleya's Landscaping Services",initials:"CLS",service:"Landscaper",phone:"(206) 280-1838",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn maintenance","Yard clean up"],badge:""},
+    {name:"Ace Handyman Services North Seattle",initials:"AHN",service:"Handyman",phone:"(206) 413-9812",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Installations"],badge:""},
+    {name:"Lee's General Landscaping & Yard Clean Up",initials:"LG",service:"Landscaper",phone:"(206) 312-2445",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Lawn care","Yard clean up","General landscaping"],badge:""},
   ],
   Snohomish:[
     {name:"Taurus Home Inspections",initials:"TH",service:"Handyman",phone:"(206) 676-0023",email:"",website:"taurushomeinspections.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Home inspections","Structural pest inspections","Same-day reports"],badge:""},
     {name:"Lavender Electric",initials:"LE",service:"Electrician",phone:"(206) 656-3532",email:"",website:"lavenderelectric.com",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Residential electrical","Light commercial","Safety inspections"],badge:"Women-owned · LGBTQ+-inclusive"},
     {name:"JVM Landscaping Company",initials:"JV",service:"Landscaper",phone:"(425) 326-7302",email:"jvmcompany.llc@gmail.com",website:"jvmlandscaping.com",licensed:true,insured:true,years:5,languages:["English","Spanish"],rate:"",specialties:["Lawn maintenance","Planting & pruning","Pressure washing","Gutter cleaning","Sod installation"],badge:""},
+    {name:"2 Sons Plumbing, Sewer, Septic, Electric, Heating & Air",initials:"2S",service:"Plumber",phone:"(206) 337-4070",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Plumbing","Sewer","Septic","Electrical","Heating & Air"],badge:""},
+    {name:"Gene Johnson Plumbing",initials:"GJ",service:"Plumber",phone:"(360) 218-7611",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Installations"],badge:""},
+    {name:"Bee's Plumbing and Heating",initials:"BP",service:"Plumber",phone:"(206) 629-8217",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Plumbing","Heating","Repairs"],badge:""},
+    {name:"Craftsman Plumbing",initials:"CP",service:"Plumber",phone:"(206) 737-2266",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Remodels"],badge:""},
+    {name:"Best Plumbing",initials:"BPL",service:"Plumber",phone:"(206) 633-1700",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Full service plumbing","Repairs","Installations"],badge:""},
+    {name:"Home Electrician Seattle",initials:"HE",service:"Electrician",phone:"(206) 774-8682",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Repairs","Installations"],badge:""},
+    {name:"Sparky Electricians Seattle",initials:"SP",service:"Electrician",phone:"(564) 262-5919",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Repairs"],badge:""},
+    {name:"As You Wish Electric",initials:"AY",service:"Electrician",phone:"(206) 582-0360",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Panel upgrades","EV chargers"],badge:""},
+    {name:"Mr. Electric of Greater Seattle",initials:"ME",service:"Electrician",phone:"(206) 319-5016",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Residential","Commercial","Repairs & installations"],badge:""},
+    {name:"Handyman Services Seattle LLC",initials:"HS",service:"Handyman",phone:"(206) 491-3962",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Installations"],badge:""},
+    {name:"Queen Anne Handyman",initials:"QA",service:"Handyman",phone:"(206) 285-4356",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Carpentry"],badge:""},
+    {name:"MTC Handyman Service",initials:"MT",service:"Handyman",phone:"(206) 573-8752",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Painting","Installations"],badge:""},
+    {name:"Handyman Rescue Team",initials:"HR",service:"Handyman",phone:"(206) 736-3060",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Emergency repairs","Home maintenance","Carpentry"],badge:""},
+    {name:"Maid Service Seattle",initials:"MS",service:"House Cleaner",phone:"(206) 736-4650",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Deep clean","Regular visits","Move-in/out"],badge:""},
+    {name:"Hometress Cleaning Service",initials:"HC",service:"House Cleaner",phone:"(206) 929-1605",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Deep clean","Regular visits","Move-in/out"],badge:""},
+    {name:"THA House Cleaning Seattle",initials:"TH",service:"House Cleaner",phone:"(425) 289-9310",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential cleaning","Deep clean","Regular visits"],badge:""},
+    {name:"HVAC Angel Seattle Heating & Air",initials:"HA",service:"HVAC",phone:"(206) 222-7194",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs & installations"],badge:""},
+    {name:"Greenwood Heating and Home Services",initials:"GH",service:"HVAC",phone:"(206) 207-4734",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Heating","Cooling","Home services"],badge:""},
+    {name:"Seattle Heating & Cooling",initials:"SH",service:"HVAC",phone:"(206) 848-8080",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs"],badge:""},
+    {name:"Pacific Roofing Company Seattle",initials:"PR",service:"Roofer",phone:"(206) 257-7338",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Inspections"],badge:""},
+    {name:"Timothy's Roof Repair And Replacement",initials:"TR",service:"Roofer",phone:"(206) 339-0017",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Emergency repairs"],badge:""},
+    {name:"Rainier Roofing Company",initials:"RR",service:"Roofer",phone:"(206) 347-8191",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Gutters"],badge:""},
+    {name:"A Better Roofing Company",initials:"AB",service:"Roofer",phone:"(206) 935-1575",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Commercial roofing"],badge:""},
+    {name:"Tera Painting",initials:"TP",service:"Painter",phone:"(425) 245-3161",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Paintzone LLC",initials:"PZ",service:"Painter",phone:"(206) 899-5154",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Sound Painting Solutions",initials:"SS",service:"Painter",phone:"(206) 258-6676",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Phinney Ridge Painting",initials:"PP",service:"Painter",phone:"(206) 371-1441",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Queen Anne Painting & Carpentry",initials:"QP",service:"Painter",phone:"(206) 522-5152",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Carpentry"],badge:""},
+    {name:"Economy Landscaping",initials:"EL",service:"Landscaper",phone:"(206) 676-2045",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Lawn care","Landscaping","Yard clean up"],badge:""},
+    {name:"Seattle Sustainable Landscapes",initials:"SL",service:"Landscaper",phone:"(206) 414-8615",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Sustainable landscaping","Design","Installation"],badge:""},
+    {name:"Aden Landscaping",initials:"AD",service:"Landscaper",phone:"(425) 533-9734",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
+    {name:"Rock Solid Landscapes",initials:"RS",service:"Landscaper",phone:"(206) 523-7625",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Hardscaping","Lawn care"],badge:""},
+    {name:"Homeservice Plumbers",initials:"HP",service:"Plumber",phone:"(206) 614-3896",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Installations"],badge:""},
+    {name:"Ready Rooter",initials:"RR2",service:"Plumber",phone:"(425) 366-4717",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Drain cleaning","Sewer repair","Emergency plumbing"],badge:""},
+    {name:"Washington Rooter Sewer",initials:"WRS",service:"Plumber",phone:"(206) 823-5237",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Sewer repair","Rooter service","Drain cleaning"],badge:""},
+    {name:"Sparkson Electrical",initials:"SKE",service:"Electrician",phone:"(206) 823-5237",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Repairs","Installations"],badge:""},
+    {name:"LightningX Electrical",initials:"LX",service:"Electrician",phone:"(253) 666-3066",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Panel upgrades"],badge:""},
+    {name:"Capacitor Heating Cooling & Appliance",initials:"CA",service:"HVAC",phone:"(425) 818-0768",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Cooling","Appliance repair"],badge:""},
+    {name:"Touchstone Roofing & Siding",initials:"TS",service:"Roofer",phone:"(425) 428-8053",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Siding"],badge:""},
+    {name:"Brooks Roofing & Repair",initials:"BR",service:"Roofer",phone:"(425) 209-3829",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Emergency repairs"],badge:""},
+    {name:"HELLO Painting",initials:"HLP",service:"Painter",phone:"(425) 615-7577",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Pro Painters Bellevue",initials:"PPB",service:"Painter",phone:"(206) 899-5154",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Alderwood Landscaping",initials:"AL",service:"Landscaper",phone:"(425) 765-3550",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
+    {name:"Cataleya's Landscaping Services",initials:"CLS",service:"Landscaper",phone:"(206) 280-1838",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn maintenance","Yard clean up"],badge:""},
+    {name:"Ace Handyman Services North Seattle",initials:"AHN",service:"Handyman",phone:"(206) 413-9812",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Installations"],badge:""},
+    {name:"Lee's General Landscaping & Yard Clean Up",initials:"LG",service:"Landscaper",phone:"(206) 312-2445",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Lawn care","Yard clean up","General landscaping"],badge:""},
   ],
   Pierce:[
     {name:"Taurus Home Inspections",initials:"TH",service:"Handyman",phone:"(206) 676-0023",email:"",website:"taurushomeinspections.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Home inspections","Structural pest inspections","Same-day reports"],badge:""},
     {name:"Lavender Electric",initials:"LE",service:"Electrician",phone:"(206) 656-3532",email:"",website:"lavenderelectric.com",licensed:true,insured:true,years:5,languages:["English"],rate:"",specialties:["Residential electrical","Light commercial","Safety inspections"],badge:"Women-owned · LGBTQ+-inclusive"},
+    {name:"IN & OUT PLUMBING",initials:"IO",service:"Plumber",phone:"(253) 545-1300",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Emergency plumbing","Drain cleaning","Repairs"],badge:""},
+    {name:"All Purpose Plumbing",initials:"APP",service:"Plumber",phone:"(253) 473-5100",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Drain cleaning"],badge:""},
+    {name:"Harts Plumbers Electricians & HVAC",initials:"HRT",service:"Plumber",phone:"(253) 300-0664",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Plumbing","Electrical","HVAC"],badge:""},
+    {name:"Mr Electric of Tacoma",initials:"MET",service:"Electrician",phone:"(253) 203-0104",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Repairs"],badge:""},
+    {name:"The Tacoma Electrician",initials:"TTE",service:"Electrician",phone:"(253) 314-4165",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Panel upgrades","Repairs"],badge:""},
+    {name:"Chris's Handyman Service",initials:"CHS",service:"Handyman",phone:"(253) 330-2913",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Carpentry"],badge:""},
+    {name:"Tacoma Handyman Pros",initials:"THP",service:"Handyman",phone:"(253) 314-4165",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Installations","Home maintenance"],badge:""},
+    {name:"Mercurio's Heating & Air Conditioning",initials:"MHC",service:"HVAC",phone:"(253) 765-8638",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs"],badge:""},
+    {name:"Pacific Heating & Cooling",initials:"PHC",service:"HVAC",phone:"(253) 785-4821",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Cooling","Installations"],badge:""},
+    {name:"IBEX Roof Tacoma",initials:"IBX",service:"Roofer",phone:"(253) 220-9803",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Inspections"],badge:""},
+    {name:"Mears Roofing LLC",initials:"MRL",service:"Roofer",phone:"(253) 236-2136",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Gutters"],badge:""},
+    {name:"Destiny Painting",initials:"DP",service:"Painter",phone:"(253) 271-3501",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"CertaPro Painters of Tacoma",initials:"CPT",service:"Painter",phone:"(253) 327-1734",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Urban Roots Landscaping Tacoma",initials:"URT",service:"Landscaper",phone:"(253) 292-3839",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
+    {name:"Royal Landscaping & Hauling",initials:"RLH",service:"Landscaper",phone:"(253) 509-1272",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Hauling","Yard clean up"],badge:""},
     {name:"Tribal Electric",initials:"TE",service:"Electrician",phone:"(206) 880-5828",email:"",website:"tribalelectricllc.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Commercial & residential","Remodels","Troubleshooting","Lighting upgrades"],badge:"Women-owned · LGBTQ+-owned · OMWBE certified"},
   ],
   Spokane:[
     {name:"Inland Empire Plumbing",initials:"IE",service:"Plumber",phone:"(509) 555-0155",email:"ie@inlandplumbing.com",licensed:true,insured:true,years:18,languages:["English"],rate:"$70–95/hr",specialties:["Emergency repairs","Water heaters","Remodels"],badge:""},
+    {name:"Shaw Plumbing Heating & Air Conditioning",initials:"SH",service:"Plumber",phone:"(509) 642-6166",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Plumbing","Heating","Air conditioning"],badge:""},
+    {name:"Gold Seal Plumbing",initials:"GS",service:"Plumber",phone:"(509) 535-5946",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Drain cleaning","Repairs"],badge:""},
+    {name:"Platinum Rooter & Plumbing",initials:"PRP",service:"Plumber",phone:"(509) 408-3914",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Rooter service","Plumbing","Drain cleaning"],badge:""},
+    {name:"Infinite Electric",initials:"IE2",service:"Electrician",phone:"(509) 723-0022",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Repairs"],badge:""},
+    {name:"Epic Electric Heating Cooling & Plumbing",initials:"EEP",service:"Electrician",phone:"(509) 368-9334",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Electrical","Heating","Cooling","Plumbing"],badge:""},
+    {name:"Mr. Handyman of Spokane",initials:"MHS",service:"Handyman",phone:"(509) 412-3554",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Home maintenance","Installations"],badge:""},
+    {name:"Handyman Connection of Spokane",initials:"HCS",service:"Handyman",phone:"(509) 267-1030",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["General repairs","Carpentry","Installations"],badge:""},
+    {name:"Clean Bee Residential",initials:"CBR",service:"House Cleaner",phone:"(509) 774-4700",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Deep clean","Regular visits","Residential cleaning"],badge:""},
+    {name:"Live Clean Today",initials:"LCT",service:"House Cleaner",phone:"(509) 218-3874",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Deep clean","Move-in/out","Regular visits"],badge:""},
+    {name:"Holliday Heating Cooling Electric",initials:"HHC",service:"HVAC",phone:"(509) 838-5717",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Cooling","Electrical"],badge:""},
+    {name:"Cougar Heating and Air Conditioning",initials:"CHA",service:"HVAC",phone:"(509) 484-6420",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs"],badge:""},
+    {name:"First Rate Roofing Services",initials:"FRR",service:"Roofer",phone:"(509) 842-6611",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Inspections"],badge:""},
+    {name:"Alpine Roofing Spokane",initials:"ARS",service:"Roofer",phone:"(509) 581-4244",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Commercial roofing"],badge:""},
+    {name:"Panamera Painting Spokane",initials:"PPS",service:"Painter",phone:"(509) 220-4378",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Five Star Painting of Spokane",initials:"FSP",service:"Painter",phone:"(509) 631-8683",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Copper Creek Landscaping",initials:"CCL",service:"Landscaper",phone:"(509) 240-1713",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
+    {name:"GardenLandscapes Spokane",initials:"GLS",service:"Landscaper",phone:"(509) 263-0384",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Garden design","Lawn care"],badge:""},
     {name:"Eastern WA Electric",initials:"EW",service:"Electrician",phone:"(509) 555-0203",email:"info@ewaelectric.com",licensed:true,insured:true,years:12,languages:["English","Spanish"],rate:"$80–105/hr",specialties:["Commercial","Residential","Generator hookup"],badge:""},
   ],
   Whatcom:[
@@ -135,6 +274,18 @@ const RESOURCES = {
     {icon:"📋",type:"Housing Counseling",name:"Community Housing Resource Center — Vancouver",desc:"Free mortgage and foreclosure prevention counseling. English and Spanish. Call ahead.",url:"https://www.chr-housing.org",visibility:"private"},
     {icon:"💡",type:"Energy Rebates",name:"Clark Public Utilities Rebates",desc:"Rebates for heat pumps, insulation, and weatherization for Clark PUD customers.",url:"https://www.clarkpud.com/save-energy",visibility:"private"},
   ],
+  Yakima:[
+    {name:"Shephard Plumbing LLC",initials:"SPL",service:"Plumber",phone:"(509) 728-3403",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Drain cleaning"],badge:""},
+    {name:"All Valley Plumbing",initials:"AVP",service:"Plumber",phone:"(509) 268-2241",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Emergency repairs","Installations"],badge:""},
+    {name:"Campbell & Company",initials:"CC",service:"Plumber",phone:"(509) 724-2329",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Plumbing","Heating","HVAC"],badge:""},
+    {name:"Thunder Electric Inc",initials:"TEI",service:"Electrician",phone:"(509) 575-8362",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Repairs"],badge:""},
+    {name:"Castle Electric LLC",initials:"CEL",service:"Electrician",phone:"(509) 580-0470",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Repairs","Installations"],badge:""},
+    {name:"Vance Heating & Air Conditioning",initials:"VHA",service:"HVAC",phone:"(509) 557-7561",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs"],badge:""},
+    {name:"Willy's Roofing LLC",initials:"WRL",service:"Roofer",phone:"(509) 584-3695",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Residential"],badge:""},
+    {name:"Roof Maxx of Yakima",initials:"RMY",service:"Roofer",phone:"(509) 895-4540",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof restoration","Roof repair","Residential"],badge:""},
+    {name:"Top Line Painting LLC",initials:"TLP",service:"Painter",phone:"(509) 367-0715",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Castillo Painting",initials:"CPN",service:"Painter",phone:"(509) 910-1408",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+  ],
   Thurston:[
     {icon:"🏠",type:"Free Home Repairs",name:"Habitat for Humanity South Puget Sound",desc:"Free critical home repairs for income-qualified Thurston County homeowners (max 80% AMI).",url:"https://www.spshabitat.org/what-we-do/critical-home-repair/",visibility:"private"},
     {icon:"🔨",type:"Accessibility & Repairs",name:"Rebuilding Together Thurston County",desc:"Free home repairs for homeowners 62+, disabled, veterans or families with children.",url:"https://www.rebuildingtogethertc.org",visibility:"private"},
@@ -145,6 +296,21 @@ const RESOURCES = {
   ],
 };
  
+  Benton:[
+    {name:"Express 24 Hr Plumbing & Drain",initials:"E24",service:"Plumber",phone:"(509) 940-7811",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Emergency plumbing","Drain cleaning","24hr service"],badge:""},
+    {name:"1-Tom-Plumber Kennewick",initials:"1TP",service:"Plumber",phone:"(509) 537-3490",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Emergency repairs","Drain cleaning"],badge:""},
+    {name:"Z Plumberz of Kennewick",initials:"ZPK",service:"Plumber",phone:"(509) 222-4440",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Installations"],badge:""},
+    {name:"Quality Electric Kennewick",initials:"QEK",service:"Electrician",phone:"(509) 231-7012",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Repairs"],badge:""},
+    {name:"Empire Electric USA",initials:"EEU",service:"Electrician",phone:"(509) 987-1189",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential electrical","Commercial","Panel upgrades"],badge:""},
+    {name:"Chinook Heating & Air",initials:"CHA2",service:"HVAC",phone:"(509) 736-1121",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Repairs"],badge:""},
+    {name:"Jacobs and Rhodes Heating and Air",initials:"JRH",service:"HVAC",phone:"(509) 783-3121",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Heating","Air conditioning","Installations"],badge:""},
+    {name:"Quality Roofing Kennewick",initials:"QRK",service:"Roofer",phone:"(509) 491-0521",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Commercial"],badge:""},
+    {name:"Palmer Roofing Company",initials:"PRC",service:"Roofer",phone:"(509) 586-3741",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Roof repair","Roof replacement","Residential"],badge:""},
+    {name:"L B Painters",initials:"LBP",service:"Painter",phone:"(509) 212-3755",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
+    {name:"Superior Image Painting",initials:"SIP",service:"Painter",phone:"(509) 947-9473",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Commercial"],badge:""},
+    {name:"Wine Country Landscaping",initials:"WCL",service:"Landscaper",phone:"(509) 231-3005",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
+    {name:"Eden Landscaping & Tree Service",initials:"ELT",service:"Landscaper",phone:"(509) 289-5009",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Tree service","Lawn care"],badge:""},
+  ],
 const DEFAULT_RESOURCES = [
   {icon:"📞",type:"Community Help",name:"Washington 2-1-1",desc:"Free statewide referral — call or text 211 to find local housing and repair assistance.",url:"https://211.org",visibility:"public"},
   {icon:"🏦",type:"Rural Grants",name:"WA Home Rehabilitation Grant Program (HRGP)",desc:"WA Dept. of Commerce grants for low-income rural homeowners statewide. Priority: seniors, disabled, veterans.",url:"https://www.commerce.wa.gov/weatherization/hrgp/",visibility:"public"},
@@ -165,6 +331,9 @@ function App() {
   const [maxRate, setMaxRate] = useState(150);
   const [visFilter, setVisFilter] = useState("all");
   const [proSearch, setProSearch] = useState("");
+  const [diyOpen, setDiyOpen] = useState(false);
+  const [diyCategory, setDiyCategory] = useState(null);
+  const [diyProblem, setDiyProblem] = useState(null);
   const [quizStep, setQuizStep] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState({problem:null,urgency:null,budget:null});
   const [quizResult, setQuizResult] = useState(null);
@@ -191,7 +360,7 @@ function App() {
     : [];
   const allLangs = ["All",...new Set(allPros.flatMap(p=>p.languages||[]))];
   const filteredCounties = Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort();
-  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setProSearch("");setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);};
+  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setProSearch("");setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);};
  
   const QUIZ_PROBLEMS = [
     {id:"water",icon:"💧",label:"Water / plumbing issue",service:"Plumber",resources:["Grants & Loans","Community Action","Heating Assistance"]},
@@ -224,6 +393,104 @@ function App() {
     "Residential remodeling","General contracting","Project management",
     "Women-owned","LGBTQ+ inclusive","Bilingual","Spanish speaking",
   ];
+ 
+  const DIY_DATA = {
+    plumbing: {
+      label: "Plumbing", icon: "🔧",
+      problems: [
+        { id:"dripping", label:"Dripping faucet" },
+        { id:"clog", label:"Clogged drain" },
+        { id:"running_toilet", label:"Running toilet" },
+        { id:"low_pressure", label:"Low water pressure" },
+        { id:"leak_pipe", label:"Leaking pipe" },
+        { id:"no_hot_water", label:"No hot water" },
+      ],
+      results: {
+        dripping: { diy: true, difficulty: "Easy", time: "30–60 mins", tools: "Wrench, replacement washers", tip: "Usually just a worn washer. Turn off water supply under the sink first.", video: { title: "How to Fix a Dripping Faucet", url: "https://www.youtube.com/watch?v=LGtBCGHBwYo", channel: "This Old House" } },
+        clog: { diy: true, difficulty: "Easy", time: "15–30 mins", tools: "Plunger, drain snake", tip: "Try a plunger first, then a drain snake. Avoid chemical drain cleaners — they damage pipes over time.", video: { title: "How to Unclog a Drain", url: "https://www.youtube.com/watch?v=FBl6YVjOdaA", channel: "Skill Builder" } },
+        running_toilet: { diy: true, difficulty: "Easy", time: "20–40 mins", tools: "Replacement flapper ($5 at hardware store)", tip: "Lift the tank lid and check the flapper — it's almost always the culprit and costs under $10 to fix.", video: { title: "How to Fix a Running Toilet", url: "https://www.youtube.com/watch?v=yBMNpUkx8rM", channel: "This Old House" } },
+        low_pressure: { diy: "maybe", difficulty: "Medium", time: "30–60 mins", tools: "Pressure gauge", tip: "Check if it's one faucet or whole house. One faucet — clean the aerator. Whole house — could be your main supply or a bigger issue.", video: { title: "How to Fix Low Water Pressure", url: "https://www.youtube.com/watch?v=tGRgFnMH8ms", channel: "Roger Wakefield Plumber" } },
+        leak_pipe: { diy: false, difficulty: "Hard", time: "Varies", tools: "Call a pro", tip: "Leaking pipes can cause serious water damage fast. Turn off your main water supply and call a plumber.", video: { title: "How to Temporarily Stop a Pipe Leak", url: "https://www.youtube.com/watch?v=cVRrEbhZCUE", channel: "This Old House" } },
+        no_hot_water: { diy: "maybe", difficulty: "Medium", time: "1–2 hrs", tools: "Multimeter", tip: "Check the circuit breaker first. If electric — could be a heating element. If gas — could be the pilot light. Both doable but call a pro if unsure.", video: { title: "No Hot Water? Here is What to Check First", url: "https://www.youtube.com/watch?v=rGEkAHzRmgE", channel: "Everyday Home Repairs" } },
+      }
+    },
+    electrical: {
+      label: "Electrical", icon: "⚡",
+      problems: [
+        { id:"outlet_dead", label:"Dead outlet" },
+        { id:"breaker_trips", label:"Breaker keeps tripping" },
+        { id:"light_flicker", label:"Flickering lights" },
+        { id:"switch_replace", label:"Replace a light switch" },
+        { id:"no_power", label:"Power out in one room" },
+        { id:"sparks", label:"Sparks or burning smell" },
+      ],
+      results: {
+        outlet_dead: { diy: true, difficulty: "Easy", time: "10–20 mins", tools: "None", tip: "Check if it's a GFCI outlet — press the reset button. Also check your breaker box.", video: { title: "How to Fix a Dead Outlet", url: "https://www.youtube.com/watch?v=6_fHMfFkWq0", channel: "Everyday Home Repairs" } },
+        breaker_trips: { diy: "maybe", difficulty: "Medium", time: "30–60 mins", tools: "None", tip: "If one circuit keeps tripping, you may be overloading it. Unplug devices and reset. If it trips immediately — call an electrician.", video: { title: "Why Does My Breaker Keep Tripping?", url: "https://www.youtube.com/watch?v=4cJZxPHWFbs", channel: "Electrician U" } },
+        light_flicker: { diy: "maybe", difficulty: "Easy–Medium", time: "20–40 mins", tools: "Replacement bulb", tip: "Try replacing the bulb first. If flickering continues across multiple lights — could be a loose connection. Call an electrician.", video: { title: "Why Are My Lights Flickering?", url: "https://www.youtube.com/watch?v=aVAhZxnLVrQ", channel: "Electrician U" } },
+        switch_replace: { diy: true, difficulty: "Easy", time: "20–30 mins", tools: "Screwdriver, voltage tester ($10)", tip: "Turn off the breaker first and test with a voltage tester before touching any wires. Straightforward swap.", video: { title: "How to Replace a Light Switch", url: "https://www.youtube.com/watch?v=pMRCMBkLJno", channel: "This Old House" } },
+        no_power: { diy: true, difficulty: "Easy", time: "5–10 mins", tools: "None", tip: "Go straight to your breaker box — find the tripped breaker and reset it. If it trips again immediately, call an electrician.", video: { title: "How to Reset a Tripped Breaker", url: "https://www.youtube.com/watch?v=m-x8pzoZ9Bc", channel: "Everyday Home Repairs" } },
+        sparks: { diy: false, difficulty: "Dangerous", time: "Call now", tools: "Call a pro", tip: "Turn off the breaker to that area immediately and call a licensed electrician. Do not use the outlet or switch until inspected.", video: { title: "Electrical Sparks — What to Do", url: "https://www.youtube.com/watch?v=XT_NpX1QFOU", channel: "Electrician U" } },
+      }
+    },
+    hvac: {
+      label: "HVAC / Heating", icon: "🔥",
+      problems: [
+        { id:"no_heat", label:"No heat coming out" },
+        { id:"no_cool", label:"AC not cooling" },
+        { id:"strange_noise", label:"Strange noise from unit" },
+        { id:"filter", label:"When to change the filter" },
+        { id:"thermostat", label:"Thermostat not working" },
+        { id:"high_bills", label:"Energy bills too high" },
+      ],
+      results: {
+        no_heat: { diy: "maybe", difficulty: "Easy–Medium", time: "15–30 mins", tools: "None", tip: "Check the thermostat setting, filter, and circuit breaker first. If furnace won't ignite — could be the pilot light or ignitor.", video: { title: "Furnace Not Heating — DIY Fixes", url: "https://www.youtube.com/watch?v=_PVEhCkSHDk", channel: "Word of Advice TV" } },
+        no_cool: { diy: "maybe", difficulty: "Medium", time: "30–60 mins", tools: "None", tip: "Check the filter, thermostat and circuit breaker. Clean debris from the outdoor unit. If refrigerant is low — you need a licensed HVAC tech.", video: { title: "AC Not Cooling — Top 10 Reasons", url: "https://www.youtube.com/watch?v=bkWMFGFrwBM", channel: "AC Service Tech LLC" } },
+        strange_noise: { diy: "maybe", difficulty: "Medium", time: "Varies", tools: "None", tip: "Rattling could be loose panels. Squealing could be a belt. Banging usually means something is loose inside — call a pro for that.", video: { title: "HVAC Strange Noises and What They Mean", url: "https://www.youtube.com/watch?v=FQHH2DPQMSE", channel: "HVAC Guide for Homeowners" } },
+        filter: { diy: true, difficulty: "Easy", time: "5 mins", tools: "Replacement filter ($5–20)", tip: "Change every 1–3 months. Hold the old filter to light — if you can't see through it, change it. This alone prevents most HVAC issues.", video: { title: "How to Change Your Furnace Filter", url: "https://www.youtube.com/watch?v=KLOqGIGGHGc", channel: "This Old House" } },
+        thermostat: { diy: true, difficulty: "Easy", time: "15–30 mins", tools: "Screwdriver, replacement batteries", tip: "Replace the batteries first. Check the wiring connections. Most smart thermostats are easy to install yourself.", video: { title: "How to Replace a Thermostat", url: "https://www.youtube.com/watch?v=7aHCMZv0cKI", channel: "This Old House" } },
+        high_bills: { diy: true, difficulty: "Easy", time: "Ongoing", tools: "Weatherstripping ($10–20)", tip: "Change filter, seal drafts around windows and doors, and set thermostat back when you sleep or leave. These three changes can cut bills 15–20%.", video: { title: "How to Lower Your Energy Bills", url: "https://www.youtube.com/watch?v=3n_LRyFUfQo", channel: "This Old House" } },
+      }
+    },
+    handyman: {
+      label: "Handyman / General", icon: "🪚",
+      problems: [
+        { id:"drywall_hole", label:"Hole in drywall" },
+        { id:"door_sticking", label:"Door sticking or not closing" },
+        { id:"squeaky_floor", label:"Squeaky floor" },
+        { id:"caulking", label:"Recaulking a tub or window" },
+        { id:"grout", label:"Cracked or missing grout" },
+        { id:"deck_repair", label:"Deck board repair" },
+      ],
+      results: {
+        drywall_hole: { diy: true, difficulty: "Easy–Medium", time: "1–2 hrs + drying time", tools: "Patch kit ($10), sandpaper, paint", tip: "Small holes under 6 inches are very DIY-able with a patch kit from any hardware store. Match your paint colour before you start.", video: { title: "How to Patch a Drywall Hole", url: "https://www.youtube.com/watch?v=EjRuHnPv5oY", channel: "This Old House" } },
+        door_sticking: { diy: true, difficulty: "Easy", time: "30–60 mins", tools: "Screwdriver, sandpaper or plane", tip: "Usually caused by humidity swelling the wood or loose hinges. Tighten the hinges first — that fixes it 80% of the time.", video: { title: "How to Fix a Sticking Door", url: "https://www.youtube.com/watch?v=gVD3xZgMjvc", channel: "This Old House" } },
+        squeaky_floor: { diy: true, difficulty: "Easy", time: "30–60 mins", tools: "Screws or talcum powder", tip: "Sprinkle talcum powder between boards for a quick fix. For a permanent fix, screw the subfloor down from above or below.", video: { title: "How to Fix Squeaky Floors", url: "https://www.youtube.com/watch?v=6aw2j3mvzEA", channel: "This Old House" } },
+        caulking: { diy: true, difficulty: "Easy", time: "1–2 hrs + cure time", tools: "Caulk gun, caulk ($5–10), utility knife", tip: "Remove all old caulk first — this is the most important step. Apply a thin smooth bead and wet your finger to smooth it.", video: { title: "How to Caulk a Bathtub", url: "https://www.youtube.com/watch?v=IKEOKd3cqSc", channel: "This Old House" } },
+        grout: { diy: true, difficulty: "Easy–Medium", time: "2–4 hrs + drying", tools: "Grout ($8), grout float, sponge", tip: "Scratch out old cracked grout with a grout saw first. Match the colour as closely as possible before buying.", video: { title: "How to Regrout Tile", url: "https://www.youtube.com/watch?v=fSfW-IQmxFE", channel: "This Old House" } },
+        deck_repair: { diy: true, difficulty: "Medium", time: "2–4 hrs", tools: "Circular saw, drill, deck screws, replacement boards", tip: "Check for rot by poking boards with a screwdriver — soft spots mean rot. Replace individual boards rather than the whole deck if damage is limited.", video: { title: "How to Replace Deck Boards", url: "https://www.youtube.com/watch?v=Mg9MHd9Kew0", channel: "This Old House" } },
+      }
+    },
+    painting: {
+      label: "Painting", icon: "🖌️",
+      problems: [
+        { id:"interior_wall", label:"Painting an interior wall" },
+        { id:"peeling", label:"Peeling or bubbling paint" },
+        { id:"exterior", label:"Exterior painting" },
+        { id:"trim", label:"Painting trim or baseboards" },
+        { id:"ceiling", label:"Painting a ceiling" },
+        { id:"prep", label:"How to prep before painting" },
+      ],
+      results: {
+        interior_wall: { diy: true, difficulty: "Easy", time: "Half day per room", tools: "Roller, brushes, tape, drop cloth, primer, paint", tip: "The prep is everything — tape edges, fill holes, sand smooth. Two thin coats beat one thick coat every time.", video: { title: "How to Paint a Room Like a Pro", url: "https://www.youtube.com/watch?v=C3B_Wm3acSE", channel: "This Old House" } },
+        peeling: { diy: true, difficulty: "Medium", time: "Half day", tools: "Scraper, sandpaper, primer, paint", tip: "Scrape all loose paint, sand edges smooth, prime bare areas before repainting. Skipping primer is why it peels again.", video: { title: "How to Fix Peeling Paint", url: "https://www.youtube.com/watch?v=a3N2zyNZBtA", channel: "Home RenoVision DIY" } },
+        exterior: { diy: "maybe", difficulty: "Hard", time: "Several days", tools: "Pressure washer, ladders, brushes, exterior paint", tip: "Exterior painting is physically demanding and requires proper prep, priming and weather windows. Consider a pro for two-story or larger homes.", video: { title: "How to Paint a House Exterior", url: "https://www.youtube.com/watch?v=kDwYFqS5r-g", channel: "This Old House" } },
+        trim: { diy: true, difficulty: "Easy–Medium", time: "2–4 hrs", tools: "Angled brush, tape, semi-gloss paint", tip: "Use a quality angled brush and take your time. Semi-gloss paint for trim — it's more durable and easier to wipe clean.", video: { title: "How to Paint Trim and Baseboards", url: "https://www.youtube.com/watch?v=n9qIMqWlMhQ", channel: "This Old House" } },
+        ceiling: { diy: true, difficulty: "Medium", time: "Half day", tools: "Roller with extension pole, ceiling paint, drop cloth", tip: "Use ceiling-specific paint — it's thicker and less likely to drip. Roll in one direction for even coverage and avoid lap marks.", video: { title: "How to Paint a Ceiling Without Drips", url: "https://www.youtube.com/watch?v=gTJpNH0MRFE", channel: "Home RenoVision DIY" } },
+        prep: { diy: true, difficulty: "Easy", time: "1–2 hrs", tools: "Spackle, sandpaper, tape, primer", tip: "Fill all holes with spackle, sand smooth, wipe walls clean and prime. Good prep is 80% of a good paint job.", video: { title: "How to Prep Walls for Painting", url: "https://www.youtube.com/watch?v=0d7CTIP2sUc", channel: "This Old House" } },
+      }
+    },
+  };
  
   const runQuiz = (answers) => {
     const problem = QUIZ_PROBLEMS.find(p=>p.id===answers.problem) || QUIZ_PROBLEMS[4];
@@ -301,7 +568,14 @@ function App() {
               <div key={t} style={{padding:"5px 12px",background:"#fff",border:`1px solid ${C.border}`,borderRadius:20,fontSize:12,color:C.muted}}>{t}</div>
             ))}
           </div>
-          <div style={{background:C.forest,borderRadius:12,padding:"18px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:20}} onClick={()=>{setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setStep("quiz");}}>
+          <div style={{background:"#2D6A4F",borderRadius:12,padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:20}} onClick={()=>setDiyOpen(true)}>
+            <div>
+              <div style={{fontWeight:700,fontSize:15,color:"#fff"}}>🛠️ Can I fix this myself?</div>
+              <div style={{fontSize:13,color:C.sage,marginTop:3}}>Step-by-step guides + YouTube videos for 5 common repairs</div>
+            </div>
+            <div style={{fontSize:20,color:C.sage}}>→</div>
+          </div>
+          <div style={{background:C.forest,borderRadius:12,padding:"18px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>{setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setStep("quiz");}}>
             <div>
               <div style={{fontWeight:700,fontSize:15,color:"#fff"}}>🔍 Not sure where to start?</div>
               <div style={{fontSize:13,color:C.sage,marginTop:3}}>Answer 3 quick questions — we'll match you with the right help</div>
@@ -679,6 +953,114 @@ function App() {
         </div>
       )}
  
+      {/* DIY MODAL */}
+      {diyOpen && (
+        <div className="modal-bg" onClick={()=>{setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);}}>
+          <div style={{background:"#fff",borderRadius:16,padding:"22px",maxWidth:460,width:"100%",maxHeight:"88vh",overflowY:"auto"}} onClick={e=>e.stopPropagation()}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
+              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,fontSize:18,color:C.forest}}>🛠️ Can I fix this myself?</div>
+              <button style={{background:"none",border:"none",fontSize:18,cursor:"pointer",color:C.muted}} onClick={()=>{setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);}}>✕</button>
+            </div>
+ 
+            {/* Step 1 — pick category */}
+            {!diyCategory && (
+              <div>
+                <p style={{fontSize:13,color:C.muted,marginBottom:14,lineHeight:1.6}}>Pick the type of repair and we will tell you if it is a DIY job — with a step-by-step guide and a YouTube video to walk you through it.</p>
+                <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                  {Object.entries(DIY_DATA).map(([key,cat])=>(
+                    <div key={key} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",background:C.bg,borderRadius:10,cursor:"pointer",border:`1.5px solid ${C.border}`}}
+                      className="hov" onClick={()=>setDiyCategory(key)}>
+                      <span style={{fontSize:24}}>{cat.icon}</span>
+                      <div style={{fontWeight:600,fontSize:14}}>{cat.label}</div>
+                      <div style={{marginLeft:"auto",color:C.sage,fontSize:16}}>→</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+ 
+            {/* Step 2 — pick problem */}
+            {diyCategory && !diyProblem && (
+              <div>
+                <button style={{background:"none",border:"none",fontSize:13,color:C.green,fontWeight:600,cursor:"pointer",marginBottom:14,padding:0}} onClick={()=>setDiyCategory(null)}>← Back</button>
+                <div style={{fontWeight:700,fontSize:16,marginBottom:4}}>{DIY_DATA[diyCategory].icon} {DIY_DATA[diyCategory].label}</div>
+                <p style={{fontSize:13,color:C.muted,marginBottom:14}}>What is the problem?</p>
+                <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                  {DIY_DATA[diyCategory].problems.map(p=>(
+                    <div key={p.id} style={{padding:"12px 14px",background:C.bg,borderRadius:10,cursor:"pointer",border:`1.5px solid ${C.border}`,fontSize:14,fontWeight:500}}
+                      className="hov" onClick={()=>setDiyProblem(p.id)}>
+                      {p.label} <span style={{float:"right",color:C.sage}}>→</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+ 
+            {/* Step 3 — result */}
+            {diyCategory && diyProblem && (() => {
+              const result = DIY_DATA[diyCategory].results[diyProblem];
+              const canDiy = result.diy === true;
+              const maybe = result.diy === "maybe";
+              const noDiy = result.diy === false;
+              return (
+                <div>
+                  <button style={{background:"none",border:"none",fontSize:13,color:C.green,fontWeight:600,cursor:"pointer",marginBottom:14,padding:0}} onClick={()=>setDiyProblem(null)}>← Back</button>
+                  
+                  {/* Verdict */}
+                  <div style={{background: canDiy?"#e8f5ee": maybe?"#fffbea":"#fff0f0", border:`1.5px solid ${canDiy?"#b8dfc8":maybe?"#e8d48a":"#f5c4b3"}`, borderRadius:12,padding:"14px 16px",marginBottom:14,textAlign:"center"}}>
+                    <div style={{fontSize:32,marginBottom:6}}>{canDiy?"✅":maybe?"⚠️":"🚨"}</div>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,fontSize:18,color: canDiy?C.forest:maybe?"#7a5c00":"#712B13",marginBottom:4}}>
+                      {canDiy?"Yes — you can DIY this":maybe?"Maybe — depends on your comfort level":"Call a pro for this one"}
+                    </div>
+                    <div style={{fontSize:12,color:C.muted}}>{result.difficulty} · {result.time}</div>
+                  </div>
+ 
+                  {/* Tip */}
+                  <div style={{background:"#f0f7f2",borderRadius:10,padding:"12px 14px",marginBottom:12}}>
+                    <div style={{fontSize:11,fontWeight:700,color:C.sage,textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:5}}>Quick tip</div>
+                    <div style={{fontSize:13,color:C.forest,lineHeight:1.7}}>{result.tip}</div>
+                  </div>
+ 
+                  {/* Tools needed */}
+                  {result.tools && result.tools !== "Call a pro" && (
+                    <div style={{marginBottom:12}}>
+                      <div style={{fontSize:11,fontWeight:700,color:C.sage,textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:5}}>You will need</div>
+                      <div style={{fontSize:13,color:C.muted,lineHeight:1.6}}>{result.tools}</div>
+                    </div>
+                  )}
+ 
+                  {/* YouTube video */}
+                  <div style={{background:C.bg,border:`1.5px solid ${C.border}`,borderRadius:12,padding:"12px 14px",marginBottom:14}}>
+                    <div style={{fontSize:11,fontWeight:700,color:C.sage,textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:8}}>📺 Watch how to do it</div>
+                    <a href={result.video.url} target="_blank" style={{display:"flex",alignItems:"center",gap:10,textDecoration:"none"}}>
+                      <div style={{width:44,height:44,background:"#ff0000",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                        <div style={{width:0,height:0,borderTop:"8px solid transparent",borderBottom:"8px solid transparent",borderLeft:"14px solid #fff",marginLeft:3}}/>
+                      </div>
+                      <div>
+                        <div style={{fontSize:13,fontWeight:600,color:C.forest,lineHeight:1.4}}>{result.video.title}</div>
+                        <div style={{fontSize:11,color:C.muted,marginTop:2}}>{result.video.channel} · YouTube</div>
+                      </div>
+                      <div style={{marginLeft:"auto",color:C.sage,fontSize:16,flexShrink:0}}>→</div>
+                    </a>
+                  </div>
+ 
+                  {/* CTA to find a pro */}
+                  <div style={{background:C.forest,borderRadius:12,padding:"14px 16px",textAlign:"center"}}>
+                    <div style={{fontSize:13,color:"#a8d5b5",marginBottom:10}}>
+                      {canDiy?"Rather have a pro handle it?":maybe?"Not feeling confident?":"Need a licensed pro?"}
+                    </div>
+                    <button style={{background:C.sage,color:C.forest,border:"none",borderRadius:8,padding:"10px 20px",fontWeight:600,fontSize:13,cursor:"pointer",fontFamily:"'Karla',sans-serif",width:"100%"}}
+                      onClick={()=>{setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);if(county){setTab("pros");}else{setStep("county");}}}>
+                      {county ? `Find a pro in ${county} County →` : "Find a local pro →"}
+                    </button>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        </div>
+      )}
+ 
       {/* CONTACT MODAL */}
       {contactPro && (
         <div className="modal-bg" onClick={()=>setContactPro(null)}>
@@ -796,3 +1178,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
+ 
