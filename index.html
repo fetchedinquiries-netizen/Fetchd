@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -237,6 +238,21 @@ const PROS = {
     {name:"Top Line Painting LLC",initials:"TLP",service:"Painter",phone:"(509) 367-0715",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
     {name:"Castillo Painting",initials:"CPN",service:"Painter",phone:"(509) 910-1408",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Interior painting","Exterior painting","Residential"],badge:""},
   ],
+  Yakima:[
+    {icon:"🏦",type:"Grants & Loans",name:"Yakima County Homeowner Rehabilitation Program",desc:"Fixes health and safety deficiencies for low-income homeowners at or below 50% AMI. Covers roofing, plumbing, electrical and heating. Call Yakima County Human Services.",url:"https://www.yakimacounty.us/1424/Homeowner-Rehabilitation-Program",visibility:"public"},
+    {icon:"🏙️",type:"City of Yakima Residents",name:"City of Yakima Neighborhood Development Services",desc:"CDBG and HOME funds for home repair assistance for low-income Yakima city residents. Call (509) 575-6126.",url:"https://www.yakimawa.gov/services/neighborhood-development-services/",visibility:"public"},
+    {icon:"🔨",type:"Free Home Repairs",name:"OIC of Washington — Home Repair Program",desc:"Free home repair program for income-qualified homeowners outside Yakima city limits. Call (509) 248-6751.",url:"https://oicofwa.org",visibility:"private"},
+    {icon:"🌡️",type:"Energy & Weatherization",name:"Yakima Valley COG — Major Home Repairs",desc:"HRGP-funded health, safety and durability repairs for rural Yakima County homeowners. Call (509) 759-7991.",url:"https://www.yvcog.us/253/Major-Home-Repairs-Program",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Avista Utilities Efficiency Programs",desc:"Weatherization, insulation and energy efficiency rebates for Avista customers in Yakima area.",url:"https://www.myavista.com/products-services/home/energy-efficiency-rebates",visibility:"private"},
+    {icon:"📞",type:"Community Help",name:"Yakima County 2-1-1",desc:"Free referral — call or text 211 for local housing repair and emergency resources.",url:"https://211.org",visibility:"public"},
+  ],
+  Benton:[
+    {icon:"🏦",type:"Grants & Loans",name:"Benton County Community Action Connections",desc:"Commerce-approved agency administering the Home Rehabilitation Grant Program for Benton County low-income homeowners. Call (509) 735-4600.",url:"https://www.benton-franklin-cap.org",visibility:"public"},
+    {icon:"🌾",type:"Rural Grants",name:"USDA Section 504 Home Repair — Benton County",desc:"Low-income home repair loans and grants for rural Benton County residents. Seniors 62+ may qualify for grants up to $10,000 for health and safety repairs.",url:"https://www.rd.usda.gov/programs-services/single-family-housing-programs/single-family-housing-repair-loans-grants-29",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Avista Utilities Efficiency Programs",desc:"Weatherization, insulation and energy efficiency rebates for Avista customers in the Tri-Cities area.",url:"https://www.myavista.com/products-services/home/energy-efficiency-rebates",visibility:"private"},
+    {icon:"🔌",type:"Energy Rebates",name:"Benton PUD Energy Efficiency Programs",desc:"Rebates for heat pumps, insulation and weatherization upgrades for Benton PUD customers in the Tri-Cities.",url:"https://www.bentonpud.org/Energy-Services/Energy-Efficiency",visibility:"private"},
+    {icon:"📞",type:"Community Help",name:"Benton County 2-1-1",desc:"Free referral — call or text 211 for local housing repair and emergency resources in Benton County.",url:"https://211.org",visibility:"public"},
+  ],
   Thurston:[
     {icon:"🏠",type:"Free Home Repairs",name:"Habitat for Humanity South Puget Sound",desc:"Free critical home repairs for income-qualified Thurston County homeowners (max 80% AMI).",url:"https://www.spshabitat.org/what-we-do/critical-home-repair/",visibility:"private"},
     {icon:"🔨",type:"Accessibility & Repairs",name:"Rebuilding Together Thurston County",desc:"Free home repairs for homeowners 62+, disabled, veterans or families with children.",url:"https://www.rebuildingtogethertc.org",visibility:"private"},
@@ -276,6 +292,17 @@ const RESOURCES = {
     {icon:"🔨",type:"Accessibility & Repairs",name:"Rebuilding Together South Sound",desc:"Free home repairs and accessibility modifications for low-income Pierce County residents.",url:"https://rebuildingtogetherss.org/find-help",visibility:"private"},
     {icon:"🏙️",type:"Tacoma Residents",name:"City of Tacoma Home Repair Loan",desc:"Loans up to $50,000 for major repairs. Call (253) 594-7933.",url:"https://www.cityoftacoma.org",visibility:"public"},
     {icon:"💡",type:"Energy Rebates",name:"Puget Sound Energy Rebates",desc:"Rebates for HVAC, heat pumps, insulation & weatherization. Call (800) 562-1482.",url:"https://pse.com/rebates",visibility:"private"},
+    {icon:"🏦",type:"Grants & Loans",name:"City of Auburn Home Repair Grant",desc:"Grants up to $10,000 for emergency home repairs for low-income Auburn residents. Call (253) 931-3099.",url:"https://www.auburnwa.gov",visibility:"public"},
+    {icon:"🏙️",type:"Lakewood Residents",name:"City of Lakewood Home Repair Loan",desc:"Loans $40,000–$65,000 for accessibility upgrades, weatherization and major home system replacement. Call (253) 983-7754.",url:"https://www.cityoflakewood.us",visibility:"public"},
+    {icon:"💧",type:"Sewer & Septic",name:"City of Tacoma Sewer Conservation Loan",desc:"Loans up to $10,000 to repair or replace sewer lines for income-qualified Tacoma residents. Call (253) 502-2255.",url:"https://www.cityoftacoma.org",visibility:"public"},
+    {icon:"💧",type:"Sewer & Septic",name:"Craft3 Clean Water Loans for Septic Systems",desc:"Loans up to $25,000 for failing septic systems over 25 years old. Call (888) 231-2170.",url:"https://www.craft3.org",visibility:"private"},
+    {icon:"🔥",type:"Energy Assistance",name:"Metropolitan Development Council Energy Assistance",desc:"One-time heating cost grant for low-income City of Tacoma households. Call (253) 572-5557.",url:"https://www.mdc-hope.org",visibility:"public"},
+    {icon:"🌡️",type:"Weatherization",name:"Metropolitan Development Council Weatherization",desc:"Free insulation and furnace repairs for income-qualified Tacoma residents. Call (253) 593-2336.",url:"https://www.mdc-hope.org",visibility:"private"},
+    {icon:"🔥",type:"Energy Assistance",name:"Pierce County Human Services Energy Assistance",desc:"One-time heating cost grant for low-income Pierce County households. Call (253) 798-4328.",url:"https://www.piercecountywa.gov",visibility:"public"},
+    {icon:"🌡️",type:"Weatherization",name:"Pierce County Human Services Weatherization",desc:"Free energy efficiency upgrades for low-income Pierce County residents outside Tacoma. Call (253) 798-4400 opt. 3.",url:"https://www.piercecountywa.gov",visibility:"public"},
+    {icon:"🏦",type:"Property Tax",name:"Pierce County Senior & Disabled Property Tax Exemption",desc:"Property tax exemptions for residents 61+ or disabled. Call (253) 798-2169.",url:"https://www.piercecountywa.gov/assessor",visibility:"public"},
+    {icon:"⚡",type:"Utility Help",name:"Tacoma Public Utilities Payment Options",desc:"Bill assistance through Budget Billing for low-income, elderly and disabled TPU customers. Call (253) 502-8608.",url:"https://www.mytpu.org",visibility:"private"},
+    {icon:"📞",type:"Community Help",name:"Aging and Disability Resource Center Pierce County",desc:"Wide range of community services for older adults and disabled residents to remain at home. Call (253) 798-4600.",url:"https://www.piercecountywa.gov/adrc",visibility:"public"},
     {icon:"⚡",type:"Energy Rebates",name:"Tacoma Public Utilities Grants & Loans",desc:"Grants and loans for heat pumps, insulation, water heaters for TPU customers. Call (253) 502-8368.",url:"https://www.mytpu.org",visibility:"private"},
   ],
   Spokane:[
@@ -308,6 +335,29 @@ const RESOURCES = {
     {icon:"🤝",type:"Volunteer Chore Services",name:"Catholic Community Services — Clark County",desc:"Free minor home repair, yard work and housework for low-income elderly and disabled Clark County residents.",url:"https://ccsww.org",visibility:"private"},
     {icon:"📋",type:"Housing Counseling",name:"Community Housing Resource Center — Vancouver",desc:"Free mortgage and foreclosure prevention counseling. English and Spanish. Call ahead.",url:"https://www.chr-housing.org",visibility:"private"},
     {icon:"💡",type:"Energy Rebates",name:"Clark Public Utilities Rebates",desc:"Rebates for heat pumps, insulation, and weatherization for Clark PUD customers.",url:"https://www.clarkpud.com/save-energy",visibility:"private"},
+  ],
+  Yakima:[
+    {icon:"🏦",type:"Grants & Loans",name:"Yakima County Homeowner Rehabilitation Program",desc:"Fixes health and safety deficiencies for low-income homeowners at or below 50% AMI. Covers roofing, plumbing, electrical and heating.",url:"https://www.yakimacounty.us/1424/Homeowner-Rehabilitation-Program",visibility:"public"},
+    {icon:"🏙️",type:"City of Yakima Residents",name:"City of Yakima Neighborhood Development Services",desc:"CDBG and HOME funds for home repair for low-income Yakima city residents. Call (509) 575-6126.",url:"https://www.yakimawa.gov/services/neighborhood-development-services/",visibility:"public"},
+    {icon:"🔨",type:"Free Home Repairs",name:"OIC of Washington — Home Repair Program",desc:"Free home repair for income-qualified homeowners outside Yakima city limits. Call (509) 248-6751.",url:"https://oicofwa.org",visibility:"private"},
+    {icon:"🌡️",type:"Energy & Weatherization",name:"Yakima Valley COG — Major Home Repairs",desc:"HRGP-funded health, safety and durability repairs for rural Yakima County homeowners. Call (509) 759-7991.",url:"https://www.yvcog.us/253/Major-Home-Repairs-Program",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Avista Utilities Efficiency Programs",desc:"Weatherization, insulation and efficiency rebates for Avista customers in the Yakima area.",url:"https://www.myavista.com/products-services/home/energy-efficiency-rebates",visibility:"private"},
+    {icon:"📞",type:"Community Help",name:"Yakima County 2-1-1",desc:"Free referral — call or text 211 for local housing repair and emergency resources.",url:"https://211.org",visibility:"public"},
+  ],
+  Benton:[
+    {icon:"🏦",type:"Grants & Loans",name:"Benton Franklin Community Action Committee",desc:"Commerce-approved agency administering home rehabilitation grants for Benton County low-income homeowners. Call (509) 735-4600.",url:"https://www.benton-franklin-cap.org",visibility:"public"},
+    {icon:"🌾",type:"Rural Grants",name:"USDA Section 504 Home Repair — Benton County",desc:"Low-income home repair loans and grants for rural Benton County residents. Seniors 62+ may qualify for grants up to $10,000.",url:"https://www.rd.usda.gov/programs-services/single-family-housing-programs/single-family-housing-repair-loans-grants-29",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Avista Utilities Efficiency Programs",desc:"Weatherization, insulation and energy efficiency rebates for Avista customers in the Tri-Cities area.",url:"https://www.myavista.com/products-services/home/energy-efficiency-rebates",visibility:"private"},
+    {icon:"🔌",type:"Energy Rebates",name:"Benton PUD Energy Efficiency Programs",desc:"Rebates for heat pumps, insulation and weatherization for Benton PUD customers.",url:"https://www.bentonpud.org/Energy-Services/Energy-Efficiency",visibility:"private"},
+    {icon:"📞",type:"Community Help",name:"Benton County 2-1-1",desc:"Free referral — call or text 211 for housing repair and emergency resources in Benton County.",url:"https://211.org",visibility:"public"},
+  ],
+  Thurston:[
+    {icon:"🏠",type:"Free Home Repairs",name:"Habitat for Humanity South Puget Sound",desc:"Free critical home repairs for income-qualified Thurston County homeowners (max 80% AMI).",url:"https://www.spshabitat.org/what-we-do/critical-home-repair/",visibility:"private"},
+    {icon:"🔨",type:"Accessibility & Repairs",name:"Rebuilding Together Thurston County",desc:"Free home repairs for homeowners 62+, disabled, veterans or families with children.",url:"https://www.rebuildingtogethertc.org",visibility:"private"},
+    {icon:"🤝",type:"Volunteer Chore Services",name:"Catholic Community Services — Thurston County",desc:"Free minor home repair, yard work and housework for low-income elderly and disabled residents.",url:"https://ccsww.org",visibility:"private"},
+    {icon:"🏦",type:"Community Action",name:"Community Action Council — Lewis, Mason & Thurston",desc:"Housing repair and weatherization assistance for low-income residents. Call (360) 438-1100.",url:"https://www.caclmt.org",visibility:"public"},
+    {icon:"💡",type:"Energy Rebates",name:"Puget Sound Energy Rebates",desc:"Rebates for HVAC, heat pumps, insulation & weatherization. Call (800) 562-1482.",url:"https://pse.com/rebates",visibility:"private"},
+    {icon:"📞",type:"Community Help",name:"Thurston County 2-1-1",desc:"Free referral — call or text 211 for housing repair and emergency resources.",url:"https://211.org",visibility:"public"},
   ],
 };
  
@@ -541,8 +591,8 @@ function App() {
         <div style={pg} className="fade">
           <div style={{textAlign:"center",padding:"32px 0 24px"}}>
             <div style={{fontSize:12,color:C.green,fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10}}>🌲 Washington State · Free & local</div>
-            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(26px,5vw,44px)",fontWeight:800,lineHeight:1.2,marginBottom:12}}>Find local trades &<br/><span style={{color:C.sage}}>get it fetchd.</span></h1>
-            <p style={{fontSize:15,color:C.muted,lineHeight:1.7,maxWidth:480,margin:"0 auto"}}>A free directory connecting Washington residents with local tradespeople and county grants, rebates & programs.</p>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(26px,5vw,44px)",fontWeight:800,lineHeight:1.2,marginBottom:12}}>Home help in Washington<br/><span style={{color:C.sage}}>should be for everyone.</span></h1>
+            <p style={{fontSize:15,color:C.muted,lineHeight:1.7,maxWidth:480,margin:"0 auto"}}>Fetchd connects Washington homeowners with local licensed tradespeople, county grants and free repair programs — organized by county, free for everyone, always.</p>
           </div>
           <input style={{width:"100%",padding:"12px 16px",fontSize:15,border:`2px solid ${C.border}`,borderRadius:10,background:"#fff",fontFamily:"'Karla',sans-serif",marginBottom:24}} placeholder="Search your county..." value={search} onChange={e=>setSearch(e.target.value)}/>
           {search===""
@@ -1178,4 +1228,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
- 
