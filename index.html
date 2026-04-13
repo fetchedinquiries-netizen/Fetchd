@@ -500,6 +500,18 @@ function App() {
     },
   };
  
+ 
+  const SERVICE_RATES = {
+    "Plumber":       { low: "$85", high: "$175", unit: "/hr", note: "Service call: $100–$200" },
+    "Electrician":   { low: "$75", high: "$150", unit: "/hr", note: "Avg project: $200–$900" },
+    "Handyman":      { low: "$60", high: "$125", unit: "/hr", note: "Min charge: $100–$150" },
+    "House Cleaner": { low: "$150", high: "$350", unit: "/visit", note: "Deep clean: $200–$500" },
+    "HVAC":          { low: "$85", high: "$175", unit: "/hr", note: "New install: $2,500–$12,000" },
+    "Roofer":        { low: "$400", high: "$1,200", unit: "/sq", note: "Full replace: $8,000–$25,000" },
+    "Painter":       { low: "$2", high: "$6", unit: "/sq ft", note: "Avg room: $400–$900" },
+    "Landscaper":    { low: "$50", high: "$100", unit: "/hr", note: "Monthly maint: $100–$300" },
+  };
+ 
   const runQuiz = (answers) => {
     const problem = QUIZ_PROBLEMS.find(p=>p.id===answers.problem) || QUIZ_PROBLEMS[4];
     const needsGrant = answers.budget === "low" || answers.budget === "free";
@@ -881,6 +893,7 @@ function App() {
                         </div>
                         <div style={{fontSize:13,color:C.muted,marginTop:2}}>{pro.years} yrs · {county} County</div>
                         {pro.specialties && <div style={{fontSize:12,color:"#7a9e8a",marginTop:3}}>{pro.specialties.join(" · ")}</div>}
+                        {SERVICE_RATES[pro.service] && <div style={{fontSize:11,color:C.green,fontWeight:600,marginTop:3}}>💰 {SERVICE_RATES[pro.service].low}–{SERVICE_RATES[pro.service].high}{SERVICE_RATES[pro.service].unit} <span style={{color:C.muted,fontWeight:400}}>est.</span></div>}
                         <div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:6}}>
                           {pro.licensed && <span style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>✅ WA Licensed</span>}
                           {pro.insured && <span style={{fontSize:11,padding:"2px 8px",background:"#e8f5ee",border:`1px solid #b8dfc8`,borderRadius:10,color:C.green}}>🛡️ Insured</span>}
@@ -1090,6 +1103,14 @@ function App() {
               <div style={{marginBottom:10,background:"#fffbea",borderLeft:"3px solid #D4A017",borderRadius:"0 8px 8px 0",padding:"10px 12px"}}>
                 <strong style={{fontSize:13}}>💰 Typical rate: {contactPro.rate}</strong>
                 <div style={{fontSize:12,marginTop:3,color:"#7a6a2a"}}>Always ask for a written quote before work begins.</div>
+              </div>
+            )}
+            {SERVICE_RATES[contactPro.service] && (
+              <div style={{background:"#f0f7f2",borderRadius:8,padding:"10px 12px",marginBottom:12}}>
+                <div style={{fontSize:11,fontWeight:700,color:C.sage,textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:4}}>Washington rate estimate</div>
+                <div style={{fontSize:15,fontWeight:600,color:C.forest}}>{SERVICE_RATES[contactPro.service].low}–{SERVICE_RATES[contactPro.service].high}{SERVICE_RATES[contactPro.service].unit}</div>
+                <div style={{fontSize:11,color:C.muted,marginTop:2}}>{SERVICE_RATES[contactPro.service].note}</div>
+                <div style={{fontSize:10,color:C.muted,marginTop:3,fontStyle:"italic"}}>Prices may vary based on scope, materials, access, or complications. Always get a written quote.</div>
               </div>
             )}
             {contactPro.specialties && (
