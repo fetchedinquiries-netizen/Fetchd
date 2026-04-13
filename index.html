@@ -1,5 +1,4 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -807,12 +806,10 @@ function App() {
             <p style={{fontSize:15,color:C.muted,lineHeight:1.7}}>Finding help for your home shouldn't be hard, and knowing what help you're entitled to shouldn't be a secret.</p>
           </div>
           {[
-            {icon:"📍",title:"County-first, always",body:"National platforms treat Washington like every other state. Fetchd is built around your county — because a homeowner in Spokane has different resources and tradespeople than someone in King County."},
-            {icon:"🆓",title:"Free forever",body:"Fetchd is free for homeowners and free for tradespeople to list. No booking fees, no lead charges, no subscriptions. We connect people — you deal directly with each other."},
-            {icon:"💰",title:"Resources most people don't know about",body:"Washington has over 100 home repair grant, loan and rebate programs. Most residents have never heard of them. Fetchd surfaces the real programs available in your county."},
-            {icon:"✅",title:"Trust through transparency",body:"Every pro shows their WA L&I license status, years of experience, specialties and rate upfront. No surprises. We link directly to WA L&I so you can verify anyone before hiring."},
-            {icon:"🗣️",title:"Built for everyone in Washington",body:"Fetchd surfaces multilingual tradespeople and accessibility-focused programs because language and mobility shouldn't be barriers to getting your home fixed."},
-            {icon:"🌲",title:"Washington-built, Washington-focused",body:"Fetchd isn't a national platform that added Washington to a dropdown. It's built specifically for the 39 counties of Washington State."},
+            {icon:"🌲",title:"Why Fetchd exists",body:"Working in this community, you see it all the time — a senior who needs a plumber but does not know who to trust, a family who qualifies for a grant they have never heard of. That gap is real and daily. Fetchd exists to close it."},
+            {icon:"♿",title:"Accessibility drove this",body:"Too many Washington residents — especially seniors, people with disabilities, and lower-income households — cannot easily access the help they are entitled to. The platforms are too complicated, the programs too buried. We surface both, in one place."},
+            {icon:"📍",title:"Your county, your community",body:"A homeowner in Grays Harbor has different resources and tradespeople than someone in King County. That is why Fetchd is built county by county — because local actually matters."},
+            {icon:"💰",title:"The programs people never know about",body:"Washington has over 100 home repair grant, loan and rebate programs most residents have never heard of. We put them right next to the pro listings — because sometimes the best answer is that there is help available to cover the cost."},
           ].map((c,i)=>(
             <div key={i} style={{...card,flexDirection:"column",marginBottom:10,display:"flex"}}>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:6}}>
@@ -1126,9 +1123,9 @@ function App() {
               <a href={`tel:${contactPro.phone}`} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",background:C.bg,borderRadius:10,fontSize:15,color:"#1a1a1a",textDecoration:"none",fontWeight:500}}>
                 <span style={{fontSize:18}}>📞</span><span>{contactPro.phone}</span>
               </a>
-              <a href={`mailto:${contactPro.email}`} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",background:C.bg,borderRadius:10,fontSize:15,color:"#1a1a1a",textDecoration:"none",fontWeight:500}}>
+              {contactPro.email && <a href={`mailto:${contactPro.email}`} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",background:C.bg,borderRadius:10,fontSize:15,color:"#1a1a1a",textDecoration:"none",fontWeight:500}}>
                 <span style={{fontSize:18}}>✉️</span><span>{contactPro.email}</span>
-              </a>
+              </a>}
             </div>
             {contactPro.rate && (
               <div style={{marginBottom:10,background:"#fffbea",borderLeft:"3px solid #D4A017",borderRadius:"0 8px 8px 0",padding:"10px 12px"}}>
