@@ -114,6 +114,9 @@ const PROS = {
     {name:"Alderwood Landscaping",initials:"AL",service:"Landscaper",phone:"(425) 765-3550",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
     {name:"Cataleyas Landscaping Services",initials:"CLS",service:"Landscaper",phone:"(206) 280-1838",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn maintenance","Yard clean up"],badge:""},
     {name:"Lees General Landscaping & Yard Clean Up",initials:"LG",service:"Landscaper",phone:"(206) 312-2445",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Lawn care","Yard clean up","General landscaping"],badge:""},
+    {name:"Mistur Metals and Patinaworks",initials:"MM",service:"Handyman",phone:"(206) 841-3501",email:"",website:"misturmetals.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Custom patinas","Architectural metalwork","Decorative metal elements","Metal wall cladding","Fireplace surrounds","Custom furniture"],badge:"Women-owned"},
+    {name:"Sheldon's Handyman",initials:"SH",service:"Handyman",phone:"(360) 999-9066",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Fence install & repair","Deck building & repair","Drywall repair","Painting","Pressure washing","Tiling","Flooring","Gutter cleaning","Junk removal","Handicap ramps","Yard clean up"],badge:""},
+    {name:"Laura's Wood Window Repair",initials:"LW",service:"Handyman",phone:"(425) 533-9675",email:"",website:"lauraswoodwindowrepair.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Historic wood window restoration","Pre-1950 window repair","Sustainable window preservation","Energy efficiency","Green restoration"],badge:"Women-owned"},
   ],
   Pierce:[
     {name:"Taurus Home Inspections",initials:"TH2",service:"Handyman",phone:"(253) 722-4388",email:"",website:"",licensed:true,insured:true,years:8,languages:["English"],rate:"",specialties:["Home inspections","Property preservation"],badge:"Women-owned"},
@@ -348,6 +351,7 @@ function App() {
   const [maxRate, setMaxRate] = useState(150);
   const [visFilter, setVisFilter] = useState("all");
   const [proSearch, setProSearch] = useState("");
+  const [specialtyFilters, setSpecialtyFilters] = useState([]);
   const [diyOpen, setDiyOpen] = useState(false);
   const [diyCategory, setDiyCategory] = useState(null);
   const [diyProblem, setDiyProblem] = useState(null);
@@ -360,7 +364,25 @@ function App() {
   const rawResources = county ? (RESOURCES[county]||DEFAULT_RESOURCES) : DEFAULT_RESOURCES;
   const resources = visFilter==="all" ? rawResources : rawResources.filter(r=>r.visibility===visFilter);
  
-  const parseRate = r => { if(!r) return 0; const n=r.match(/\d+/g); return n?Math.min(...n.map(Number)):0; };
+  const SERVICE_RATES = {
+    "Plumber":       { low: "$85", high: "$175", unit: "/hr", note: "Service call: $100–$200" },
+    "Electrician":   { low: "$75", high: "$150", unit: "/hr", note: "Avg project: $200–$900" },
+    "Handyman":      { low: "$60", high: "$125", unit: "/hr", note: "Min charge: $100–$150" },
+    "House Cleaner": { low: "$150", high: "$350", unit: "/visit", note: "Deep clean: $200–$500" },
+    "HVAC":          { low: "$85", high: "$175", unit: "/hr", note: "New install: $2,500–$12,000" },
+    "Roofer":        { low: "$400", high: "$1,200", unit: "/sq", note: "Full replace: $8,000–$25,000" },
+    "Painter":       { low: "$2", high: "$6", unit: "/sq ft", note: "Avg room: $400–$900" },
+    "Landscaper":    { low: "$50", high: "$100", unit: "/hr", note: "Monthly maint: $100–$300" },
+  };
+ 
+  const parseRate = (r, service) => {
+    if(r) { const n=r.match(/\d+/g); return n?Math.min(...n.map(Number)):0; }
+    if(service && SERVICE_RATES[service]) {
+      const n = SERVICE_RATES[service].low.match(/\d+/g);
+      return n ? Number(n[0]) : 0;
+    }
+    return 0;
+  };
   const SEARCH_KEYWORDS = [
     "Leak repair","Water heaters","Drain cleaning","Pipe repair","Sewer lines","Fixture installation",
     "Drainage service","Plumbing fixtures","Backflow testing","Sewer contractor",
@@ -385,20 +407,17 @@ function App() {
   const filteredPros = allPros.filter(p => {
     const ms = !service || p.service===SERVICES.find(s=>s.id===service)?.label;
     const ml = langFilter==="All" || p.languages?.includes(langFilter);
-    const mr = !p.rate || parseRate(p.rate)<=maxRate;
-    const sq = !proSearch || 
-      p.name.toLowerCase().includes(proSearch.toLowerCase()) ||
-      p.service.toLowerCase().includes(proSearch.toLowerCase()) ||
-      p.specialties?.some(s=>s.toLowerCase().includes(proSearch.toLowerCase())) ||
-      p.badge?.toLowerCase().includes(proSearch.toLowerCase());
-    return ms&&ml&&mr&&sq;
+    const mr = maxRate>=150 || parseRate(p.rate, p.service)<=maxRate;
+    const sf = specialtyFilters.length===0 || specialtyFilters.every(f=>
+      p.specialties?.some(s=>s.toLowerCase().includes(f.toLowerCase())) ||
+      p.badge?.toLowerCase().includes(f.toLowerCase())
+    );
+    return ms&&ml&&mr&&sf;
   });
-  const searchSuggestions = proSearch.length > 1 
-    ? SEARCH_KEYWORDS.filter(k => k.toLowerCase().includes(proSearch.toLowerCase())).slice(0,6)
-    : [];
+  const searchSuggestions = [];
   const allLangs = ["All",...new Set(allPros.flatMap(p=>p.languages||[]))];
   const filteredCounties = Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort();
-  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setProSearch("");setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);};
+  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setProSearch("");setSpecialtyFilters([]);setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);};
  
   const QUIZ_PROBLEMS = [
     {id:"water",icon:"💧",label:"Water / plumbing issue",service:"Plumber",resources:["Grants & Loans","Community Action","Heating Assistance"]},
@@ -509,18 +528,7 @@ function App() {
     },
   };
  
- 
-  const SERVICE_RATES = {
-    "Plumber":       { low: "$85", high: "$175", unit: "/hr", note: "Service call: $100–$200" },
-    "Electrician":   { low: "$75", high: "$150", unit: "/hr", note: "Avg project: $200–$900" },
-    "Handyman":      { low: "$60", high: "$125", unit: "/hr", note: "Min charge: $100–$150" },
-    "House Cleaner": { low: "$150", high: "$350", unit: "/visit", note: "Deep clean: $200–$500" },
-    "HVAC":          { low: "$85", high: "$175", unit: "/hr", note: "New install: $2,500–$12,000" },
-    "Roofer":        { low: "$400", high: "$1,200", unit: "/sq", note: "Full replace: $8,000–$25,000" },
-    "Painter":       { low: "$2", high: "$6", unit: "/sq ft", note: "Avg room: $400–$900" },
-    "Landscaper":    { low: "$50", high: "$100", unit: "/hr", note: "Monthly maint: $100–$300" },
-  };
- 
+  
   const runQuiz = (answers) => {
     const problem = QUIZ_PROBLEMS.find(p=>p.id===answers.problem) || QUIZ_PROBLEMS[4];
     const needsGrant = answers.budget === "low" || answers.budget === "free";
@@ -834,25 +842,29 @@ function App() {
           {/* PROS TAB */}
           {tab==="pros" && (
             <div className="fade">
-              <div style={{marginBottom:14,position:"relative"}}>
-                <input
-                  style={{width:"100%",padding:"11px 16px",fontSize:14,border:`2px solid ${C.border}`,borderRadius:10,background:"#fff",fontFamily:"'Karla',sans-serif"}}
-                  placeholder="🔍 Search by keyword — e.g. leak repair, deck, drywall..."
-                  value={proSearch}
-                  onChange={e=>setProSearch(e.target.value)}
-                />
-                {searchSuggestions.length>0 && (
-                  <div style={{position:"absolute",top:"100%",left:0,right:0,background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:10,boxShadow:"0 4px 16px rgba(0,0,0,0.1)",zIndex:20,marginTop:4,overflow:"hidden"}}>
-                    {searchSuggestions.map(s=>(
-                      <div key={s} style={{padding:"10px 16px",fontSize:13,cursor:"pointer",borderBottom:`0.5px solid ${C.border}`}} onClick={()=>setProSearch(s)}
-                        onMouseEnter={e=>e.target.style.background="#f0f7f2"}
-                        onMouseLeave={e=>e.target.style.background="#fff"}>
-                        🔍 {s}
+              <div style={{marginBottom:14}}>
+                <div style={{fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"#7a9e8a",marginBottom:8}}>Filter by specialty</div>
+                <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+                  {[
+                    "Deck repair","Window repair","Gutter cleaning","Drywall","Pressure washing",
+                    "Fence repair","Flooring","Tiling","Kitchen remodeling","Bathroom remodels",
+                    "EV chargers","Grab bars & ramps","Lawn care","Landscape design","Painting","Custom furniture"
+                  ].map(f=>{
+                    const active = specialtyFilters.includes(f);
+                    return (
+                      <div key={f} onClick={()=>setSpecialtyFilters(prev=>active?prev.filter(x=>x!==f):[...prev,f])}
+                        style={{padding:"6px 13px",borderRadius:20,border:`1.5px solid ${active?C.green:C.border}`,background:active?C.light:"#fff",fontSize:12,fontWeight:500,cursor:"pointer",transition:"all 0.15s ease",color:active?C.forest:"#555"}}>
+                        {f}
                       </div>
-                    ))}
-                  </div>
-                )}
-                {proSearch && <button style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",fontSize:16,cursor:"pointer",color:C.muted}} onClick={()=>setProSearch("")}>✕</button>}
+                    );
+                  })}
+                  {specialtyFilters.length>0 && (
+                    <div onClick={()=>setSpecialtyFilters([])}
+                      style={{padding:"6px 13px",borderRadius:20,border:`1.5px solid #f5c4b3`,background:"#fff0f0",fontSize:12,fontWeight:600,cursor:"pointer",color:"#c0392b"}}>
+                      ✕ Clear filters
+                    </div>
+                  )}
+                </div>
               </div>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:10,padding:"10px 14px",marginBottom:14}}>
                 <div>
