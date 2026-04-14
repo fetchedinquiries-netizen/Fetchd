@@ -365,16 +365,15 @@ function App() {
     const ms = !service || p.service===SERVICES.find(s=>s.id===service)?.label;
     const ml = langFilter==="All" || p.languages?.includes(langFilter);
     const mr = !p.rate || parseRate(p.rate)<=maxRate;
-    const sq = !proSearch || (() => {
-      const terms = proSearch.toLowerCase().split(/\s+/).filter(Boolean);
-      const haystack = [p.name, p.service, ...(p.specialties||[]), p.badge||"", ...(p.languages||[])].join(" ").toLowerCase();
-      return terms.every(term => haystack.includes(term));
-    })();
-  const searchSuggestions = proSearch.length > 1
-    ? [...new Set(allPros.flatMap(p => [...(p.specialties||[]), p.service, p.badge||""].filter(Boolean)))]
-        .filter(k => k.toLowerCase().includes(proSearch.toLowerCase()))
-        .sort()
-        .slice(0, 6)
+    const sq = !proSearch || 
+      p.name.toLowerCase().includes(proSearch.toLowerCase()) ||
+      p.service.toLowerCase().includes(proSearch.toLowerCase()) ||
+      p.specialties?.some(s=>s.toLowerCase().includes(proSearch.toLowerCase())) ||
+      p.badge?.toLowerCase().includes(proSearch.toLowerCase());
+    return ms&&ml&&mr&&sq;
+  });
+  const searchSuggestions = proSearch.length > 1 
+    ? SEARCH_KEYWORDS.filter(k => k.toLowerCase().includes(proSearch.toLowerCase())).slice(0,6)
     : [];
   const allLangs = ["All",...new Set(allPros.flatMap(p=>p.languages||[]))];
   const filteredCounties = Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort();
