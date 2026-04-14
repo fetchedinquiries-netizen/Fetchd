@@ -361,6 +361,27 @@ function App() {
   const resources = visFilter==="all" ? rawResources : rawResources.filter(r=>r.visibility===visFilter);
  
   const parseRate = r => { if(!r) return 0; const n=r.match(/\d+/g); return n?Math.min(...n.map(Number)):0; };
+  const SEARCH_KEYWORDS = [
+    "Leak repair","Water heaters","Drain cleaning","Pipe repair","Sewer lines","Fixture installation",
+    "Drainage service","Plumbing fixtures","Backflow testing","Sewer contractor",
+    "Panel upgrades","EV chargers","Outlet installation","Rewiring","Safety inspections",
+    "Lighting","Commercial electrical","Residential electrical","Generator hookup","Low voltage cabling",
+    "Drywall","Door & window repair","Furniture assembly","Home repair","Home maintenance",
+    "Property preservation","Gutter cleaning","Fence building","Kitchen remodeling","Rot repair",
+    "Heating & cooling","Furnace repair","HVAC","Duct cleaning","Air sealing","Insulation",
+    "Roof repair","Structural steel","Roofing",
+    "Interior painting","Exterior painting","Concrete staining","Pressure washing",
+    "Deep clean","Move-in/out","Regular visits","House cleaning","Maid service",
+    "Lawn service","Landscape design","Planting & pruning","Sod installation","Lawn maintenance",
+    "Carpentry","Deck construction","Custom furniture","Resin work","Fence repair",
+    "Tiling","Flooring","Sheetrock repair","Bathroom remodels","Accessibility modifications",
+    "Ramp installation","Grab bars","Wheelchair ramps","ADA access",
+    "Home inspections","Pest inspections","Property preservation",
+    "Custom metalwork","Wrought iron railings","Ornamental iron","Steel canopies",
+    "Residential remodeling","General contracting","Project management",
+    "Women-owned","LGBTQ+ inclusive","Bilingual","Spanish speaking",
+  ];
+ 
   const filteredPros = allPros.filter(p => {
     const ms = !service || p.service===SERVICES.find(s=>s.id===service)?.label;
     const ml = langFilter==="All" || p.languages?.includes(langFilter);
@@ -389,28 +410,7 @@ function App() {
     {id:"outdoor",icon:"🌲",label:"Garden / outdoor",service:"Landscaper",resources:["Community Help"]},
     {id:"painting",icon:"🖌️",label:"Painting",service:"Painter",resources:["Free Home Repairs","Volunteer Chore Services"]},
   ];
- 
-  const SEARCH_KEYWORDS = [
-    "Leak repair","Water heaters","Drain cleaning","Pipe repair","Sewer lines","Fixture installation",
-    "Drainage service","Plumbing fixtures","Backflow testing","Sewer contractor",
-    "Panel upgrades","EV chargers","Outlet installation","Rewiring","Safety inspections",
-    "Lighting","Commercial electrical","Residential electrical","Generator hookup","Low voltage cabling",
-    "Drywall","Door & window repair","Furniture assembly","Home repair","Home maintenance",
-    "Property preservation","Gutter cleaning","Fence building","Kitchen remodeling","Rot repair",
-    "Heating & cooling","Furnace repair","HVAC","Duct cleaning","Air sealing","Insulation",
-    "Roof repair","Structural steel","Roofing",
-    "Interior painting","Exterior painting","Concrete staining","Pressure washing",
-    "Deep clean","Move-in/out","Regular visits","House cleaning","Maid service",
-    "Lawn service","Landscape design","Planting & pruning","Sod installation","Lawn maintenance",
-    "Carpentry","Deck construction","Custom furniture","Resin work","Fence repair",
-    "Tiling","Flooring","Sheetrock repair","Bathroom remodels","Accessibility modifications",
-    "Ramp installation","Grab bars","Wheelchair ramps","ADA access",
-    "Home inspections","Pest inspections","Property preservation",
-    "Custom metalwork","Wrought iron railings","Ornamental iron","Steel canopies",
-    "Residential remodeling","General contracting","Project management",
-    "Women-owned","LGBTQ+ inclusive","Bilingual","Spanish speaking",
-  ];
- 
+  
   const DIY_DATA = {
     plumbing: {
       label: "Plumbing", icon: "🔧",
