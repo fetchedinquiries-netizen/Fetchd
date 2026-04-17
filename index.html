@@ -356,6 +356,7 @@ function App() {
   const [visFilter, setVisFilter] = useState("all");
   const [proSearch, setProSearch] = useState("");
   const [specialtyFilters, setSpecialtyFilters] = useState([]);
+  const [nameSearch, setNameSearch] = useState("");
   const [diyOpen, setDiyOpen] = useState(false);
   const [diyCategory, setDiyCategory] = useState(null);
   const [diyProblem, setDiyProblem] = useState(null);
@@ -417,12 +418,13 @@ function App() {
       p.specialties?.some(s=>s.toLowerCase().includes(f.toLowerCase())) ||
       p.badge?.toLowerCase().includes(f.toLowerCase())
     );
-    return ms&&ml&&mr&&sf;
+    const sn = !nameSearch || p.name.toLowerCase().includes(nameSearch.toLowerCase());
+    return ms&&ml&&mr&&sf&&sn;
   });
   const searchSuggestions = [];
   const allLangs = ["All",...new Set(allPros.flatMap(p=>p.languages||[]))];
   const filteredCounties = Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort();
-  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setProSearch("");setSpecialtyFilters([]);setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);};
+  const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setProSearch("");setSpecialtyFilters([]);setNameSearch("");setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);};
  
   const navigate = (newStep, extraFn) => {
     setHistory(h => [...h, step]);
@@ -875,30 +877,50 @@ function App() {
                   ))}
                 </div>
  
-                {/* SPECIALTY — chips */}
-                <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
-                  {[
-                    "Deck repair","Window repair","Gutter cleaning","Drywall","Pressure washing","Fence repair",
-                    "Flooring","Tiling","Kitchen remodeling","Bathroom remodels","Painting",
-                    "Lawn care","Landscape design","Custom furniture",
-                    "EV chargers","Grab bars & ramps","Historic restoration",
-                    "Welding","Metal fabrication","Custom gates","Railings"
-                  ].map(f=>{
-                    const active = specialtyFilters.includes(f);
-                    return (
-                      <div key={f} onClick={()=>setSpecialtyFilters(prev=>active?prev.filter(x=>x!==f):[...prev,f])}
-                        style={{padding:"5px 11px",borderRadius:20,border:`1.5px solid ${active?C.green:C.border}`,background:active?C.light:"#fff",fontSize:11,fontWeight:500,cursor:"pointer",transition:"all 0.15s ease",color:active?C.forest:"#555"}}>
-                        {f}
-                      </div>
-                    );
-                  })}
+                {/* SPECIALTY — dropdown */}
+                <div style={{display:"flex",gap:8,alignItems:"center"}}>
+                  <select
+                    value={specialtyFilters[0]||""}
+                    onChange={e=>setSpecialtyFilters(e.target.value?[e.target.value]:[])}
+                    style={{flex:1,padding:"9px 14px",border:`1.5px solid ${specialtyFilters.length>0?C.green:C.border}`,borderRadius:10,fontSize:13,fontFamily:"'Karla',sans-serif",background:specialtyFilters.length>0?C.light:"#fff",color:specialtyFilters.length>0?C.forest:"#555",fontWeight:500}}>
+                    <option value="">🔍 Filter by specialty...</option>
+                    {[
+                      "── Repairs & Maintenance ──",
+                      "Deck repair","Window repair","Gutter cleaning","Drywall","Pressure washing","Fence repair",
+                      "── Interiors ──",
+                      "Flooring","Tiling","Kitchen remodeling","Bathroom remodels","Painting",
+                      "── Outdoor & Landscaping ──",
+                      "Lawn care","Landscape design","Custom furniture",
+                      "── Electrical & Tech ──",
+                      "EV chargers",
+                      "── Accessibility ──",
+                      "Grab bars & ramps","Historic restoration",
+                      "── Welding & Metal ──",
+                      "Welding","Metal fabrication","Custom gates","Railings",
+                    ].map(f=>f.startsWith("──")
+                      ? <option key={f} disabled style={{color:"#aaa",fontStyle:"italic"}}>{f}</option>
+                      : <option key={f} value={f}>{f}</option>
+                    )}
+                  </select>
                   {specialtyFilters.length>0 && (
-                    <div onClick={()=>setSpecialtyFilters([])}
-                      style={{padding:"5px 11px",borderRadius:20,border:`1.5px solid #f5c4b3`,background:"#fff0f0",fontSize:11,fontWeight:600,cursor:"pointer",color:"#c0392b"}}>
+                    <button onClick={()=>setSpecialtyFilters([])}
+                      style={{padding:"9px 12px",borderRadius:10,border:`1.5px solid #f5c4b3`,background:"#fff0f0",fontSize:12,fontWeight:600,cursor:"pointer",color:"#c0392b",fontFamily:"'Karla',sans-serif",whiteSpace:"nowrap"}}>
                       ✕ Clear
-                    </div>
+                    </button>
                   )}
                 </div>
+ 
+                {/* NAME SEARCH */}
+                <div style={{position:"relative",marginTop:8}}>
+                  <input
+                    style={{width:"100%",padding:"9px 36px 9px 14px",border:`1.5px solid ${nameSearch?C.green:C.border}`,borderRadius:10,fontSize:13,fontFamily:"'Karla',sans-serif",background:nameSearch?C.light:"#fff",color:C.forest}}
+                    placeholder="Search by business name..."
+                    value={nameSearch}
+                    onChange={e=>{setNameSearch(e.target.value);setLetterFilter(null);}}
+                  />
+                  {nameSearch && <button onClick={()=>setNameSearch("")} style={{position:"absolute",right:10,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.muted}}>✕</button>}
+                </div>
+ 
  
               </div>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:10,padding:"10px 14px",marginBottom:14}}>
