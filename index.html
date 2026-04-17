@@ -46,12 +46,13 @@ const SERVICES = [
   {id:"roofer",icon:"🏠",label:"Roofer"},
   {id:"painter",icon:"🖌️",label:"Painter"},
   {id:"landscaper",icon:"🌲",label:"Landscaper"},
+  {id:"welder",icon:"🔩",label:"Welder & Metalwork"},
 ];
  
 const PROS = {
   King:[
     {name:"Amyworks",initials:"AW",service:"Handyman",phone:"(206) 200-9495",email:"",website:"amyworks.com",licensed:true,insured:true,years:14,languages:["English"],rate:"$85–$125/hr",specialties:["Residential remodeling","Home repair","Women homeowner focused"],badge:"Women-owned"},
-    {name:"Athena Iron Works",initials:"AI",service:"Handyman",phone:"(206) 250-3575",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Custom metalwork","Wrought iron railings","Ornamental iron","Steel canopies"],badge:"Women-owned"},
+    {name:"Athena Iron Works",initials:"AI",service:"Welder & Metalwork",phone:"(206) 250-3575",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Custom metalwork","Wrought iron railings","Ornamental iron","Steel canopies"],badge:"Women-owned"},
     {name:"Andition",initials:"AN",service:"Handyman",phone:"(206) 257-4058",email:"",website:"",licensed:true,insured:true,years:8,languages:["English"],rate:"$95–$150/hr",specialties:["Residential remodeling","General contracting","Project management"],badge:"Women-owned"},
     {name:"Ballard Natural Gas",initials:"BN",service:"HVAC",phone:"(206) 789-5515",email:"",website:"ballardnaturalgas.com",licensed:true,insured:true,years:20,languages:["English"],rate:"",specialties:["Gas line repair","Furnace service","Heating systems"],badge:""},
     {name:"Batgirl Backflow Testing",initials:"BB",service:"Plumber",phone:"(206) 383-6498",email:"",website:"",licensed:true,insured:true,years:6,languages:["English"],rate:"",specialties:["Backflow testing","Backflow prevention","Certified tester"],badge:"Women-owned"},
@@ -115,8 +116,8 @@ const PROS = {
     {name:"Alderwood Landscaping",initials:"AL",service:"Landscaper",phone:"(425) 765-3550",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
     {name:"Cataleyas Landscaping Services",initials:"CLS",service:"Landscaper",phone:"(206) 280-1838",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn maintenance","Yard clean up"],badge:""},
     {name:"Lees General Landscaping & Yard Clean Up",initials:"LG",service:"Landscaper",phone:"(206) 312-2445",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Lawn care","Yard clean up","General landscaping"],badge:""},
-    {name:"McQuadeMetalCraft LLC",initials:"MC",service:"Handyman",phone:"(206) 697-9252",email:"Mcquademetalcraft@gmail.com",website:"",licensed:false,insured:true,years:5,languages:["English"],rate:"$50/hr",specialties:["Welding","Metal fabrication","Custom gates","Railings","Structures for home and garden"],badge:""},
-    {name:"Mistur Metals and Patinaworks",initials:"MM",service:"Handyman",phone:"(206) 841-3501",email:"",website:"misturmetals.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Custom patinas","Architectural metalwork","Decorative metal elements","Metal wall cladding","Fireplace surrounds","Custom furniture"],badge:"Women-owned"},
+    {name:"McQuadeMetalCraft LLC",initials:"MC",service:"Welder & Metalwork",phone:"(206) 697-9252",email:"Mcquademetalcraft@gmail.com",website:"",licensed:false,insured:true,years:5,languages:["English"],rate:"$50/hr",specialties:["Welding","Metal fabrication","Custom gates","Railings","Structures for home and garden"],badge:""},
+    {name:"Mistur Metals and Patinaworks",initials:"MM",service:"Welder & Metalwork",phone:"(206) 841-3501",email:"",website:"misturmetals.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Custom patinas","Architectural metalwork","Decorative metal elements","Metal wall cladding","Fireplace surrounds","Custom furniture"],badge:"Women-owned"},
     {name:"Sheldon's Handyman",initials:"SH",service:"Handyman",phone:"(360) 999-9066",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Fence install & repair","Deck building & repair","Drywall repair","Painting","Pressure washing","Tiling","Flooring","Gutter cleaning","Junk removal","Handicap ramps","Yard clean up"],badge:""},
   ],
   Pierce:[
@@ -203,7 +204,7 @@ const PROS = {
     {name:"Take Charge Electric Kitsap",initials:"TCK",service:"Electrician",phone:"(253) 900-9798",email:"",website:"takechargeelectric.com",licensed:true,insured:true,years:8,languages:["English"],rate:"",specialties:["Residential electrical","Commercial electrical","Panel upgrades"],badge:""},
   ],
   Island:[
-    {name:"Washington Iron Works",initials:"WI",service:"Handyman",phone:"(360) 675-3027",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Custom metalwork","Fabrication","Welding","Structural steel"],badge:""},
+    {name:"Washington Iron Works",initials:"WI",service:"Welder & Metalwork",phone:"(360) 675-3027",email:"",website:"",licensed:true,insured:true,years:15,languages:["English"],rate:"",specialties:["Custom metalwork","Fabrication","Welding","Structural steel"],badge:""},
   ],
   Yakima:[
     {name:"Shephard Plumbing LLC",initials:"SPL",service:"Plumber",phone:"(509) 728-3403",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Residential plumbing","Repairs","Drain cleaning"],badge:""},
@@ -376,6 +377,7 @@ function App() {
     "Roofer":        { low: "$400", high: "$1,200", unit: "/sq", note: "Full replace: $8,000–$25,000" },
     "Painter":       { low: "$2", high: "$6", unit: "/sq ft", note: "Avg room: $400–$900" },
     "Landscaper":    { low: "$50", high: "$100", unit: "/hr", note: "Monthly maint: $100–$300" },
+    "Welder & Metalwork": { low: "$65", high: "$150", unit: "/hr", note: "Project quotes vary widely" },
   };
  
   const parseRate = (r, service) => {
