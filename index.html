@@ -115,6 +115,7 @@ const PROS = {
     {name:"Alderwood Landscaping",initials:"AL",service:"Landscaper",phone:"(425) 765-3550",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn care","Design"],badge:""},
     {name:"Cataleyas Landscaping Services",initials:"CLS",service:"Landscaper",phone:"(206) 280-1838",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Landscaping","Lawn maintenance","Yard clean up"],badge:""},
     {name:"Lees General Landscaping & Yard Clean Up",initials:"LG",service:"Landscaper",phone:"(206) 312-2445",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Lawn care","Yard clean up","General landscaping"],badge:""},
+    {name:"McQuadeMetalCraft LLC",initials:"MC",service:"Handyman",phone:"(206) 697-9252",email:"Mcquademetalcraft@gmail.com",website:"",licensed:false,insured:true,years:5,languages:["English"],rate:"$50/hr",specialties:["Welding","Metal fabrication","Custom gates","Railings","Structures for home and garden"],badge:""},
     {name:"Mistur Metals and Patinaworks",initials:"MM",service:"Handyman",phone:"(206) 841-3501",email:"",website:"misturmetals.com",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Custom patinas","Architectural metalwork","Decorative metal elements","Metal wall cladding","Fireplace surrounds","Custom furniture"],badge:"Women-owned"},
     {name:"Sheldon's Handyman",initials:"SH",service:"Handyman",phone:"(360) 999-9066",email:"",website:"",licensed:true,insured:true,years:10,languages:["English"],rate:"",specialties:["Fence install & repair","Deck building & repair","Drywall repair","Painting","Pressure washing","Tiling","Flooring","Gutter cleaning","Junk removal","Handicap ramps","Yard clean up"],badge:""},
   ],
@@ -342,6 +343,7 @@ const avatarColors = [C.forest,"#0F4C75","#4A1F7F","#7B2D2D","#2D5A7B"];
  
 function App() {
   const [step, setStep] = useState("county");
+  const [history, setHistory] = useState([]);
   const [county, setCounty] = useState(null);
   const [service, setService] = useState(null);
   const [search, setSearch] = useState("");
@@ -419,6 +421,20 @@ function App() {
   const allLangs = ["All",...new Set(allPros.flatMap(p=>p.languages||[]))];
   const filteredCounties = Object.values(WA_COUNTIES).flat().filter((v,i,a)=>a.indexOf(v)===i).filter(c=>c.toLowerCase().includes(search.toLowerCase())).sort();
   const reset = ()=>{setStep("county");setCounty(null);setService(null);setTab("pros");setVisFilter("all");setProSearch("");setSpecialtyFilters([]);setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setDiyOpen(false);setDiyCategory(null);setDiyProblem(null);};
+ 
+  const navigate = (newStep, extraFn) => {
+    setHistory(h => [...h, step]);
+    setStep(newStep);
+    if(extraFn) extraFn();
+  };
+ 
+  const goBack = () => {
+    if(history.length === 0) return;
+    const prev = history[history.length - 1];
+    setHistory(h => h.slice(0, -1));
+    setStep(prev);
+  };
+ 
  
   const QUIZ_PROBLEMS = [
     {id:"water",icon:"💧",label:"Water / plumbing issue",service:"Plumber",resources:["Grants & Loans","Community Action","Heating Assistance"]},
@@ -535,7 +551,7 @@ function App() {
     const needsGrant = answers.budget === "low" || answers.budget === "free";
     const isUrgent = answers.urgency === "urgent";
     setQuizResult({service: problem.service, resourceTypes: problem.resources, needsGrant, isUrgent, problemLabel: problem.label});
-    setStep("quiz-result");
+    navigate("quiz-result");
   };
  
   const hdr = {display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 20px",background:C.forest,position:"sticky",top:0,zIndex:50,gap:10,flexWrap:"wrap"};
@@ -568,8 +584,8 @@ function App() {
           </div>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
-          {county && <div style={{background:"#1e3a28",borderRadius:20,padding:"5px 12px",fontSize:12,color:"#a8d5b5",cursor:"pointer"}} onClick={()=>setStep("county")}>📍 {county} · <span style={{opacity:0.6,fontSize:11}}>change</span></div>}
-          <button style={{...btn,background:"transparent",color:C.sage,border:`1px solid ${C.sage}`}} onClick={()=>setStep("mission")}>About</button>
+          {county && <div style={{background:"#1e3a28",borderRadius:20,padding:"5px 12px",fontSize:12,color:"#a8d5b5",cursor:"pointer"}} onClick={()=>navigate("county")}>📍 {county} · <span style={{opacity:0.6,fontSize:11}}>change</span></div>}
+          <button style={{...btn,background:"transparent",color:C.sage,border:`1px solid ${C.sage}`}} onClick={()=>navigate("mission")}>About</button>
           <button style={btn} onClick={()=>setRegisterOpen(true)}>+ List your business</button>
         </div>
       </div>
@@ -589,7 +605,7 @@ function App() {
                   <div style={{fontSize:11,fontWeight:700,letterSpacing:"0.12em",textTransform:"uppercase",color:"#7a9e8a",marginBottom:10}}>{reg}</div>
                   <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
                     {[...new Set(counties)].map(c=>(
-                      <div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);setStep("browse");}}>
+                      <div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);navigate("browse");}}>
                         {c} County
                       </div>
                     ))}
@@ -597,7 +613,7 @@ function App() {
                 </div>
               ))
             : <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:8}}>
-                {filteredCounties.map(c=><div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);setStep("browse");}}>{c} County</div>)}
+                {filteredCounties.map(c=><div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);navigate("browse");}}>{c} County</div>)}
                 {filteredCounties.length===0 && <div style={{color:C.muted,padding:"12px 0"}}>No matching county found.</div>}
               </div>
           }
@@ -613,14 +629,14 @@ function App() {
             </div>
             <div style={{fontSize:20,color:C.sage}}>→</div>
           </div>
-          <div style={{background:C.forest,borderRadius:12,padding:"18px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>{setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);setStep("quiz");}}>
+          <div style={{background:C.forest,borderRadius:12,padding:"18px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>{setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);navigate("quiz");}}>
             <div>
               <div style={{fontWeight:700,fontSize:15,color:"#fff"}}>🔍 Not sure where to start?</div>
               <div style={{fontSize:13,color:C.sage,marginTop:3}}>Answer 3 quick questions — we'll match you with the right help</div>
             </div>
             <div style={{fontSize:20,color:C.sage}}>→</div>
           </div>
-          <div style={{background:"#e8f5ee",border:`1.5px solid #b8dfc8`,borderRadius:12,padding:"14px 18px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>setStep("mission")}>
+          <div style={{background:"#e8f5ee",border:`1.5px solid #b8dfc8`,borderRadius:12,padding:"14px 18px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>navigate("mission")}>
             <div><div style={{fontWeight:600,fontSize:14}}>🌲 Our mission</div><div style={{fontSize:12,color:"#5a8a6a",marginTop:2}}>Why we built Fetchd and who it's for</div></div>
             <div style={{fontSize:18,color:C.green}}>→</div>
           </div>
@@ -630,7 +646,7 @@ function App() {
       {/* QUIZ */}
       {step==="quiz" && (
         <div style={pg} className="fade">
-          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:24}} onClick={()=>setStep("county")}>← Back</button>
+          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:24}} onClick={()=>navigate("county")}>← Back</button>
  
           {/* Progress dots */}
           <div style={{display:"flex",justifyContent:"center",gap:8,marginBottom:28}}>
@@ -719,7 +735,7 @@ function App() {
       {/* QUIZ RESULT */}
       {step==="quiz-result" && quizResult && (
         <div style={pg} className="fade">
-          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:24}} onClick={()=>setStep("quiz")}>← Back</button>
+          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:24}} onClick={goBack}>← Back</button>
  
           <div style={{textAlign:"center",marginBottom:24}}>
             <div style={{fontSize:40,marginBottom:10}}>✅</div>
@@ -736,7 +752,7 @@ function App() {
             <div style={{fontSize:13,color:"#a8d5b5",marginBottom:14}}>
               {quizResult.isUrgent ? "This is urgent — look for pros available today." : "Take your time to compare a few options before deciding."}
             </div>
-            <button style={{...btn,width:"100%",padding:"11px"}} onClick={()=>{setCounty(null);setStep("county");}}>
+            <button style={{...btn,width:"100%",padding:"11px"}} onClick={()=>{setCounty(null);navigate("county");}}>
               Find a {quizResult.service} in your county →
             </button>
           </div>
@@ -788,7 +804,7 @@ function App() {
       {/* MISSION */}
       {step==="mission" && (
         <div style={pg} className="fade">
-          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:20}} onClick={()=>setStep(county?"browse":"county")}>← Back</button>
+          <button style={{padding:"7px 14px",background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:20}} onClick={goBack}>← Back</button>
           <div style={{textAlign:"center",padding:"20px 0 24px"}}>
             <div style={{fontSize:44,marginBottom:10}}>🌲</div>
             <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(26px,5vw,38px)",fontWeight:800,marginBottom:12}}>Our mission</h1>
@@ -812,7 +828,7 @@ function App() {
             <div style={{fontFamily:"'Playfair Display',serif",color:"#fff",fontSize:18,fontWeight:800,marginBottom:8}}>Ready to get started?</div>
             <div style={{color:C.sage,fontSize:13,marginBottom:14}}>Find a tradesperson in your county or list your business for free.</div>
             <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              <button style={btn} onClick={()=>setStep("county")}>Find a tradesperson</button>
+              <button style={btn} onClick={()=>navigate("county")}>Find a tradesperson</button>
               <button style={{...btn,background:"transparent",border:`1px solid ${C.sage}`,color:C.sage}} onClick={()=>setRegisterOpen(true)}>List your business</button>
             </div>
           </div>
@@ -822,6 +838,8 @@ function App() {
       {/* BROWSE */}
       {step==="browse" && (
         <div style={pg} className="fade">
+          {history.length>0 && <button style={{background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:20,padding:"7px 14px",fontFamily:"'Karla',sans-serif"}} onClick={goBack}>← Back</button>}
+          
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:20,flexWrap:"wrap",gap:10}}>
             <div>
               <div style={{fontSize:12,color:C.green,fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:4}}>📍 {region}</div>
