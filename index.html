@@ -20,6 +20,13 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #F4F7F4; font-family: 'Karla', sans-serif; }
+  .sidebar-panel { display: block; }
+  .mobile-sticky { display: none !important; }
+  @media (max-width: 640px) {
+    .sidebar-panel { display: none !important; }
+    .mobile-sticky { display: block !important; }
+    .browse-layout { flex-direction: column !important; }
+  }
 </style>
 </head>
 <body>
@@ -348,6 +355,7 @@ function App() {
   const [county, setCounty] = useState(null);
   const [service, setService] = useState(null);
   const [search, setSearch] = useState("");
+  const [expandedRegion, setExpandedRegion] = useState(null);
   const [contactPro, setContactPro] = useState(null);
   const [tab, setTab] = useState("pros");
   const [registerOpen, setRegisterOpen] = useState(false);
@@ -357,6 +365,10 @@ function App() {
   const [proSearch, setProSearch] = useState("");
   const [specialtyFilters, setSpecialtyFilters] = useState([]);
   const [nameSearch, setNameSearch] = useState("");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { useEffect } = React;
+  useEffect(()=>{ const fn=()=>setWindowWidth(window.innerWidth); window.addEventListener("resize",fn); return()=>window.removeEventListener("resize",fn); },[]);
+  const isDesktop = windowWidth >= 641;
   const [diyOpen, setDiyOpen] = useState(false);
   const [diyCategory, setDiyCategory] = useState(null);
   const [diyProblem, setDiyProblem] = useState(null);
@@ -560,6 +572,7 @@ function App() {
  
   const hdr = {display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 20px",background:C.forest,position:"sticky",top:0,zIndex:50,gap:10,flexWrap:"wrap"};
   const pg = {maxWidth:640,margin:"0 auto",padding:"24px 16px 80px"};
+  const pgWide = {maxWidth:1100,margin:"0 auto",padding:"24px 24px 80px"};
   const btn = {padding:"8px 14px",background:C.sage,color:C.forest,border:"none",borderRadius:8,fontWeight:600,fontSize:13,cursor:"pointer",fontFamily:"'Karla',sans-serif",whiteSpace:"nowrap"};
   const card = {background:C.card,border:`1.5px solid ${C.border}`,borderRadius:14,padding:"16px 18px"};
   const chip = {padding:"7px 14px",borderRadius:20,border:`1.5px solid ${C.border}`,background:"#fff",fontSize:13,fontWeight:500,cursor:"pointer",transition:"all 0.15s ease"};
@@ -602,30 +615,6 @@ function App() {
             <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(26px,5vw,44px)",fontWeight:800,lineHeight:1.2,marginBottom:12}}>Home help in Washington<br/><span style={{color:C.sage}}>should be for everyone.</span></h1>
             <p style={{fontSize:15,color:C.muted,lineHeight:1.7,maxWidth:480,margin:"0 auto"}}>Fetchd connects Washington homeowners with local licensed tradespeople, county grants and free repair programs — organized by county, free for everyone, always.</p>
           </div>
-          <input style={{width:"100%",padding:"12px 16px",fontSize:15,border:`2px solid ${C.border}`,borderRadius:10,background:"#fff",fontFamily:"'Karla',sans-serif",marginBottom:24}} placeholder="Search your county..." value={search} onChange={e=>setSearch(e.target.value)}/>
-          {search===""
-            ? Object.entries(WA_COUNTIES).map(([reg,counties])=>(
-                <div key={reg} style={{marginBottom:22}}>
-                  <div style={{fontSize:11,fontWeight:700,letterSpacing:"0.12em",textTransform:"uppercase",color:"#7a9e8a",marginBottom:10}}>{reg}</div>
-                  <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
-                    {[...new Set(counties)].map(c=>(
-                      <div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);navigate("browse");}}>
-                        {c} County
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))
-            : <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:8}}>
-                {filteredCounties.map(c=><div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);navigate("browse");}}>{c} County</div>)}
-                {filteredCounties.length===0 && <div style={{color:C.muted,padding:"12px 0"}}>No matching county found.</div>}
-              </div>
-          }
-          <div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:24}}>
-            {["✅ WA L&I verified","🆓 Free to use","🌲 Washington-only","♿ Accessibility focused"].map(t=>(
-              <div key={t} style={{padding:"5px 12px",background:"#fff",border:`1px solid ${C.border}`,borderRadius:20,fontSize:12,color:C.muted}}>{t}</div>
-            ))}
-          </div>
           <div style={{background:"#2D6A4F",borderRadius:12,padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:20}} onClick={()=>setDiyOpen(true)}>
             <div>
               <div style={{fontWeight:700,fontSize:15,color:"#fff"}}>🛠️ Can I fix this myself?</div>
@@ -639,6 +628,39 @@ function App() {
               <div style={{fontSize:13,color:C.sage,marginTop:3}}>Answer 3 quick questions — we'll match you with the right help</div>
             </div>
             <div style={{fontSize:20,color:C.sage}}>→</div>
+          </div>
+          <input style={{width:"100%",padding:"12px 16px",fontSize:15,border:`2px solid ${C.border}`,borderRadius:10,background:"#fff",fontFamily:"'Karla',sans-serif",marginBottom:24}} placeholder="Search your county..." value={search} onChange={e=>setSearch(e.target.value)}/>
+          {search===""
+            ? Object.entries(WA_COUNTIES).map(([reg,counties])=>(
+                <div key={reg} style={{marginBottom:8}}>
+                  <div onClick={()=>setExpandedRegion(expandedRegion===reg?null:reg)}
+                    style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 16px",background:expandedRegion===reg?C.light:"#fff",border:`1.5px solid ${expandedRegion===reg?C.green:C.border}`,borderRadius:expandedRegion===reg?"12px 12px 0 0":12,cursor:"pointer",transition:"all 0.15s"}}>
+                    <div>
+                      <div style={{fontSize:13,fontWeight:700,color:expandedRegion===reg?C.forest:"#333"}}>{reg}</div>
+                      <div style={{fontSize:11,color:C.muted,marginTop:1}}>{[...new Set(counties)].length} counties</div>
+                    </div>
+                    <div style={{fontSize:16,color:C.green,transition:"transform 0.2s",transform:expandedRegion===reg?"rotate(180deg)":"rotate(0deg)"}}>▾</div>
+                  </div>
+                  {expandedRegion===reg && (
+                    <div style={{display:"flex",flexWrap:"wrap",gap:8,padding:"12px 16px",background:"#f8fdf9",border:`1.5px solid ${C.green}`,borderTop:"none",borderRadius:"0 0 12px 12px"}}>
+                      {[...new Set(counties)].map(c=>(
+                        <div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);navigate("browse");}}>
+                          {c} County
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))
+            : <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:8}}>
+                {filteredCounties.map(c=><div key={c} className="chov hov" style={chip} onClick={()=>{setCounty(c);navigate("browse");}}>{c} County</div>)}
+                {filteredCounties.length===0 && <div style={{color:C.muted,padding:"12px 0"}}>No matching county found.</div>}
+              </div>
+          }
+          <div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:24}}>
+            {["✅ WA L&I verified","🆓 Free to use","🌲 Washington-only","♿ Accessibility focused"].map(t=>(
+              <div key={t} style={{padding:"5px 12px",background:"#fff",border:`1px solid ${C.border}`,borderRadius:20,fontSize:12,color:C.muted}}>{t}</div>
+            ))}
           </div>
           <div style={{background:"#e8f5ee",border:`1.5px solid #b8dfc8`,borderRadius:12,padding:"14px 18px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>navigate("mission")}>
             <div><div style={{fontWeight:600,fontSize:14}}>🌲 Our mission</div><div style={{fontSize:12,color:"#5a8a6a",marginTop:2}}>Why we built Fetchd and who it's for</div></div>
@@ -841,7 +863,7 @@ function App() {
  
       {/* BROWSE */}
       {step==="browse" && (
-        <div style={pg} className="fade">
+        <div style={pgWide} className="fade">
           {history.length>0 && <button style={{background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:13,fontWeight:600,color:C.green,cursor:"pointer",marginBottom:20,padding:"7px 14px",fontFamily:"'Karla',sans-serif"}} onClick={goBack}>← Back</button>}
           
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:20,flexWrap:"wrap",gap:10}}>
@@ -864,10 +886,83 @@ function App() {
  
           {/* PROS TAB */}
           {tab==="pros" && (
-            <div className="fade">
+            <div className="fade browse-layout" style={{display:"flex",flexDirection:isDesktop?"row":"column",gap:20,alignItems:"flex-start"}}>
  
-              {/* STICKY FILTER BAR */}
-              <div style={{position:"sticky",top:52,zIndex:40,background:C.bg,paddingBottom:10,marginBottom:4}}>
+              {/* LEFT SIDEBAR — desktop only */}
+              <div style={{width:isDesktop?220:0,flexShrink:0,position:"sticky",top:62,zIndex:40,display:isDesktop?"block":"none"}}>
+                
+                <div className="sidebar-panel" style={{background:"#fff",border:`1.5px solid ${C.border}`,borderRadius:14,padding:"16px 14px",display:isDesktop?"flex":"none",flexDirection:"column",gap:14}}>
+                  <div style={{fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"#7a9e8a"}}>Filters</div>
+ 
+                  {/* Service type */}
+                  <div>
+                    <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:6,textTransform:"uppercase",letterSpacing:"0.08em"}}>Service</div>
+                    <div style={{display:"flex",flexDirection:"column",gap:5}}>
+                      <div onClick={()=>setService(null)} style={{padding:"6px 10px",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer",background:service===null?C.light:"transparent",color:service===null?C.forest:C.muted,border:`1px solid ${service===null?C.green:"transparent"}`}}>All types</div>
+                      {SERVICES.map(sv=>(
+                        <div key={sv.id} onClick={()=>setService(service===sv.id?null:sv.id)} style={{padding:"6px 10px",borderRadius:8,fontSize:12,fontWeight:500,cursor:"pointer",background:service===sv.id?C.light:"transparent",color:service===sv.id?C.forest:C.muted,border:`1px solid ${service===sv.id?C.green:"transparent"}`}}>
+                          {sv.icon} {sv.label}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+ 
+                  {/* Specialty */}
+                  <div>
+                    <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:6,textTransform:"uppercase",letterSpacing:"0.08em"}}>Specialty</div>
+                    <select value={specialtyFilters[0]||""} onChange={e=>setSpecialtyFilters(e.target.value?[e.target.value]:[])}
+                      style={{width:"100%",padding:"8px 10px",border:`1.5px solid ${specialtyFilters.length>0?C.green:C.border}`,borderRadius:8,fontSize:12,fontFamily:"'Karla',sans-serif",background:specialtyFilters.length>0?C.light:"#fff"}}>
+                      <option value="">All specialties</option>
+                      {["── Repairs ──","Deck repair","Window repair","Gutter cleaning","Drywall","Pressure washing","Fence repair",
+                        "── Interiors ──","Flooring","Tiling","Kitchen remodeling","Bathroom remodels","Painting",
+                        "── Outdoor ──","Lawn care","Landscape design","Custom furniture",
+                        "── Electrical ──","EV chargers",
+                        "── Accessibility ──","Grab bars & ramps","Historic restoration",
+                        "── Welding & Metal ──","Welding","Metal fabrication","Custom gates","Railings"
+                      ].map(f=>f.startsWith("──")?<option key={f} disabled>{f}</option>:<option key={f} value={f}>{f}</option>)}
+                    </select>
+                  </div>
+ 
+                  {/* Name search */}
+                  <div>
+                    <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:6,textTransform:"uppercase",letterSpacing:"0.08em"}}>Business name</div>
+                    <input value={nameSearch} onChange={e=>setNameSearch(e.target.value)}
+                      placeholder="Search..." style={{width:"100%",padding:"8px 10px",border:`1.5px solid ${nameSearch?C.green:C.border}`,borderRadius:8,fontSize:12,fontFamily:"'Karla',sans-serif",background:nameSearch?C.light:"#fff"}}/>
+                  </div>
+ 
+                  {/* Max rate */}
+                  <div>
+                    <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
+                      <span style={{fontSize:11,fontWeight:600,color:C.muted,textTransform:"uppercase",letterSpacing:"0.08em"}}>Max rate</span>
+                      <span style={{fontSize:11,fontWeight:600,color:C.forest}}>{maxRate>=150?"Any":`$${maxRate}/hr`}</span>
+                    </div>
+                    <input type="range" min={40} max={150} step={5} value={maxRate} onChange={e=>setMaxRate(Number(e.target.value))} style={{width:"100%",accentColor:C.green}}/>
+                  </div>
+ 
+                  {/* Language */}
+                  {allLangs.length>2 && (
+                    <div>
+                      <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:6,textTransform:"uppercase",letterSpacing:"0.08em"}}>Language</div>
+                      <select value={langFilter} onChange={e=>setLangFilter(e.target.value)}
+                        style={{width:"100%",padding:"8px 10px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:12,fontFamily:"'Karla',sans-serif"}}>
+                        {allLangs.map(l=><option key={l}>{l}</option>)}
+                      </select>
+                    </div>
+                  )}
+ 
+                  {/* Clear all */}
+                  {(service||specialtyFilters.length>0||nameSearch||langFilter!=="All"||maxRate<150) && (
+                    <button onClick={()=>{setService(null);setSpecialtyFilters([]);setNameSearch("");setLangFilter("All");setMaxRate(150);}}
+                      style={{padding:"8px",borderRadius:8,border:`1.5px solid #f5c4b3`,background:"#fff0f0",fontSize:12,fontWeight:600,cursor:"pointer",color:"#c0392b",fontFamily:"'Karla',sans-serif"}}>
+                      ✕ Clear all filters
+                    </button>
+                  )}
+                </div>
+              </div>
+ 
+              {/* MOBILE STICKY BAR */}
+              <div style={{display:isDesktop?"none":"block",width:"100%"}}>
+                <div style={{position:"sticky",top:52,zIndex:40,background:C.bg,paddingBottom:10,marginBottom:4}}>
  
                 {/* SERVICE TYPE — chips, always visible */}
                 <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:10}}>
@@ -916,13 +1011,17 @@ function App() {
                     style={{width:"100%",padding:"9px 36px 9px 14px",border:`1.5px solid ${nameSearch?C.green:C.border}`,borderRadius:10,fontSize:13,fontFamily:"'Karla',sans-serif",background:nameSearch?C.light:"#fff",color:C.forest}}
                     placeholder="Search by business name..."
                     value={nameSearch}
-                    onChange={e=>{setNameSearch(e.target.value);setLetterFilter(null);}}
+                    onChange={e=>setNameSearch(e.target.value)}
                   />
                   {nameSearch && <button onClick={()=>setNameSearch("")} style={{position:"absolute",right:10,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",fontSize:15,cursor:"pointer",color:C.muted}}>✕</button>}
                 </div>
  
  
-              </div>
+              </div>{/* end mobile sticky */}
+              </div>{/* end mobile-sticky wrapper */}
+ 
+              {/* MAIN RESULTS COLUMN */}
+              <div style={{flex:1,minWidth:0}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",background:"#f0f7f2",border:`1px solid #b8dfc8`,borderRadius:10,padding:"10px 14px",marginBottom:14}}>
                 <div>
                   <div style={{fontWeight:600,fontSize:13,color:C.forest}}>✅ Always verify before hiring</div>
@@ -996,6 +1095,7 @@ function App() {
               <div style={{marginTop:20,padding:"12px 16px",background:"#f0f7f2",borderRadius:10,fontSize:12,color:C.muted,lineHeight:1.6}}>
                 Fetchd is a free directory. Always verify licenses at <a href="https://secure.lni.wa.gov/verify" target="_blank">WA L&I</a> before hiring.
               </div>
+              </div>{/* end main results column */}
             </div>
           )}
  
