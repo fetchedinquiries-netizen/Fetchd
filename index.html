@@ -623,14 +623,14 @@ function App() {
             </div>
             <div style={{fontSize:20,color:"#c9a227"}}>→</div>
           </div>
-          <div style={{background:C.forest,borderRadius:12,padding:"18px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>{setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);navigate("quiz");}}>
+          <div style={{background:C.forest,borderRadius:12,padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>{setQuizStep(0);setQuizAnswers({problem:null,urgency:null,budget:null});setQuizResult(null);navigate("quiz");}}>
             <div>
               <div style={{fontWeight:700,fontSize:15,color:"#fff"}}>🔍 Not sure where to start?</div>
               <div style={{fontSize:13,color:C.sage,marginTop:3}}>Answer 3 quick questions — we'll match you with the right help</div>
             </div>
             <div style={{fontSize:20,color:C.sage}}>→</div>
           </div>
-          <div style={{background:"#2D6A4F",borderRadius:12,padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:20}} onClick={()=>setDiyOpen(true)}>
+          <div style={{background:"#2D6A4F",borderRadius:12,padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer",marginTop:10}} onClick={()=>setDiyOpen(true)}>
             <div>
               <div style={{fontWeight:700,fontSize:15,color:"#fff"}}>🛠️ Can I fix this myself?</div>
               <div style={{fontSize:13,color:C.sage,marginTop:3}}>Step-by-step guides + YouTube videos for 5 common repairs</div>
